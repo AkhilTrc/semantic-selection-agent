@@ -5,7 +5,7 @@ from glob import glob
 def calculate_tree_depth(node):
     """
     Recursively calculates the depth of a tree structure where each node
-    contains a 'children' array of descendant nodes.
+    contains a 'children' array of descendant nodes - "Empowerment" heuristic used as a reward metric
     """
     if not isinstance(node, dict):
         return 0
