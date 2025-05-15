@@ -1,18 +1,40 @@
 import json
 import os
+import traceback
 from glob import glob
 
-def calculate_tree_depth(node):
-    """
-    Recursively calculates the depth of a tree structure where each node
-    contains a 'children' array of descendant nodes - "Empowerment" heuristic used as a reward metric
-    """
-    if not isinstance(node, dict):
-        return 0
-    children = node.get('children', [])
-    if not children:
-        return 1
-    return 1 + max(calculate_tree_depth(child) for child in children)
+
+def calculate_tree_depth(tree):
+    def traverser(node, depth):
+        children = node.get("children", [])
+        node_results = [str(x) for x in node.get("results", [])] 
+        if not children:
+            return depth, node_results
+        max_depth = depth
+        max_branch_results = []
+        for child in children:
+            child_depth, child_branch_results = traverser(child, depth + 1)
+            if child_depth > max_depth:
+                max_depth = child_depth
+                max_branch_results = child_branch_results
+        return max_depth, node_results + max_branch_results
+
+    if isinstance(tree, list):
+        if not tree:
+            return 0, []
+        max_depth = 0
+        branch_results = []
+        for node in tree:
+            depth, results = traverser(node, 1)
+            if depth > max_depth:
+                max_depth = depth
+                branch_results = results
+        return max_depth, branch_results
+
+    if isinstance(tree, dict):
+        return traverser(tree, 1)
+
+    return 0, []
 
 def process_json_files(directory):
     """
@@ -28,9 +50,9 @@ def process_json_files(directory):
         with open(file_path, 'r') as f:
             try:
                 data = json.load(f)
-                current_depth = calculate_tree_depth(data)
+                current_depth,result = calculate_tree_depth(data)
                 results[file_path] = current_depth
-                print(f"File: {file_path} - Depth: {current_depth}")
+                print(f"File: {file_path} - Depth: {current_depth}, Results: {result}")
 
                 # Track deepest files
                 if current_depth > max_depth:
@@ -40,6 +62,7 @@ def process_json_files(directory):
                     deepest_files.append(file_path)
             except Exception as e:
                 print(f"Error reading {file_path}: {e}")
+                traceback.print_exc()
 
     print("\nDeepest tree structure(s):")
     for file in deepest_files:
