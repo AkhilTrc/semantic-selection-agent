@@ -7,7 +7,7 @@ from glob import glob
 def calculate_tree_depth(tree):
     def traverser(node, depth):
         children = node.get("children", [])
-        node_results = [str(x) for x in node.get("results", [])] 
+        node_results = [node.get("name", [])] 
         if not children:
             return depth, node_results
         max_depth = depth
@@ -45,14 +45,15 @@ def process_json_files(directory):
     max_depth = 0
     deepest_files = []
     results = {}
-
+    json_files.sort(key=os.path.getmtime)
+    json_files = [json_files[-1]]
     for file_path in json_files:
         with open(file_path, 'r') as f:
             try:
                 data = json.load(f)
-                current_depth,result = calculate_tree_depth(data)
+                current_depth,tree_data = calculate_tree_depth(data)
                 results[file_path] = current_depth
-                print(f"File: {file_path} - Depth: {current_depth}, Results: {result}")
+                print(f"File: {file_path} - Depth: {current_depth}, Tree: {tree_data}")
 
                 # Track deepest files
                 if current_depth > max_depth:
@@ -68,7 +69,7 @@ def process_json_files(directory):
     for file in deepest_files:
         print(f"File: {file} - Depth: {max_depth}")
 
-    return results
+    return tree_data[0]
 
 if __name__ == "__main__":
     import sys
