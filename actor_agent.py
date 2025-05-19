@@ -27,9 +27,7 @@ def load_instructions_from_file(file_path: str, **kwargs) -> str:
 @lru_cache(maxsize=128)
 def create_dynamic_agent(user_id: str, name: str) -> str:
     formatted_name = format_name(name)
-    instructions = load_instructions_from_file(
-        "instruction.txt"
-    )
+    instructions = load_instructions_from_file("instruction.txt")
 
     print(f"[cyan]Creating agent for [bold]{formatted_name}[/bold]...[/cyan]")
 
