@@ -1,0 +1,221 @@
+[
+    {
+        "elements_combined": "air+earth",
+        "results": [
+            "dust",
+            "sandstorm"
+        ],
+        "children": [
+            {
+                "elements_combined": "dust+fire",
+                "results": [
+                    "ash"
+                ],
+                "children": [
+                    {
+                        "elements_combined": "ash+earth",
+                        "results": [
+                            "fertile soil"
+                        ],
+                        "children": [
+                            {
+                                "elements_combined": "fertile soil+water",
+                                "results": [
+                                    "mud"
+                                ],
+                                "children": [
+                                    {
+                                        "elements_combined": "mud+fire",
+                                        "results": [
+                                            "brick"
+                                        ],
+                                        "children": []
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "elements_combined": "dust+water",
+                "results": [
+                    "mud"
+                ],
+                "children": [
+                    {
+                        "elements_combined": "mud+fire",
+                        "results": [
+                            "brick"
+                        ],
+                        "children": []
+                    }
+                ]
+            },
+            {
+                "elements_combined": "dust+water",
+                "results": [
+                    "mud"
+                ],
+                "children": [
+                    {
+                        "elements_combined": "mud+fire",
+                        "results": [
+                            "brick"
+                        ],
+                        "children": []
+                    }
+                ]
+            },
+            {
+                "elements_combined": "sandstorm+water",
+                "results": [
+                    "mudslide"
+                ],
+                "children": []
+            }
+        ]
+    },
+    {
+        "elements_combined": "air+fire",
+        "results": [
+            "smoke",
+            "heat"
+        ],
+        "children": [
+            {
+                "elements_combined": "heat+earth",
+                "results": [
+                    "lava"
+                ],
+                "children": [
+                    {
+                        "elements_combined": "lava+water",
+                        "results": [
+                            "obsidian"
+                        ],
+                        "children": []
+                    }
+                ]
+            },
+            {
+                "elements_combined": "heat+water",
+                "results": [
+                    "steam"
+                ],
+                "children": [
+                    {
+                        "elements_combined": "steam+air",
+                        "results": [
+                            "cloud"
+                        ],
+                        "children": [
+                            {
+                                "elements_combined": "cloud+earth",
+                                "results": [
+                                    "fog"
+                                ],
+                                "children": []
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "elements_combined": "air+water",
+        "results": [
+            "cloud",
+            "rain"
+        ],
+        "children": [
+            {
+                "elements_combined": "cloud+fire",
+                "results": [
+                    "steam"
+                ],
+                "children": [
+                    {
+                        "elements_combined": "steam+earth",
+                        "results": [],
+                        "children": []
+                    }
+                ]
+            },
+            {
+                "elements_combined": "cloud+earth",
+                "results": [
+                    "fog"
+                ],
+                "children": []
+            }
+        ]
+    },
+    {
+        "elements_combined": "earth+fire",
+        "results": [
+            "lava",
+            "ash"
+        ],
+        "children": [
+            {
+                "elements_combined": "lava+water",
+                "results": [
+                    "obsidian"
+                ],
+                "children": []
+            },
+            {
+                "elements_combined": "ash+water",
+                "results": [
+                    "mud"
+                ],
+                "children": [
+                    {
+                        "elements_combined": "mud+fire",
+                        "results": [
+                            "brick"
+                        ],
+                        "children": []
+                    }
+                ]
+            },
+            {
+                "elements_combined": "ash+air",
+                "results": [
+                    "dust"
+                ],
+                "children": []
+            }
+        ]
+    },
+    {
+        "elements_combined": "fire+water",
+        "results": [
+            "steam"
+        ],
+        "children": [
+            {
+                "elements_combined": "steam+earth",
+                "results": [],
+                "children": []
+            },
+            {
+                "elements_combined": "steam+air",
+                "results": [
+                    "cloud"
+                ],
+                "children": [
+                    {
+                        "elements_combined": "cloud+earth",
+                        "results": [
+                            "fog"
+                        ],
+                        "children": []
+                    }
+                ]
+            }
+        ]
+    }
+]

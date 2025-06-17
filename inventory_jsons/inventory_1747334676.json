@@ -1,0 +1,98 @@
+[
+    {
+        "name": "condensation",
+        "elements_combined": "air+water",
+        "children": [
+            {
+                "name": "mist",
+                "elements_combined": "condensation+air",
+                "children": []
+            },
+            {
+                "name": "clouds",
+                "elements_combined": "condensation+water",
+                "children": [
+                    {
+                        "name": "rain",
+                        "elements_combined": "clouds+air",
+                        "children": []
+                    },
+                    {
+                        "name": "fog",
+                        "elements_combined": "clouds+earth",
+                        "children": []
+                    }
+                ]
+            },
+            {
+                "name": "steam",
+                "elements_combined": "condensation+fire",
+                "children": []
+            },
+            {
+                "name": "humidity",
+                "elements_combined": "condensation+earth",
+                "children": []
+            }
+        ]
+    },
+    {
+        "name": "lava",
+        "elements_combined": "earth+fire",
+        "children": [
+            {
+                "name": "molten rock gas",
+                "elements_combined": "lava+air",
+                "children": []
+            },
+            {
+                "name": "molten rock vapor",
+                "elements_combined": "lava+water",
+                "children": []
+            }
+        ]
+    },
+    {
+        "name": "mud",
+        "elements_combined": "earth+water",
+        "children": [
+            {
+                "name": "mudstone",
+                "elements_combined": "mud+fire",
+                "children": []
+            },
+            {
+                "name": "earthdust",
+                "elements_combined": "mud+air",
+                "children": []
+            }
+        ]
+    },
+    {
+        "name": "smoke",
+        "elements_combined": "air+fire",
+        "children": [
+            {
+                "name": "lightning",
+                "elements_combined": "smoke+air",
+                "children": [
+                    {
+                        "name": "thank god this ends here",
+                        "elements_combined": "lightning+fire",
+                        "children": []
+                    }
+                ]
+            },
+            {
+                "name": "arc smoke",
+                "elements_combined": "smoke+water",
+                "children": []
+            },
+            {
+                "name": "arid smoke",
+                "elements_combined": "smoke+earth",
+                "children": []
+            }
+        ]
+    }
+]

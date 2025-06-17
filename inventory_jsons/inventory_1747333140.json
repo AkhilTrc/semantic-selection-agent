@@ -1,0 +1,301 @@
+[
+    {
+        "name": "clouds",
+        "elements_combined": "air+water",
+        "children": [
+            {
+                "name": "humidity",
+                "elements_combined": "clouds+fire",
+                "children": [
+                    {
+                        "name": "steam",
+                        "elements_combined": "fire+humidity",
+                        "children": [
+                            {
+                                "name": "smoke",
+                                "elements_combined": "air+steam",
+                                "children": [
+                                    {
+                                        "name": "fog",
+                                        "elements_combined": "air+smoke",
+                                        "children": [
+                                            {
+                                                "name": "dust storm",
+                                                "elements_combined": "earth+fog",
+                                                "children": []
+                                            },
+                                            {
+                                                "name": "acid rain",
+                                                "elements_combined": "fire+fog",
+                                                "children": []
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "name": "acid rain",
+                                        "elements_combined": "fire+smoke",
+                                        "children": []
+                                    },
+                                    {
+                                        "name": "dust storm",
+                                        "elements_combined": "earth+smoke",
+                                        "children": []
+                                    }
+                                ]
+                            },
+                            {
+                                "name": "mud",
+                                "elements_combined": "earth+steam",
+                                "children": [
+                                    {
+                                        "name": "lava",
+                                        "elements_combined": "fire+mud",
+                                        "children": []
+                                    },
+                                    {
+                                        "name": "dust storm",
+                                        "elements_combined": "earth+mud",
+                                        "children": []
+                                    },
+                                    {
+                                        "name": "acid rain",
+                                        "elements_combined": "fire+mud",
+                                        "children": []
+                                    }
+                                ]
+                            },
+                            {
+                                "name": "dust storm",
+                                "elements_combined": "earth+humidity",
+                                "children": [
+                                    {
+                                        "name": "mud",
+                                        "elements_combined": "earth+humidity",
+                                        "children": []
+                                    },
+                                    {
+                                        "name": "lava",
+                                        "elements_combined": "fire+humidity",
+                                        "children": []
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "name": "mist",
+                        "elements_combined": "air+humidity",
+                        "children": [
+                            {
+                                "name": "fog",
+                                "elements_combined": "air+mist",
+                                "children": [
+                                    {
+                                        "name": "dust storm",
+                                        "elements_combined": "earth+fog",
+                                        "children": []
+                                    },
+                                    {
+                                        "name": "acid rain",
+                                        "elements_combined": "fire+fog",
+                                        "children": []
+                                    }
+                                ]
+                            },
+                            {
+                                "name": "mud",
+                                "elements_combined": "earth+mist",
+                                "children": [
+                                    {
+                                        "name": "lava",
+                                        "elements_combined": "fire+mud",
+                                        "children": []
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "name": "dust storm",
+                        "elements_combined": "earth+humidity",
+                        "children": [
+                            {
+                                "name": "mud",
+                                "elements_combined": "earth+humidity",
+                                "children": []
+                            },
+                            {
+                                "name": "lava",
+                                "elements_combined": "fire+humidity",
+                                "children": []
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "name": "mist",
+                "elements_combined": "air+water",
+                "children": [
+                    {
+                        "name": "fog",
+                        "elements_combined": "air+mist",
+                        "children": [
+                            {
+                                "name": "dust storm",
+                                "elements_combined": "earth+fog",
+                                "children": []
+                            },
+                            {
+                                "name": "acid rain",
+                                "elements_combined": "fire+fog",
+                                "children": []
+                            }
+                        ]
+                    },
+                    {
+                        "name": "mud",
+                        "elements_combined": "earth+mist",
+                        "children": [
+                            {
+                                "name": "lava",
+                                "elements_combined": "fire+mud",
+                                "children": []
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "name": "mud",
+                "elements_combined": "earth+water",
+                "children": [
+                    {
+                        "name": "lava",
+                        "elements_combined": "fire+mud",
+                        "children": []
+                    },
+                    {
+                        "name": "dust storm",
+                        "elements_combined": "earth+mud",
+                        "children": []
+                    }
+                ]
+            },
+            {
+                "name": "dust storm",
+                "elements_combined": "earth+air",
+                "children": [
+                    {
+                        "name": "mud",
+                        "elements_combined": "earth+dust storm",
+                        "children": []
+                    },
+                    {
+                        "name": "acid rain",
+                        "elements_combined": "fire+dust storm",
+                        "children": []
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "name": "lava",
+        "elements_combined": "earth+fire",
+        "children": [
+            {
+                "name": "smoke",
+                "elements_combined": "air+lava",
+                "children": [
+                    {
+                        "name": "fog",
+                        "elements_combined": "air+smoke",
+                        "children": [
+                            {
+                                "name": "dust storm",
+                                "elements_combined": "earth+fog",
+                                "children": []
+                            },
+                            {
+                                "name": "acid rain",
+                                "elements_combined": "fire+fog",
+                                "children": []
+                            }
+                        ]
+                    },
+                    {
+                        "name": "acid rain",
+                        "elements_combined": "fire+smoke",
+                        "children": []
+                    },
+                    {
+                        "name": "dust storm",
+                        "elements_combined": "earth+smoke",
+                        "children": []
+                    }
+                ]
+            },
+            {
+                "name": "mud",
+                "elements_combined": "earth+lava",
+                "children": [
+                    {
+                        "name": "dust storm",
+                        "elements_combined": "earth+mud",
+                        "children": []
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "name": "smoke",
+        "elements_combined": "air+fire",
+        "children": [
+            {
+                "name": "fog",
+                "elements_combined": "air+smoke",
+                "children": [
+                    {
+                        "name": "dust storm",
+                        "elements_combined": "earth+fog",
+                        "children": []
+                    },
+                    {
+                        "name": "acid rain",
+                        "elements_combined": "fire+fog",
+                        "children": []
+                    }
+                ]
+            },
+            {
+                "name": "mud",
+                "elements_combined": "earth+smoke",
+                "children": [
+                    {
+                        "name": "lava",
+                        "elements_combined": "fire+mud",
+                        "children": []
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "name": "mud",
+        "elements_combined": "earth+water",
+        "children": [
+            {
+                "name": "lava",
+                "elements_combined": "fire+mud",
+                "children": []
+            },
+            {
+                "name": "dust storm",
+                "elements_combined": "earth+mud",
+                "children": []
+            }
+        ]
+    }
+]

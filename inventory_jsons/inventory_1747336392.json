@@ -1,0 +1,51 @@
+[
+    {
+        "name": "cloud",
+        "elements_combined": "air+water",
+        "children": [
+            {
+                "name": "rain",
+                "elements_combined": "cloud+earth",
+                "children": []
+            },
+            {
+                "name": "storm",
+                "elements_combined": "cloud+fire",
+                "children": []
+            }
+        ]
+    },
+    {
+        "name": "lava",
+        "elements_combined": "earth+fire",
+        "children": [
+            {
+                "name": "obsidian",
+                "elements_combined": "lava+water",
+                "children": []
+            }
+        ]
+    },
+    {
+        "name": "mud",
+        "elements_combined": "earth+water",
+        "children": [
+            {
+                "name": "clay",
+                "elements_combined": "mud+fire",
+                "children": []
+            }
+        ]
+    },
+    {
+        "name": "smoke",
+        "elements_combined": "air+fire",
+        "children": [
+            {
+                "name": "acid_rain",
+                "elements_combined": "smoke+water",
+                "children": []
+            }
+        ]
+    }
+]

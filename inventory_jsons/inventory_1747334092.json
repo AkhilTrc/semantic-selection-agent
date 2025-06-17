@@ -1,0 +1,174 @@
+[
+    {
+        "name": "air+fire",
+        "elements_combined": "air+fire",
+        "children": [
+            {
+                "name": "smoke",
+                "elements_combined": "air+fire",
+                "children": [
+                    {
+                        "name": "smoke+water",
+                        "elements_combined": "smoke+water",
+                        "children": [
+                            {
+                                "name": "mist",
+                                "elements_combined": "mist+air",
+                                "children": [
+                                    {
+                                        "name": "mist+fire",
+                                        "elements_combined": "mist+fire",
+                                        "children": [
+                                            {
+                                                "name": "steam",
+                                                "elements_combined": "mist+fire",
+                                                "children": []
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "name": "hot air",
+                "elements_combined": "air+fire",
+                "children": [
+                    {
+                        "name": "hot air+water",
+                        "elements_combined": "hot air+water",
+                        "children": [
+                            {
+                                "name": "humidity",
+                                "elements_combined": "humidity+air",
+                                "children": [
+                                    {
+                                        "name": "humidity+fire",
+                                        "elements_combined": "humidity+fire",
+                                        "children": [
+                                            {
+                                                "name": "steam",
+                                                "elements_combined": "humidity+fire",
+                                                "children": []
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "name": "air+water",
+        "elements_combined": "air+water",
+        "children": [
+            {
+                "name": "humidity",
+                "elements_combined": "air+water",
+                "children": [
+                    {
+                        "name": "humidity+fire",
+                        "elements_combined": "humidity+fire",
+                        "children": [
+                            {
+                                "name": "steam",
+                                "elements_combined": "humidity+fire",
+                                "children": []
+                            }
+                        ]
+                    },
+                    {
+                        "name": "humidity+earth",
+                        "elements_combined": "humidity+earth",
+                        "children": [
+                            {
+                                "name": "mud",
+                                "elements_combined": "mud+water",
+                                "children": []
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "name": "clouds",
+                "elements_combined": "air+water",
+                "children": [
+                    {
+                        "name": "clouds+fire",
+                        "elements_combined": "clouds+fire",
+                        "children": [
+                            {
+                                "name": "smoke",
+                                "elements_combined": "clouds+fire",
+                                "children": []
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "name": "water+fire",
+        "elements_combined": "fire+water",
+        "children": [
+            {
+                "name": "steam",
+                "elements_combined": "fire+water",
+                "children": [
+                    {
+                        "name": "steam+air",
+                        "elements_combined": "steam+air",
+                        "children": [
+                            {
+                                "name": "mist",
+                                "elements_combined": "mist+fire",
+                                "children": []
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "name": "earth+fire",
+        "elements_combined": "earth+fire",
+        "children": [
+            {
+                "name": "lava",
+                "elements_combined": "earth+fire",
+                "children": [
+                    {
+                        "name": "lava+water",
+                        "elements_combined": "lava+water",
+                        "children": [
+                            {
+                                "name": "steam",
+                                "elements_combined": "lava+water",
+                                "children": []
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "name": "earth+water",
+        "elements_combined": "earth+water",
+        "children": [
+            {
+                "name": "mud",
+                "elements_combined": "earth+water",
+                "children": []
+            }
+        ]
+    }
+]

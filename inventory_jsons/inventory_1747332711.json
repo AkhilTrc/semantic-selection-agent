@@ -1,0 +1,315 @@
+[
+    {
+        "elements_combined": "<air+earth>",
+        "results": [
+            "dust",
+            "sand",
+            "soil"
+        ],
+        "children": [
+            {
+                "elements_combined": "<dust+fire>",
+                "results": [
+                    "smoke"
+                ],
+                "children": [
+                    {
+                        "elements_combined": "<smoke+earth>",
+                        "results": [
+                            "ash"
+                        ],
+                        "children": [
+                            {
+                                "elements_combined": "<ash+water>",
+                                "results": [
+                                    "mud"
+                                ],
+                                "children": [
+                                    {
+                                        "elements_combined": "<mud+fire>",
+                                        "results": [
+                                            "brick"
+                                        ],
+                                        "children": []
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "elements_combined": "<dust+water>",
+                "results": [
+                    "mud"
+                ],
+                "children": [
+                    {
+                        "elements_combined": "<mud+fire>",
+                        "results": [
+                            "brick"
+                        ],
+                        "children": []
+                    }
+                ]
+            },
+            {
+                "elements_combined": "<dust+water>",
+                "results": [
+                    "mud"
+                ],
+                "children": [
+                    {
+                        "elements_combined": "<mud+fire>",
+                        "results": [
+                            "brick"
+                        ],
+                        "children": []
+                    }
+                ]
+            },
+            {
+                "elements_combined": "<sand+fire>",
+                "results": [
+                    "glass"
+                ],
+                "children": []
+            },
+            {
+                "elements_combined": "<soil+water>",
+                "results": [
+                    "mud"
+                ],
+                "children": [
+                    {
+                        "elements_combined": "<mud+fire>",
+                        "results": [
+                            "brick"
+                        ],
+                        "children": []
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "elements_combined": "<air+fire>",
+        "results": [
+            "energy",
+            "smoke"
+        ],
+        "children": [
+            {
+                "elements_combined": "<energy+earth>",
+                "results": [],
+                "children": []
+            },
+            {
+                "elements_combined": "<energy+water>",
+                "results": [],
+                "children": []
+            },
+            {
+                "elements_combined": "<energy+fire>",
+                "results": [],
+                "children": []
+            },
+            {
+                "elements_combined": "<smoke+earth>",
+                "results": [
+                    "ash"
+                ],
+                "children": [
+                    {
+                        "elements_combined": "<ash+water>",
+                        "results": [
+                            "mud"
+                        ],
+                        "children": [
+                            {
+                                "elements_combined": "<mud+fire>",
+                                "results": [
+                                    "brick"
+                                ],
+                                "children": []
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "elements_combined": "<smoke+water>",
+                "results": [],
+                "children": []
+            },
+            {
+                "elements_combined": "<smoke+fire>",
+                "results": [],
+                "children": []
+            }
+        ]
+    },
+    {
+        "elements_combined": "<air+water>",
+        "results": [
+            "cloud",
+            "rain"
+        ],
+        "children": [
+            {
+                "elements_combined": "<cloud+earth>",
+                "results": [
+                    "fog"
+                ],
+                "children": []
+            },
+            {
+                "elements_combined": "<cloud+fire>",
+                "results": [
+                    "steam"
+                ],
+                "children": [
+                    {
+                        "elements_combined": "<steam+earth>",
+                        "results": [],
+                        "children": []
+                    },
+                    {
+                        "elements_combined": "<steam+water>",
+                        "results": [],
+                        "children": []
+                    },
+                    {
+                        "elements_combined": "<steam+fire>",
+                        "results": [],
+                        "children": []
+                    },
+                    {
+                        "elements_combined": "<steam+air>",
+                        "results": [],
+                        "children": []
+                    }
+                ]
+            },
+            {
+                "elements_combined": "<cloud+water>",
+                "results": [],
+                "children": []
+            },
+            {
+                "elements_combined": "<rain+earth>",
+                "results": [
+                    "mud"
+                ],
+                "children": [
+                    {
+                        "elements_combined": "<mud+fire>",
+                        "results": [
+                            "brick"
+                        ],
+                        "children": []
+                    }
+                ]
+            },
+            {
+                "elements_combined": "<rain+fire>",
+                "results": [
+                    "steam"
+                ],
+                "children": []
+            },
+            {
+                "elements_combined": "<rain+air>",
+                "results": [],
+                "children": []
+            }
+        ]
+    },
+    {
+        "elements_combined": "<earth+fire>",
+        "results": [
+            "lava",
+            "smoke"
+        ],
+        "children": [
+            {
+                "elements_combined": "<lava+air>",
+                "results": [
+                    "ash"
+                ],
+                "children": [
+                    {
+                        "elements_combined": "<ash+water>",
+                        "results": [
+                            "mud"
+                        ],
+                        "children": [
+                            {
+                                "elements_combined": "<mud+fire>",
+                                "results": [
+                                    "brick"
+                                ],
+                                "children": []
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "elements_combined": "<lava+water>",
+                "results": [
+                    "steam"
+                ],
+                "children": []
+            },
+            {
+                "elements_combined": "<lava+fire>",
+                "results": [],
+                "children": []
+            },
+            {
+                "elements_combined": "<smoke+air>",
+                "results": [],
+                "children": []
+            },
+            {
+                "elements_combined": "<smoke+water>",
+                "results": [],
+                "children": []
+            },
+            {
+                "elements_combined": "<smoke+fire>",
+                "results": [],
+                "children": []
+            }
+        ]
+    },
+    {
+        "elements_combined": "<fire+water>",
+        "results": [
+            "steam"
+        ],
+        "children": [
+            {
+                "elements_combined": "<steam+air>",
+                "results": [],
+                "children": []
+            },
+            {
+                "elements_combined": "<steam+earth>",
+                "results": [],
+                "children": []
+            },
+            {
+                "elements_combined": "<steam+fire>",
+                "results": [],
+                "children": []
+            },
+            {
+                "elements_combined": "<steam+water>",
+                "results": [],
+                "children": []
+            }
+        ]
+    }
+]
