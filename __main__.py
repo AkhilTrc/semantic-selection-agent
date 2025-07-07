@@ -3,11 +3,13 @@ import json
 import time
 
 # Import your critic functions (adjust import paths as needed)
-from critic_agent import process_json_files  # The function to process JSON files and calculate depths
+# from critic_agent import process_json_files  # The function to process JSON files and calculate depths
 from actor_agent import create_thread, create_dynamic_agent, add_user_message, get_response, delete_agent
 
+from random_agent import process_json_files
+
 # Directory where JSON inventory files reside
-INVENTORY_DIR = "inventory_jsons"
+INVENTORY_DIR = "inventory_jsons_rand"        ###################################
 
 # User ID for the actor agent session
 USER_ID = "user_123"
@@ -37,13 +39,13 @@ def add_new_inventory_item(base_elements,FLAG):
         FLAG = True
 
     # Construct prompt for generating a new inventory tree
-    print(base_elements)
+    print(base_elements)        #########################################################
     prompt = (
         f"Using the base elements: {base_elements}, generate the deepest possible tree "
         "of realistic combinations, following the system rules. Output only the final JSON."
     )
     add_user_message(USER_ID, prompt)
-    reply = get_response(USER_ID)
+    reply = get_response(USER_ID)   
 
     try:
         # Clean and parse JSON response from the agent
@@ -69,14 +71,14 @@ def merge_new_tree_into_inventory(new_tree, inventory_dir):
     save_json_to_file(new_tree, filepath)
     print(f"[INFO] New inventory saved to {filepath}")
 
-def main(iterations=5, delay_seconds=5):
+def main(iterations=60, delay_seconds=5):
     """
     Main loop: generate new inventory items, save them, then run the critic process.
     """
     base_elements = ["air", "water", "fire", "earth"]
 
     for i in range(iterations):
-        print(f"\n=== Iteration {i+1} ===")
+        print(f"\n=== Iteration {i+1} ===") 
 
         # Step 1: Generate new inventory tree JSON
         FLAG = False
@@ -89,8 +91,36 @@ def main(iterations=5, delay_seconds=5):
         print("[INFO] Running critic process on inventory JSON files...")
         depth_results = process_json_files(INVENTORY_DIR)
         print(f"[INFO] Critic process completed. Depth results: {depth_results}")
+        
         base_elements += [depth_results]
-        base_elements = list(set(base_elements)) 
+        base_elements = list(set(base_elements))
+
+        """
+        base_elements += depth_results
+        base_elements = list(set(base_elements))
+        """
+        """
+        base_elements += list((depth_results,))
+        base_elements = list(set(base_elements))
+        """
+        """
+        print("\ndepth_results: ", depth_results)
+        print("\n[depth_results]: ", [depth_results])
+        print("\nlist(depth_results): ", list(depth_results))
+        print("\nlist((depth_results,)): ", list((depth_results,)))
+        base_elements.append([depth_results])
+        base_elements = list(set(base_elements))
+        """
+        """
+        if isinstance(depth_results, list):
+            base_elements += depth_results
+        elif isinstance(depth_results, dict):
+            base_elements += list(depth_results.keys())
+        elif isinstance(depth_results, str):
+            base_elements.append(depth_results)
+        base_elements = list(set(base_elements))
+        """
+        
         print(base_elements)
 
         # Wait before next iteration

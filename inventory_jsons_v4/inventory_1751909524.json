@@ -1,0 +1,81 @@
+[
+    {
+        "name": "cloud",
+        "elements_combined": "air+earth",
+        "children": []
+    },
+    {
+        "name": "fog",
+        "elements_combined": "air+fire",
+        "children": [
+            {
+                "name": "smog",
+                "elements_combined": "fog+air",
+                "children": []
+            },
+            {
+                "name": "heatwave",
+                "elements_combined": "fog+fire",
+                "children": []
+            },
+            {
+                "name": "dust devil",
+                "elements_combined": "fog+earth",
+                "children": []
+            }
+        ]
+    },
+    {
+        "name": "cloud",
+        "elements_combined": "air+water",
+        "children": [
+            {
+                "name": "rainstorm",
+                "elements_combined": "cloud+air",
+                "children": []
+            },
+            {
+                "name": "mist",
+                "elements_combined": "cloud+fire",
+                "children": []
+            },
+            {
+                "name": "river",
+                "elements_combined": "cloud+earth",
+                "children": []
+            }
+        ]
+    },
+    {
+        "name": "steam",
+        "elements_combined": "fire+water",
+        "children": [
+            {
+                "name": "hot spring",
+                "elements_combined": "steam+earth",
+                "children": []
+            },
+            {
+                "name": "humidity",
+                "elements_combined": "steam+air",
+                "children": []
+            }
+        ]
+    },
+    {
+        "name": "mud",
+        "elements_combined": "earth+water",
+        "children": [
+            {
+                "name": "clay",
+                "elements_combined": "mud+fire",
+                "children": []
+            },
+            {
+                "name": "quagmire",
+                "elements_combined": "mud+air",
+                "children": []
+            }
+        ]
+    }
+]

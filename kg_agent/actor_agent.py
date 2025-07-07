@@ -9,18 +9,17 @@ import time
 load_dotenv()
 API_KEY = os.getenv("OPENAI_API_KEY")
 if not API_KEY:
-    raise ValueError("OPENAI_API_KEY environment variable not set.")
+    raise ValueError("OPENAI_API_KEY not set.")
 client = OpenAI(api_key=API_KEY)
 
-# In-memory stores
-content: Dict[str, str] = {}  
-agents: Dict[str, dict] = {} 
+content: Dict[str, str] = {}
+agents: Dict[str, dict] = {}
 
 def format_name(name: str) -> str:
     return name.strip().lower().replace(" ", "_")
 
 def load_instructions_from_file(file_path: str, **kwargs) -> str:
-    with open(file_path, 'r',encoding='utf-8') as file:
+    with open(file_path, 'r', encoding='utf-8') as file:
         template = file.read()
     return template.format(**kwargs)
 
@@ -28,8 +27,7 @@ def load_instructions_from_file(file_path: str, **kwargs) -> str:
 def create_dynamic_agent(user_id: str, name: str) -> str:
     formatted_name = format_name(name)
     instructions = load_instructions_from_file("instruction_v2.txt")
-
-    print(f"[cyan]Creating agent for [bold]{formatted_name}[/bold]...[/cyan]")
+    print(f"[cyan]Creating agent for {formatted_name}...[/cyan]")
 
     assistant = client.beta.assistants.create(
         name=formatted_name,
@@ -43,63 +41,51 @@ def create_dynamic_agent(user_id: str, name: str) -> str:
         "instructions": instructions,
         "assistant_id": assistant.id
     }
-
-    print(f"[green]Agent created with ID: {assistant.id}[/green]")
+    print(f"[green]Agent created: {assistant.id}[/green]")
     return assistant.id
 
 def create_thread(uid: str) -> None:
     if uid not in content:
         thread = client.beta.threads.create()
         content[uid] = thread.id
-        print(f"[blue]Thread created for UID: {uid}[/blue]")
+        print(f"[blue]Thread created for {uid}[/blue]")
 
 def add_user_message(uid: str, message: str) -> None:
     if uid not in content:
-        raise ValueError("Thread not initialized. Call create_thread first.")
+        raise ValueError("Thread not initialized.")
     client.beta.threads.messages.create(
         thread_id=content[uid],
         role="user",
         content=message
     )
-    print(f"[yellow]User message added to thread {content[uid]}[/yellow]")
+    print(f"[yellow]Message sent to thread {content[uid]}[/yellow]")
 
 def get_response(uid: str) -> str:
-    if uid not in agents:
-        raise ValueError(f"No agent found for UID {uid}. Call create_dynamic_agent first.")
-
     run = client.beta.threads.runs.create(
         thread_id=content[uid],
         assistant_id=agents[uid]["assistant_id"]
     )
-
-    print(f"[magenta]Waiting for response...[/magenta]")
+    print("[magenta]Waiting for response...[/magenta]")
     while run.status not in ["completed", "failed", "cancelled"]:
         time.sleep(1)
         run = client.beta.threads.runs.retrieve(
             thread_id=content[uid],
             run_id=run.id
         )
-
     if run.status != "completed":
-        raise RuntimeError(f"Run did not complete successfully: {run.status}")
-
+        raise RuntimeError("Run failed.")
     messages = client.beta.threads.messages.list(thread_id=content[uid])
     for msg in reversed(messages.data):
         if msg.role == "assistant":
             return msg.content[0].text.value
-
     return "[Error: No assistant message found]"
 
 def delete_agent(user_id: str) -> None:
-    """Delete the assistant and clean up memory."""
     if user_id in agents:
-        assistant_id = agents[user_id]["assistant_id"]
-        client.beta.assistants.delete(assistant_id)
-        agents.pop(user_id, None)
+        client.beta.assistants.delete(agents[user_id]["assistant_id"])
+        agents.pop(user_id)
         create_dynamic_agent.cache_clear()
-        print(f"[red]Deleted assistant with ID: {assistant_id}[/red]")
-    else:
-        print(f"[gray]No agent found for UID: {user_id} to delete.[/gray]")
+        print(f"[red]Deleted assistant for {user_id}[/red]")
 
 if __name__ == "__main__":
     import json
@@ -108,7 +94,7 @@ if __name__ == "__main__":
 
     create_thread(uid)
     create_dynamic_agent(uid, name)
-    add_user_message(uid, 'Using the base elements: ["air", "water", "fire", "earth"], generate the deepest possible tree of realistic combinations, following the system rules. Output only the final JSON.')
+    add_user_message(uid, 'Using the base elements: ["air", "water", "fire", "earth"], generate the deepest possible knowledge graph of realistic combinations, following the system rules. Output only the final JSON.')
     reply = get_response(uid)
     try:
         parsed_reply = json.loads(reply.replace("json","").replace("`", ""))
@@ -121,4 +107,3 @@ if __name__ == "__main__":
             f.write(reply)
     delete_agent(uid)
     print("[blue]Agent deleted.[/blue]")
-    

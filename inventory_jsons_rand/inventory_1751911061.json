@@ -1,0 +1,52 @@
+[
+    {
+        "name": "brick",
+        "elements_combined": "earth+mud",
+        "children": [
+            {
+                "name": "pottery",
+                "elements_combined": "clay+brick",
+                "children": []
+            }
+        ]
+    },
+    {
+        "name": "steam",
+        "elements_combined": "air+fire",
+        "children": [
+            {
+                "name": "cloud",
+                "elements_combined": "air+steam",
+                "children": [
+                    {
+                        "name": "rain",
+                        "elements_combined": "water+cloud",
+                        "children": []
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "name": "smoke",
+        "elements_combined": "fire+lava",
+        "children": [
+            {
+                "name": "acid_rain",
+                "elements_combined": "air+smoke",
+                "children": []
+            }
+        ]
+    },
+    {
+        "name": "dust",
+        "elements_combined": "air+earth",
+        "children": [
+            {
+                "name": "sandstorm",
+                "elements_combined": "air+dust",
+                "children": []
+            }
+        ]
+    }
+]
