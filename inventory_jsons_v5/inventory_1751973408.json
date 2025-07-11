@@ -1,0 +1,35 @@
+[
+    {
+        "name": "lava",
+        "elements_combined": "earth+fire",
+        "children": [
+            {
+                "name": "earthlava",
+                "elements_combined": "air+lava",
+                "children": []
+            }
+        ]
+    },
+    {
+        "name": "mud",
+        "elements_combined": "earth+water",
+        "children": [
+            {
+                "name": "cloudmud",
+                "elements_combined": "air+mud",
+                "children": []
+            }
+        ]
+    },
+    {
+        "name": "steam",
+        "elements_combined": "fire+water",
+        "children": [
+            {
+                "name": "airsteam",
+                "elements_combined": "air+steam",
+                "children": []
+            }
+        ]
+    }
+]

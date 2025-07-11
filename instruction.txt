@@ -81,3 +81,25 @@ Return a JSON **array** of fusion blocks, each following this exact schema:
 ## ✅ WHEN READY
 
 After the user supplies `base_elements`, think silently, build the complete fusion tree, and reply **only with the JSON array**.
+
+
+
+    Average tp: 13.1895   
+
+    Average fp: 28.001
+
+    Average precision: 0.3202614379
+
+
+
+
+    Average tp: 53.59
+
+    Average fp: 28.845
+
+    Average precision: 0.65016949152
+
+
+
+    Total unique elements in folder 1 averaged (Empowerment):  84.23
+    Total unique elements in folder 2 averaged (Random choice): 45.375

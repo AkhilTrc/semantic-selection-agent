@@ -9,7 +9,7 @@ from actor_agent import create_thread, create_dynamic_agent, add_user_message, g
 from random_agent import process_json_files
 
 # Directory where JSON inventory files reside
-INVENTORY_DIR = "inventory_jsons_rand"        ###################################
+INVENTORY_DIR = "inventory_jsons_rand_v2"        ###################################
 
 # User ID for the actor agent session
 USER_ID = "user_123"
@@ -71,7 +71,7 @@ def merge_new_tree_into_inventory(new_tree, inventory_dir):
     save_json_to_file(new_tree, filepath)
     print(f"[INFO] New inventory saved to {filepath}")
 
-def main(iterations=60, delay_seconds=5):
+def main(iterations=30, delay_seconds=5):
     """
     Main loop: generate new inventory items, save them, then run the critic process.
     """
@@ -128,4 +128,6 @@ def main(iterations=60, delay_seconds=5):
     # Clean up: delete the agent after all iterations
     delete_agent(USER_ID)
 if __name__ == "__main__":
-    main()
+    for iter in range(10):
+        print(f"\nTrial #{iter}:\n")
+        main()

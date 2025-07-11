@@ -1,0 +1,56 @@
+[
+    {
+        "name": "geyser",
+        "elements_combined": "air+hot spring",
+        "children": [
+            {
+                "name": "steam geyser",
+                "elements_combined": "geyser+steam geyser",
+                "children": []
+            }
+        ]
+    },
+    {
+        "name": "heatwave",
+        "elements_combined": "air+steam geyser",
+        "children": []
+    },
+    {
+        "name": "lava",
+        "elements_combined": "earth+fire",
+        "children": [
+            {
+                "name": "magma",
+                "elements_combined": "lava+earth",
+                "children": []
+            }
+        ]
+    },
+    {
+        "name": "mud",
+        "elements_combined": "earth+water",
+        "children": [
+            {
+                "name": "clay",
+                "elements_combined": "mud+fire",
+                "children": []
+            }
+        ]
+    },
+    {
+        "name": "steam geyser",
+        "elements_combined": "fire+water",
+        "children": [
+            {
+                "name": "heatwave",
+                "elements_combined": "steam geyser+air",
+                "children": []
+            },
+            {
+                "name": "hot spring",
+                "elements_combined": "steam geyser+earth",
+                "children": []
+            }
+        ]
+    }
+]

@@ -1,0 +1,80 @@
+[
+    {
+        "name": "cloudlava",
+        "elements_combined": "cloud+lava",
+        "children": []
+    },
+    {
+        "name": "cloudmud",
+        "elements_combined": "cloud+earth",
+        "children": []
+    },
+    {
+        "name": "cloudwater",
+        "elements_combined": "cloud+water",
+        "children": []
+    },
+    {
+        "name": "cloudfire",
+        "elements_combined": "cloud+fire",
+        "children": []
+    },
+    {
+        "name": "cloudair",
+        "elements_combined": "air+cloud",
+        "children": []
+    },
+    {
+        "name": "lava",
+        "elements_combined": "earth+fire",
+        "children": [
+            {
+                "name": "cloudlava",
+                "elements_combined": "cloud+lava",
+                "children": []
+            },
+            {
+                "name": "lavamud",
+                "elements_combined": "earth+lava",
+                "children": []
+            },
+            {
+                "name": "magma",
+                "elements_combined": "lava+water",
+                "children": []
+            }
+        ]
+    },
+    {
+        "name": "mud",
+        "elements_combined": "earth+water",
+        "children": [
+            {
+                "name": "cloudmud",
+                "elements_combined": "cloud+earth",
+                "children": []
+            },
+            {
+                "name": "mudfire",
+                "elements_combined": "fire+mud",
+                "children": []
+            }
+        ]
+    },
+    {
+        "name": "steam",
+        "elements_combined": "fire+water",
+        "children": [
+            {
+                "name": "cloudfire",
+                "elements_combined": "cloud+fire",
+                "children": []
+            },
+            {
+                "name": "airsteam",
+                "elements_combined": "air+steam",
+                "children": []
+            }
+        ]
+    }
+]

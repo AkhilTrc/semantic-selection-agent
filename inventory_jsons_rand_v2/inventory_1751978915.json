@@ -1,0 +1,102 @@
+[
+    {
+        "name": "foam",
+        "elements_combined": "fire+water",
+        "children": [
+            {
+                "name": "hot spring",
+                "elements_combined": "foam+earth",
+                "children": []
+            },
+            {
+                "name": "steam geyser",
+                "elements_combined": "foam+air",
+                "children": []
+            }
+        ]
+    },
+    {
+        "name": "hot spring",
+        "elements_combined": "earth+steam geyser",
+        "children": [
+            {
+                "name": "steam geyser",
+                "elements_combined": "hot spring+air",
+                "children": []
+            }
+        ]
+    },
+    {
+        "name": "lava",
+        "elements_combined": "earth+fire",
+        "children": [
+            {
+                "name": "igneous rock",
+                "elements_combined": "lava+water",
+                "children": []
+            },
+            {
+                "name": "magma",
+                "elements_combined": "lava+earth",
+                "children": []
+            },
+            {
+                "name": "thermal vent",
+                "elements_combined": "lava+air",
+                "children": []
+            }
+        ]
+    },
+    {
+        "name": "mud",
+        "elements_combined": "earth+water",
+        "children": [
+            {
+                "name": "clay",
+                "elements_combined": "mud+fire",
+                "children": []
+            },
+            {
+                "name": "swamp",
+                "elements_combined": "mud+earth",
+                "children": []
+            },
+            {
+                "name": "wet soil",
+                "elements_combined": "mud+water",
+                "children": []
+            }
+        ]
+    },
+    {
+        "name": "steam geyser",
+        "elements_combined": "fire+water",
+        "children": [
+            {
+                "name": "hot spring",
+                "elements_combined": "steam geyser+earth",
+                "children": []
+            },
+            {
+                "name": "steam geyser",
+                "elements_combined": "steam geyser+air",
+                "children": []
+            }
+        ]
+    },
+    {
+        "name": "thermal vent",
+        "elements_combined": "lava+air",
+        "children": []
+    },
+    {
+        "name": "igneous rock",
+        "elements_combined": "lava+water",
+        "children": []
+    },
+    {
+        "name": "magma",
+        "elements_combined": "lava+earth",
+        "children": []
+    }
+]

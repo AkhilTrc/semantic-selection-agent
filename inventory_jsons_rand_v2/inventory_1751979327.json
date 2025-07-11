@@ -1,0 +1,130 @@
+[
+    {
+        "name": "cloud",
+        "elements_combined": "air+water",
+        "children": [
+            {
+                "name": "rain",
+                "elements_combined": "air+rain",
+                "children": []
+            },
+            {
+                "name": "rain storm",
+                "elements_combined": "cloud+air",
+                "children": [
+                    {
+                        "name": "rain storm",
+                        "elements_combined": "rain storm+water",
+                        "children": []
+                    }
+                ]
+            },
+            {
+                "name": "fog",
+                "elements_combined": "cloud+water",
+                "children": []
+            }
+        ]
+    },
+    {
+        "name": "geyser",
+        "elements_combined": "air+hot spring",
+        "children": []
+    },
+    {
+        "name": "heatwave",
+        "elements_combined": "air+steam geyser",
+        "children": []
+    },
+    {
+        "name": "igneous rock",
+        "elements_combined": "earth+igneous rock",
+        "children": []
+    },
+    {
+        "name": "lava",
+        "elements_combined": "earth+fire",
+        "children": [
+            {
+                "name": "igneous rock",
+                "elements_combined": "lava+water",
+                "children": [
+                    {
+                        "name": "magma",
+                        "elements_combined": "igneous rock+earth",
+                        "children": []
+                    }
+                ]
+            },
+            {
+                "name": "magma",
+                "elements_combined": "lava+earth",
+                "children": []
+            },
+            {
+                "name": "thermal vent",
+                "elements_combined": "lava+air",
+                "children": []
+            }
+        ]
+    },
+    {
+        "name": "mud",
+        "elements_combined": "earth+water",
+        "children": [
+            {
+                "name": "clay",
+                "elements_combined": "mud+fire",
+                "children": []
+            },
+            {
+                "name": "swamp",
+                "elements_combined": "mud+earth",
+                "children": [
+                    {
+                        "name": "wet soil",
+                        "elements_combined": "swamp+water",
+                        "children": []
+                    }
+                ]
+            },
+            {
+                "name": "wet soil",
+                "elements_combined": "mud+water",
+                "children": []
+            }
+        ]
+    },
+    {
+        "name": "hot spring",
+        "elements_combined": "earth+steam geyser",
+        "children": [
+            {
+                "name": "geyser",
+                "elements_combined": "hot spring+air",
+                "children": []
+            }
+        ]
+    },
+    {
+        "name": "rain storm",
+        "elements_combined": "rain storm+water",
+        "children": []
+    },
+    {
+        "name": "steam geyser",
+        "elements_combined": "fire+water",
+        "children": [
+            {
+                "name": "heatwave",
+                "elements_combined": "steam geyser+air",
+                "children": []
+            },
+            {
+                "name": "hot spring",
+                "elements_combined": "steam geyser+earth",
+                "children": []
+            }
+        ]
+    }
+]

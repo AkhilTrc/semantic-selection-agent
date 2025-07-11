@@ -1,0 +1,107 @@
+[
+    {
+        "name": "cloud",
+        "elements_combined": "air+water",
+        "children": [
+            {
+                "name": "fog",
+                "elements_combined": "cloud+water",
+                "children": []
+            },
+            {
+                "name": "rain",
+                "elements_combined": "cloud+earth",
+                "children": []
+            },
+            {
+                "name": "storm",
+                "elements_combined": "cloud+air",
+                "children": []
+            }
+        ]
+    },
+    {
+        "name": "mud",
+        "elements_combined": "earth+water",
+        "children": [
+            {
+                "name": "swamp",
+                "elements_combined": "mud+earth",
+                "children": []
+            },
+            {
+                "name": "wet soil",
+                "elements_combined": "mud+water",
+                "children": []
+            },
+            {
+                "name": "clay",
+                "elements_combined": "mud+fire",
+                "children": []
+            }
+        ]
+    },
+    {
+        "name": "lava",
+        "elements_combined": "earth+fire",
+        "children": [
+            {
+                "name": "igneous rock",
+                "elements_combined": "lava+water",
+                "children": []
+            },
+            {
+                "name": "magma",
+                "elements_combined": "lava+earth",
+                "children": []
+            },
+            {
+                "name": "thermal vent",
+                "elements_combined": "lava+air",
+                "children": []
+            }
+        ]
+    },
+    {
+        "name": "foam",
+        "elements_combined": "fire+water",
+        "children": [
+            {
+                "name": "hot spring",
+                "elements_combined": "foam+earth",
+                "children": []
+            },
+            {
+                "name": "steam",
+                "elements_combined": "foam+air",
+                "children": []
+            }
+        ]
+    },
+    {
+        "name": "steam",
+        "elements_combined": "air+fire",
+        "children": [
+            {
+                "name": "heatwave",
+                "elements_combined": "steam+air",
+                "children": []
+            },
+            {
+                "name": "hot spring",
+                "elements_combined": "steam+earth",
+                "children": []
+            }
+        ]
+    },
+    {
+        "name": "heatwave",
+        "elements_combined": "steam+air",
+        "children": []
+    },
+    {
+        "name": "hot spring",
+        "elements_combined": "steam+earth",
+        "children": []
+    }
+]
