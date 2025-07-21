@@ -72,7 +72,7 @@ def graphPrompt(input: str, metadata={}, model="gpt-4.1-mini"):
             "\tTerms can be related to many other terms\n\n"
         "Thought 3: Find out the relation between each such related pair of terms. \n\n"
         "Format your output as a list of json. Each element of the list contains a pair of terms"
-        "and the relation between them, like the follwing: \n"
+        "and the relation between them, like the following: \n"
         "[\n"
         "   {\n"
         '       "node_1": "A concept from extracted ontology",\n'

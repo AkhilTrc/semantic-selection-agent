@@ -1,0 +1,775 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        
+            <script>function neighbourhoodHighlight(params) {
+  // console.log("in nieghbourhoodhighlight");
+  allNodes = nodes.get({ returnType: "Object" });
+  // originalNodes = JSON.parse(JSON.stringify(allNodes));
+  // if something is selected:
+  if (params.nodes.length > 0) {
+    highlightActive = true;
+    var i, j;
+    var selectedNode = params.nodes[0];
+    var degrees = 2;
+
+    // mark all nodes as hard to read.
+    for (let nodeId in allNodes) {
+      // nodeColors[nodeId] = allNodes[nodeId].color;
+      allNodes[nodeId].color = "rgba(200,200,200,0.5)";
+      if (allNodes[nodeId].hiddenLabel === undefined) {
+        allNodes[nodeId].hiddenLabel = allNodes[nodeId].label;
+        allNodes[nodeId].label = undefined;
+      }
+    }
+    var connectedNodes = network.getConnectedNodes(selectedNode);
+    var allConnectedNodes = [];
+
+    // get the second degree nodes
+    for (i = 1; i < degrees; i++) {
+      for (j = 0; j < connectedNodes.length; j++) {
+        allConnectedNodes = allConnectedNodes.concat(
+          network.getConnectedNodes(connectedNodes[j])
+        );
+      }
+    }
+
+    // all second degree nodes get a different color and their label back
+    for (i = 0; i < allConnectedNodes.length; i++) {
+      // allNodes[allConnectedNodes[i]].color = "pink";
+      allNodes[allConnectedNodes[i]].color = "rgba(150,150,150,0.75)";
+      if (allNodes[allConnectedNodes[i]].hiddenLabel !== undefined) {
+        allNodes[allConnectedNodes[i]].label =
+          allNodes[allConnectedNodes[i]].hiddenLabel;
+        allNodes[allConnectedNodes[i]].hiddenLabel = undefined;
+      }
+    }
+
+    // all first degree nodes get their own color and their label back
+    for (i = 0; i < connectedNodes.length; i++) {
+      // allNodes[connectedNodes[i]].color = undefined;
+      allNodes[connectedNodes[i]].color = nodeColors[connectedNodes[i]];
+      if (allNodes[connectedNodes[i]].hiddenLabel !== undefined) {
+        allNodes[connectedNodes[i]].label =
+          allNodes[connectedNodes[i]].hiddenLabel;
+        allNodes[connectedNodes[i]].hiddenLabel = undefined;
+      }
+    }
+
+    // the main node gets its own color and its label back.
+    // allNodes[selectedNode].color = undefined;
+    allNodes[selectedNode].color = nodeColors[selectedNode];
+    if (allNodes[selectedNode].hiddenLabel !== undefined) {
+      allNodes[selectedNode].label = allNodes[selectedNode].hiddenLabel;
+      allNodes[selectedNode].hiddenLabel = undefined;
+    }
+  } else if (highlightActive === true) {
+    // console.log("highlightActive was true");
+    // reset all nodes
+    for (let nodeId in allNodes) {
+      // allNodes[nodeId].color = "purple";
+      allNodes[nodeId].color = nodeColors[nodeId];
+      // delete allNodes[nodeId].color;
+      if (allNodes[nodeId].hiddenLabel !== undefined) {
+        allNodes[nodeId].label = allNodes[nodeId].hiddenLabel;
+        allNodes[nodeId].hiddenLabel = undefined;
+      }
+    }
+    highlightActive = false;
+  }
+
+  // transform the object into an array
+  var updateArray = [];
+  if (params.nodes.length > 0) {
+    for (let nodeId in allNodes) {
+      if (allNodes.hasOwnProperty(nodeId)) {
+        // console.log(allNodes[nodeId]);
+        updateArray.push(allNodes[nodeId]);
+      }
+    }
+    nodes.update(updateArray);
+  } else {
+    // console.log("Nothing was selected");
+    for (let nodeId in allNodes) {
+      if (allNodes.hasOwnProperty(nodeId)) {
+        // console.log(allNodes[nodeId]);
+        // allNodes[nodeId].color = {};
+        updateArray.push(allNodes[nodeId]);
+      }
+    }
+    nodes.update(updateArray);
+  }
+}
+
+function filterHighlight(params) {
+  allNodes = nodes.get({ returnType: "Object" });
+  // if something is selected:
+  if (params.nodes.length > 0) {
+    filterActive = true;
+    let selectedNodes = params.nodes;
+
+    // hiding all nodes and saving the label
+    for (let nodeId in allNodes) {
+      allNodes[nodeId].hidden = true;
+      if (allNodes[nodeId].savedLabel === undefined) {
+        allNodes[nodeId].savedLabel = allNodes[nodeId].label;
+        allNodes[nodeId].label = undefined;
+      }
+    }
+
+    for (let i=0; i < selectedNodes.length; i++) {
+      allNodes[selectedNodes[i]].hidden = false;
+      if (allNodes[selectedNodes[i]].savedLabel !== undefined) {
+        allNodes[selectedNodes[i]].label = allNodes[selectedNodes[i]].savedLabel;
+        allNodes[selectedNodes[i]].savedLabel = undefined;
+      }
+    }
+
+  } else if (filterActive === true) {
+    // reset all nodes
+    for (let nodeId in allNodes) {
+      allNodes[nodeId].hidden = false;
+      if (allNodes[nodeId].savedLabel !== undefined) {
+        allNodes[nodeId].label = allNodes[nodeId].savedLabel;
+        allNodes[nodeId].savedLabel = undefined;
+      }
+    }
+    filterActive = false;
+  }
+
+  // transform the object into an array
+  var updateArray = [];
+  if (params.nodes.length > 0) {
+    for (let nodeId in allNodes) {
+      if (allNodes.hasOwnProperty(nodeId)) {
+        updateArray.push(allNodes[nodeId]);
+      }
+    }
+    nodes.update(updateArray);
+  } else {
+    for (let nodeId in allNodes) {
+      if (allNodes.hasOwnProperty(nodeId)) {
+        updateArray.push(allNodes[nodeId]);
+      }
+    }
+    nodes.update(updateArray);
+  }
+}
+
+function selectNode(nodes) {
+  network.selectNodes(nodes);
+  neighbourhoodHighlight({ nodes: nodes });
+  return nodes;
+}
+
+function selectNodes(nodes) {
+  network.selectNodes(nodes);
+  filterHighlight({nodes: nodes});
+  return nodes;
+}
+
+function highlightFilter(filter) {
+  let selectedNodes = []
+  let selectedProp = filter['property']
+  if (filter['item'] === 'node') {
+    let allNodes = nodes.get({ returnType: "Object" });
+    for (let nodeId in allNodes) {
+      if (allNodes[nodeId][selectedProp] && filter['value'].includes((allNodes[nodeId][selectedProp]).toString())) {
+        selectedNodes.push(nodeId)
+      }
+    }
+  }
+  else if (filter['item'] === 'edge'){
+    let allEdges = edges.get({returnType: 'object'});
+    // check if the selected property exists for selected edge and select the nodes connected to the edge
+    for (let edge in allEdges) {
+      if (allEdges[edge][selectedProp] && filter['value'].includes((allEdges[edge][selectedProp]).toString())) {
+        selectedNodes.push(allEdges[edge]['from'])
+        selectedNodes.push(allEdges[edge]['to'])
+      }
+    }
+  }
+  selectNodes(selectedNodes)
+}</script>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/dist/vis-network.min.css" integrity="sha512-WgxfT5LWjfszlPHXRmBWHkV2eceiWTOBvrKCNbdgDYTHrT2AeLCGbF4sZlZw3UMN3WtL0tGUoIAKsu8mllg/XA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/vis-network.min.js" integrity="sha512-LnvoEWDFrqGHlHmDD2101OrLcbsfkrzoSpvtSQtxK3RMnRV0eOkhhBN2dXHKRrUU8p2DGRTk35n4O8nWSVe1mQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+            
+            
+            
+            
+            
+            
+                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tom-select/2.0.0-rc.4/css/tom-select.min.css" integrity="sha512-43fHB3GLgZfz8QXl1RPQ8O66oIgv3po9cJ5erMt1c4QISq9dYb195T3vr5ImnJPXuVroKcGBPXBFKETW8jrPNQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/tom-select/2.0.0-rc.4/js/tom-select.complete.js" integrity="sha512-jeF9CfnvzDiw9G9xiksVjxR2lib44Gnovvkv+3CgCG6NXCD4gqlA5nDAVW5WjpA+i+/zKsUWV5xNEbW1X/HH0Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+            
+
+        
+<center>
+<h1></h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+        <link
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
+          crossorigin="anonymous"
+        />
+        <script
+          src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+          crossorigin="anonymous"
+        ></script>
+
+
+        <center>
+          <h1></h1>
+        </center>
+        <style type="text/css">
+
+             #mynetwork {
+                 width: 100%;
+                 height: 900px;
+                 background-color: #ffffff;
+                 border: 1px solid lightgray;
+                 position: relative;
+                 float: left;
+             }
+
+             
+             #loadingBar {
+                 position:absolute;
+                 top:0px;
+                 left:0px;
+                 width: 100%;
+                 height: 900px;
+                 background-color:rgba(200,200,200,0.8);
+                 -webkit-transition: all 0.5s ease;
+                 -moz-transition: all 0.5s ease;
+                 -ms-transition: all 0.5s ease;
+                 -o-transition: all 0.5s ease;
+                 transition: all 0.5s ease;
+                 opacity:1;
+             }
+
+             #bar {
+                 position:absolute;
+                 top:0px;
+                 left:0px;
+                 width:20px;
+                 height:20px;
+                 margin:auto auto auto auto;
+                 border-radius:11px;
+                 border:2px solid rgba(30,30,30,0.05);
+                 background: rgb(0, 173, 246); /* Old browsers */
+                 box-shadow: 2px 0px 4px rgba(0,0,0,0.4);
+             }
+
+             #border {
+                 position:absolute;
+                 top:10px;
+                 left:10px;
+                 width:500px;
+                 height:23px;
+                 margin:auto auto auto auto;
+                 box-shadow: 0px 0px 4px rgba(0,0,0,0.2);
+                 border-radius:10px;
+             }
+
+             #text {
+                 position:absolute;
+                 top:8px;
+                 left:530px;
+                 width:30px;
+                 height:50px;
+                 margin:auto auto auto auto;
+                 font-size:22px;
+                 color: #000000;
+             }
+
+             div.outerBorder {
+                 position:relative;
+                 top:400px;
+                 width:600px;
+                 height:44px;
+                 margin:auto auto auto auto;
+                 border:8px solid rgba(0,0,0,0.1);
+                 background: rgb(252,252,252); /* Old browsers */
+                 background: -moz-linear-gradient(top,  rgba(252,252,252,1) 0%, rgba(237,237,237,1) 100%); /* FF3.6+ */
+                 background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(252,252,252,1)), color-stop(100%,rgba(237,237,237,1))); /* Chrome,Safari4+ */
+                 background: -webkit-linear-gradient(top,  rgba(252,252,252,1) 0%,rgba(237,237,237,1) 100%); /* Chrome10+,Safari5.1+ */
+                 background: -o-linear-gradient(top,  rgba(252,252,252,1) 0%,rgba(237,237,237,1) 100%); /* Opera 11.10+ */
+                 background: -ms-linear-gradient(top,  rgba(252,252,252,1) 0%,rgba(237,237,237,1) 100%); /* IE10+ */
+                 background: linear-gradient(to bottom,  rgba(252,252,252,1) 0%,rgba(237,237,237,1) 100%); /* W3C */
+                 filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fcfcfc', endColorstr='#ededed',GradientType=0 ); /* IE6-9 */
+                 border-radius:72px;
+                 box-shadow: 0px 0px 10px rgba(0,0,0,0.2);
+             }
+             
+
+             
+             #config {
+                 float: left;
+                 width: 400px;
+                 height: 600px;
+             }
+             
+
+             
+        </style>
+    </head>
+
+
+    <body>
+        <div class="card" style="width: 100%">
+            
+                <div id="select-menu" class="card-header">
+                    <div class="row no-gutters">
+                        <div class="col-10 pb-2">
+                            <select
+                            class="form-select"
+                            aria-label="Default select example"
+                            onchange="selectNode([value]);"
+                            id="select-node"
+                            placeholder="Select node..."
+                            >
+                                <option selected>Select a Node by ID</option>
+                                
+                                    <option value="$100m a year">$100m a year</option>
+                                
+                                    <option value="american officials">american officials</option>
+                                
+                                    <option value="goods">goods</option>
+                                
+                                    <option value="hamas's income">hamas's income</option>
+                                
+                                    <option value="import taxes">import taxes</option>
+                                
+                                    <option value="israel">israel</option>
+                                
+                                    <option value="ayatollahs">ayatollahs</option>
+                                
+                                    <option value="$360m each year">$360m each year</option>
+                                
+                                    <option value="$750m per year">$750m per year</option>
+                                
+                                    <option value="larger income stream">larger income stream</option>
+                                
+                                    <option value="abroad">abroad</option>
+                                
+                                    <option value="doha">doha</option>
+                                
+                                    <option value="hamas">hamas</option>
+                                
+                                    <option value="hamas’s bankers">hamas’s bankers</option>
+                                
+                                    <option value="istanbul">istanbul</option>
+                                
+                                    <option value="recep tayyip erdogan">recep tayyip erdogan</option>
+                                
+                                    <option value="revenue streams">revenue streams</option>
+                                
+                                    <option value="turkish government">turkish government</option>
+                                
+                                    <option value="zaher jabarin">zaher jabarin</option>
+                                
+                                    <option value="afra mall">afra mall</option>
+                                
+                                    <option value="companies">companies</option>
+                                
+                                    <option value="firms">firms</option>
+                                
+                                    <option value="redin">redin</option>
+                                
+                                    <option value="sudan">sudan</option>
+                                
+                                    <option value="algeria, sudan, uae">algeria, sudan, uae</option>
+                                
+                                    <option value="companies of hamas">companies of hamas</option>
+                                
+                                    <option value="america">america</option>
+                                
+                                    <option value="hamas's financial empire">hamas's financial empire</option>
+                                
+                                    <option value="man">man</option>
+                                
+                                    <option value="pressure on hamas">pressure on hamas</option>
+                                
+                                    <option value="american sanctions">american sanctions</option>
+                                
+                                    <option value="basic necessities">basic necessities</option>
+                                
+                                    <option value="biggest friendly government">biggest friendly government</option>
+                                
+                                    <option value="border">border</option>
+                                
+                                    <option value="egypt">egypt</option>
+                                
+                                    <option value="friendly governments">friendly governments</option>
+                                
+                                    <option value="funding for hamas's stockpile of arms and fuel">funding for hamas's stockpile of arms and fuel</option>
+                                
+                                    <option value="funding hamas">funding hamas</option>
+                                
+                                    <option value="goods brought into gaza">goods brought into gaza</option>
+                                
+                                    <option value="hamas's financiers">hamas's financiers</option>
+                                
+                                    <option value="income stream">income stream</option>
+                                
+                                    <option value="iran">iran</option>
+                                
+                                    <option value="missiles">missiles</option>
+                                
+                                    <option value="money for hamas">money for hamas</option>
+                                
+                                    <option value="movement of goods and people">movement of goods and people</option>
+                                
+                                    <option value="schoolteachers' salaries">schoolteachers' salaries</option>
+                                
+                                    <option value="three rounds of restrictions">three rounds of restrictions</option>
+                                
+                                    <option value="west bank">west bank</option>
+                                
+                                    <option value="america’s sanctions">america’s sanctions</option>
+                                
+                                    <option value="effectiveness">effectiveness</option>
+                                
+                                    <option value="america’s treasury department">america’s treasury department</option>
+                                
+                                    <option value="amman">amman</option>
+                                
+                                    <option value="jordan’s capital">jordan’s capital</option>
+                                
+                                    <option value="annual income">annual income</option>
+                                
+                                    <option value="another firm">another firm</option>
+                                
+                                    <option value="mines near khartoum">mines near khartoum</option>
+                                
+                                    <option value="attacks on gaza">attacks on gaza</option>
+                                
+                                    <option value="binance">binance</option>
+                                
+                                    <option value="board seats">board seats</option>
+                                
+                                    <option value="bosporus">bosporus</option>
+                                
+                                    <option value="hamas financiers">hamas financiers</option>
+                                
+                                    <option value="business deals">business deals</option>
+                                
+                                    <option value="firuze segzin">firuze segzin</option>
+                                
+                                    <option value="hamas affiliation">hamas affiliation</option>
+                                
+                                    <option value="hamas’s annual revenue">hamas’s annual revenue</option>
+                                
+                                    <option value="hamas’s money">hamas’s money</option>
+                                
+                                    <option value="investment office">investment office</option>
+                                
+                                    <option value="investments">investments</option>
+                                
+                                    <option value="israeli officials">israeli officials</option>
+                                
+                                    <option value="istanbul’s fatih neighbourhood">istanbul’s fatih neighbourhood</option>
+                                
+                                    <option value="middle east countries">middle east countries</option>
+                                
+                                    <option value="millions of dollars">millions of dollars</option>
+                                
+                                    <option value="profits from firms">profits from firms</option>
+                                
+                                    <option value="sharjah, uae">sharjah, uae</option>
+                                
+                                    <option value="third firm">third firm</option>
+                                
+                                    <option value="turkish officials">turkish officials</option>
+                                
+                                    <option value="western regulators">western regulators</option>
+                                
+                                    <option value="construction companies">construction companies</option>
+                                
+                                    <option value="crypto market">crypto market</option>
+                                
+                                    <option value="financial action task force">financial action task force</option>
+                                
+                                    <option value="g7 watchdog">g7 watchdog</option>
+                                
+                                    <option value="hamas’s businessmen">hamas’s businessmen</option>
+                                
+                                    <option value="hamas’s cash">hamas’s cash</option>
+                                
+                                    <option value="hamas’s portfolio">hamas’s portfolio</option>
+                                
+                                    <option value="israel and america">israel and america</option>
+                                
+                                    <option value="istanbul commerce university">istanbul commerce university</option>
+                                
+                                    <option value="kuveyt turk">kuveyt turk</option>
+                                
+                                    <option value="mr erdogan">mr erdogan</option>
+                                
+                                    <option value="trend gyo">trend gyo</option>
+                                
+                                    <option value="turkey">turkey</option>
+                                
+                                    <option value="turkey's banking system">turkey's banking system</option>
+                                
+                                    <option value="turkey's biggest banks">turkey's biggest banks</option>
+                                
+                                    <option value="cooperation with israel">cooperation with israel</option>
+                                
+                                    <option value="turkey’s banks">turkey’s banks</option>
+                                
+                                    <option value="coordination with hamas finance office">coordination with hamas finance office</option>
+                                
+                                    <option value="erdogan’s economic ministry civil servants">erdogan’s economic ministry civil servants</option>
+                                
+                                    <option value="countries">countries</option>
+                                
+                                    <option value="financial hub in amman">financial hub in amman</option>
+                                
+                                    <option value="financiers of hamas">financiers of hamas</option>
+                                
+                                    <option value="geopolitical shifts">geopolitical shifts</option>
+                                
+                                    <option value="hamas finances">hamas finances</option>
+                                
+                                    <option value="hamas office in turkey">hamas office in turkey</option>
+                                
+                                    <option value="hamas’s top brass">hamas’s top brass</option>
+                                
+                                    <option value="individuals under america sanctions">individuals under america sanctions</option>
+                                
+                                    <option value="individuals under sanctions">individuals under sanctions</option>
+                                
+                                    <option value="israeli government">israeli government</option>
+                                
+                                    <option value="palestinian cause">palestinian cause</option>
+                                
+                                    <option value="passports for hamas members">passports for hamas members</option>
+                                
+                                    <option value="politicians of hamas">politicians of hamas</option>
+                                
+                                    <option value="qatar">qatar</option>
+                                
+                                    <option value="shelter">shelter</option>
+                                
+                                    <option value="financial empire">financial empire</option>
+                                
+                                    <option value="financially bulletproof">financially bulletproof</option>
+                                
+                                    <option value="gaza">gaza</option>
+                                
+                                    <option value="hamas's physical force">hamas's physical force</option>
+                                
+                                    <option value="gazans">gazans</option>
+                                
+                                    <option value="tragedy">tragedy</option>
+                                
+                                    <option value="hamas income">hamas income</option>
+                                
+                                    <option value="hamas money">hamas money</option>
+                                
+                                    <option value="hamas savings">hamas savings</option>
+                                
+                                    <option value="hamas's finances">hamas's finances</option>
+                                
+                                    <option value="hamas's financial base">hamas's financial base</option>
+                                
+                                    <option value="improvement risk">improvement risk</option>
+                                
+                                    <option value="israel and allies">israel and allies</option>
+                                
+                                    <option value="istanbul restaurants">istanbul restaurants</option>
+                                
+                                    <option value="money-launderers and mining companies">money-launderers and mining companies</option>
+                                
+                                    <option value="name changes">name changes</option>
+                                
+                                    <option value="overseas countries">overseas countries</option>
+                                
+                                    <option value="palestinians in gaza">palestinians in gaza</option>
+                                
+                                    <option value="pro-palestinian countries">pro-palestinian countries</option>
+                                
+                                    <option value="re-emergence and flourishing">re-emergence and flourishing</option>
+                                
+                                    <option value="risk of hamas growing richer">risk of hamas growing richer</option>
+                                
+                                    <option value="safe location">safe location</option>
+                                
+                                    <option value="sources of power">sources of power</option>
+                                
+                                    <option value="support for hamas bankers">support for hamas bankers</option>
+                                
+                                    <option value="wealth and financial roots">wealth and financial roots</option>
+                                
+                                    <option value="western sanctions">western sanctions</option>
+                                
+                            </select>
+                        </div>
+                        <div class="col-2 pb-2">
+                            <button type="button" class="btn btn-primary btn-block" onclick="neighbourhoodHighlight({nodes: []});">Reset Selection</button>
+                        </div>
+                    </div>
+                </div>
+            
+            
+            <div id="mynetwork" class="card-body"></div>
+        </div>
+
+        
+            <div id="loadingBar">
+              <div class="outerBorder">
+                <div id="text">0%</div>
+                <div id="border">
+                  <div id="bar"></div>
+                </div>
+              </div>
+            </div>
+        
+        
+            <div id="config"></div>
+        
+
+        <script type="text/javascript">
+
+              // initialize global variables.
+              var edges;
+              var nodes;
+              var allNodes;
+              var allEdges;
+              var nodeColors;
+              var originalNodes;
+              var network;
+              var container;
+              var options, data;
+              var filter = {
+                  item : '',
+                  property : '',
+                  value : []
+              };
+
+              
+                  new TomSelect("#select-node",{
+                      create: false,
+                      sortField: {
+                          field: "text",
+                          direction: "asc"
+                      }
+                  });
+              
+
+              
+
+              // This method is responsible for drawing the graph, returns the drawn network
+              function drawGraph() {
+                  var container = document.getElementById('mynetwork');
+
+                  
+
+                  // parsing and collecting nodes and edges from the python
+                  nodes = new vis.DataSet([{"group": 1, "id": "$100m a year", "label": "$100m a year", "shape": "dot", "size": 6}, {"group": 1, "id": "american officials", "label": "american officials", "shape": "dot", "size": 31}, {"group": 1, "id": "goods", "label": "goods", "shape": "dot", "size": 27}, {"group": 1, "id": "hamas\u0027s income", "label": "hamas\u0027s income", "shape": "dot", "size": 27}, {"group": 1, "id": "import taxes", "label": "import taxes", "shape": "dot", "size": 27}, {"group": 1, "id": "israel", "label": "israel", "shape": "dot", "size": 78}, {"group": 1, "id": "ayatollahs", "label": "ayatollahs", "shape": "dot", "size": 6}, {"group": 1, "id": "$360m each year", "label": "$360m each year", "shape": "dot", "size": 5}, {"group": 1, "id": "$750m per year", "label": "$750m per year", "shape": "dot", "size": 6}, {"group": 1, "id": "larger income stream", "label": "larger income stream", "shape": "dot", "size": 6}, {"group": 2, "id": "abroad", "label": "abroad", "shape": "dot", "size": 8}, {"group": 2, "id": "doha", "label": "doha", "shape": "dot", "size": 32}, {"group": 2, "id": "hamas", "label": "hamas", "shape": "dot", "size": 113}, {"group": 2, "id": "hamas\u2019s bankers", "label": "hamas\u2019s bankers", "shape": "dot", "size": 32}, {"group": 2, "id": "istanbul", "label": "istanbul", "shape": "dot", "size": 35}, {"group": 2, "id": "recep tayyip erdogan", "label": "recep tayyip erdogan", "shape": "dot", "size": 32}, {"group": 2, "id": "revenue streams", "label": "revenue streams", "shape": "dot", "size": 36}, {"group": 2, "id": "turkish government", "label": "turkish government", "shape": "dot", "size": 38}, {"group": 2, "id": "zaher jabarin", "label": "zaher jabarin", "shape": "dot", "size": 32}, {"group": 2, "id": "afra mall", "label": "afra mall", "shape": "dot", "size": 5}, {"group": 2, "id": "companies", "label": "companies", "shape": "dot", "size": 29}, {"group": 2, "id": "firms", "label": "firms", "shape": "dot", "size": 28}, {"group": 2, "id": "redin", "label": "redin", "shape": "dot", "size": 28}, {"group": 2, "id": "sudan", "label": "sudan", "shape": "dot", "size": 5}, {"group": 2, "id": "algeria, sudan, uae", "label": "algeria, sudan, uae", "shape": "dot", "size": 9}, {"group": 2, "id": "companies of hamas", "label": "companies of hamas", "shape": "dot", "size": 9}, {"group": 2, "id": "america", "label": "america", "shape": "dot", "size": 12}, {"group": 1, "id": "hamas\u0027s financial empire", "label": "hamas\u0027s financial empire", "shape": "dot", "size": 21}, {"group": 1, "id": "man", "label": "man", "shape": "dot", "size": 21}, {"group": 2, "id": "pressure on hamas", "label": "pressure on hamas", "shape": "dot", "size": 9}, {"group": 1, "id": "american sanctions", "label": "american sanctions", "shape": "dot", "size": 10}, {"group": 1, "id": "basic necessities", "label": "basic necessities", "shape": "dot", "size": 5}, {"group": 1, "id": "biggest friendly government", "label": "biggest friendly government", "shape": "dot", "size": 6}, {"group": 1, "id": "border", "label": "border", "shape": "dot", "size": 5}, {"group": 1, "id": "egypt", "label": "egypt", "shape": "dot", "size": 5}, {"group": 1, "id": "friendly governments", "label": "friendly governments", "shape": "dot", "size": 6}, {"group": 1, "id": "funding for hamas\u0027s stockpile of arms and fuel", "label": "funding for hamas\u0027s stockpile of arms and fuel", "shape": "dot", "size": 6}, {"group": 2, "id": "funding hamas", "label": "funding hamas", "shape": "dot", "size": 14}, {"group": 1, "id": "goods brought into gaza", "label": "goods brought into gaza", "shape": "dot", "size": 5}, {"group": 1, "id": "hamas\u0027s financiers", "label": "hamas\u0027s financiers", "shape": "dot", "size": 10}, {"group": 1, "id": "income stream", "label": "income stream", "shape": "dot", "size": 6}, {"group": 1, "id": "iran", "label": "iran", "shape": "dot", "size": 6}, {"group": 1, "id": "missiles", "label": "missiles", "shape": "dot", "size": 5}, {"group": 1, "id": "money for hamas", "label": "money for hamas", "shape": "dot", "size": 6}, {"group": 1, "id": "movement of goods and people", "label": "movement of goods and people", "shape": "dot", "size": 5}, {"group": 1, "id": "schoolteachers\u0027 salaries", "label": "schoolteachers\u0027 salaries", "shape": "dot", "size": 5}, {"group": 1, "id": "three rounds of restrictions", "label": "three rounds of restrictions", "shape": "dot", "size": 5}, {"group": 1, "id": "west bank", "label": "west bank", "shape": "dot", "size": 5}, {"group": 1, "id": "america\u2019s sanctions", "label": "america\u2019s sanctions", "shape": "dot", "size": 3}, {"group": 1, "id": "effectiveness", "label": "effectiveness", "shape": "dot", "size": 3}, {"group": 2, "id": "america\u2019s treasury department", "label": "america\u2019s treasury department", "shape": "dot", "size": 4}, {"group": 2, "id": "amman", "label": "amman", "shape": "dot", "size": 9}, {"group": 2, "id": "jordan\u2019s capital", "label": "jordan\u2019s capital", "shape": "dot", "size": 9}, {"group": 1, "id": "annual income", "label": "annual income", "shape": "dot", "size": 4}, {"group": 2, "id": "another firm", "label": "another firm", "shape": "dot", "size": 5}, {"group": 2, "id": "mines near khartoum", "label": "mines near khartoum", "shape": "dot", "size": 5}, {"group": 1, "id": "attacks on gaza", "label": "attacks on gaza", "shape": "dot", "size": 2}, {"group": 2, "id": "binance", "label": "binance", "shape": "dot", "size": 4}, {"group": 1, "id": "board seats", "label": "board seats", "shape": "dot", "size": 4}, {"group": 1, "id": "bosporus", "label": "bosporus", "shape": "dot", "size": 6}, {"group": 1, "id": "hamas financiers", "label": "hamas financiers", "shape": "dot", "size": 3}, {"group": 2, "id": "business deals", "label": "business deals", "shape": "dot", "size": 4}, {"group": 2, "id": "firuze segzin", "label": "firuze segzin", "shape": "dot", "size": 4}, {"group": 2, "id": "hamas affiliation", "label": "hamas affiliation", "shape": "dot", "size": 4}, {"group": 2, "id": "hamas\u2019s annual revenue", "label": "hamas\u2019s annual revenue", "shape": "dot", "size": 5}, {"group": 2, "id": "hamas\u2019s money", "label": "hamas\u2019s money", "shape": "dot", "size": 5}, {"group": 2, "id": "investment office", "label": "investment office", "shape": "dot", "size": 4}, {"group": 2, "id": "investments", "label": "investments", "shape": "dot", "size": 5}, {"group": 2, "id": "israeli officials", "label": "israeli officials", "shape": "dot", "size": 5}, {"group": 2, "id": "istanbul\u2019s fatih neighbourhood", "label": "istanbul\u2019s fatih neighbourhood", "shape": "dot", "size": 4}, {"group": 2, "id": "middle east countries", "label": "middle east countries", "shape": "dot", "size": 4}, {"group": 2, "id": "millions of dollars", "label": "millions of dollars", "shape": "dot", "size": 4}, {"group": 2, "id": "profits from firms", "label": "profits from firms", "shape": "dot", "size": 5}, {"group": 2, "id": "sharjah, uae", "label": "sharjah, uae", "shape": "dot", "size": 5}, {"group": 2, "id": "third firm", "label": "third firm", "shape": "dot", "size": 5}, {"group": 2, "id": "turkish officials", "label": "turkish officials", "shape": "dot", "size": 11}, {"group": 2, "id": "western regulators", "label": "western regulators", "shape": "dot", "size": 5}, {"group": 2, "id": "construction companies", "label": "construction companies", "shape": "dot", "size": 17}, {"group": 2, "id": "crypto market", "label": "crypto market", "shape": "dot", "size": 7}, {"group": 2, "id": "financial action task force", "label": "financial action task force", "shape": "dot", "size": 17}, {"group": 2, "id": "g7 watchdog", "label": "g7 watchdog", "shape": "dot", "size": 7}, {"group": 2, "id": "hamas\u2019s businessmen", "label": "hamas\u2019s businessmen", "shape": "dot", "size": 17}, {"group": 2, "id": "hamas\u2019s cash", "label": "hamas\u2019s cash", "shape": "dot", "size": 7}, {"group": 2, "id": "hamas\u2019s portfolio", "label": "hamas\u2019s portfolio", "shape": "dot", "size": 7}, {"group": 2, "id": "israel and america", "label": "israel and america", "shape": "dot", "size": 7}, {"group": 2, "id": "istanbul commerce university", "label": "istanbul commerce university", "shape": "dot", "size": 7}, {"group": 2, "id": "kuveyt turk", "label": "kuveyt turk", "shape": "dot", "size": 17}, {"group": 2, "id": "mr erdogan", "label": "mr erdogan", "shape": "dot", "size": 7}, {"group": 2, "id": "trend gyo", "label": "trend gyo", "shape": "dot", "size": 17}, {"group": 2, "id": "turkey", "label": "turkey", "shape": "dot", "size": 14}, {"group": 2, "id": "turkey\u0027s banking system", "label": "turkey\u0027s banking system", "shape": "dot", "size": 17}, {"group": 2, "id": "turkey\u0027s biggest banks", "label": "turkey\u0027s biggest banks", "shape": "dot", "size": 7}, {"group": 1, "id": "cooperation with israel", "label": "cooperation with israel", "shape": "dot", "size": 3}, {"group": 1, "id": "turkey\u2019s banks", "label": "turkey\u2019s banks", "shape": "dot", "size": 3}, {"group": 1, "id": "coordination with hamas finance office", "label": "coordination with hamas finance office", "shape": "dot", "size": 3}, {"group": 1, "id": "erdogan\u2019s economic ministry civil servants", "label": "erdogan\u2019s economic ministry civil servants", "shape": "dot", "size": 3}, {"group": 2, "id": "countries", "label": "countries", "shape": "dot", "size": 8}, {"group": 2, "id": "financial hub in amman", "label": "financial hub in amman", "shape": "dot", "size": 8}, {"group": 2, "id": "financiers of hamas", "label": "financiers of hamas", "shape": "dot", "size": 8}, {"group": 2, "id": "geopolitical shifts", "label": "geopolitical shifts", "shape": "dot", "size": 8}, {"group": 2, "id": "hamas finances", "label": "hamas finances", "shape": "dot", "size": 10}, {"group": 2, "id": "hamas office in turkey", "label": "hamas office in turkey", "shape": "dot", "size": 8}, {"group": 2, "id": "hamas\u2019s top brass", "label": "hamas\u2019s top brass", "shape": "dot", "size": 9}, {"group": 2, "id": "individuals under america sanctions", "label": "individuals under america sanctions", "shape": "dot", "size": 9}, {"group": 2, "id": "individuals under sanctions", "label": "individuals under sanctions", "shape": "dot", "size": 8}, {"group": 2, "id": "israeli government", "label": "israeli government", "shape": "dot", "size": 8}, {"group": 2, "id": "palestinian cause", "label": "palestinian cause", "shape": "dot", "size": 8}, {"group": 2, "id": "passports for hamas members", "label": "passports for hamas members", "shape": "dot", "size": 8}, {"group": 2, "id": "politicians of hamas", "label": "politicians of hamas", "shape": "dot", "size": 8}, {"group": 2, "id": "qatar", "label": "qatar", "shape": "dot", "size": 8}, {"group": 2, "id": "shelter", "label": "shelter", "shape": "dot", "size": 8}, {"group": 1, "id": "financial empire", "label": "financial empire", "shape": "dot", "size": 4}, {"group": 1, "id": "financially bulletproof", "label": "financially bulletproof", "shape": "dot", "size": 2}, {"group": 1, "id": "gaza", "label": "gaza", "shape": "dot", "size": 5}, {"group": 1, "id": "hamas\u0027s physical force", "label": "hamas\u0027s physical force", "shape": "dot", "size": 5}, {"group": 1, "id": "gazans", "label": "gazans", "shape": "dot", "size": 3}, {"group": 1, "id": "tragedy", "label": "tragedy", "shape": "dot", "size": 3}, {"group": 1, "id": "hamas income", "label": "hamas income", "shape": "dot", "size": 2}, {"group": 1, "id": "hamas money", "label": "hamas money", "shape": "dot", "size": 3}, {"group": 1, "id": "hamas savings", "label": "hamas savings", "shape": "dot", "size": 2}, {"group": 1, "id": "hamas\u0027s finances", "label": "hamas\u0027s finances", "shape": "dot", "size": 4}, {"group": 1, "id": "hamas\u0027s financial base", "label": "hamas\u0027s financial base", "shape": "dot", "size": 5}, {"group": 3, "id": "improvement risk", "label": "improvement risk", "shape": "dot", "size": 3}, {"group": 1, "id": "israel and allies", "label": "israel and allies", "shape": "dot", "size": 4}, {"group": 1, "id": "istanbul restaurants", "label": "istanbul restaurants", "shape": "dot", "size": 5}, {"group": 1, "id": "money-launderers and mining companies", "label": "money-launderers and mining companies", "shape": "dot", "size": 4}, {"group": 1, "id": "name changes", "label": "name changes", "shape": "dot", "size": 2}, {"group": 1, "id": "overseas countries", "label": "overseas countries", "shape": "dot", "size": 5}, {"group": 1, "id": "palestinians in gaza", "label": "palestinians in gaza", "shape": "dot", "size": 4}, {"group": 1, "id": "pro-palestinian countries", "label": "pro-palestinian countries", "shape": "dot", "size": 3}, {"group": 1, "id": "re-emergence and flourishing", "label": "re-emergence and flourishing", "shape": "dot", "size": 2}, {"group": 1, "id": "risk of hamas growing richer", "label": "risk of hamas growing richer", "shape": "dot", "size": 2}, {"group": 1, "id": "safe location", "label": "safe location", "shape": "dot", "size": 3}, {"group": 1, "id": "sources of power", "label": "sources of power", "shape": "dot", "size": 4}, {"group": 1, "id": "support for hamas bankers", "label": "support for hamas bankers", "shape": "dot", "size": 3}, {"group": 1, "id": "wealth and financial roots", "label": "wealth and financial roots", "shape": "dot", "size": 2}, {"group": 1, "id": "western sanctions", "label": "western sanctions", "shape": "dot", "size": 4}]);
+                  edges = new vis.DataSet([{"from": "$100m a year", "title": "contextual proximity", "to": "american officials", "width": 0.5}, {"from": "$100m a year", "title": "contextual proximity", "to": "goods", "width": 0.5}, {"from": "$100m a year", "title": "contextual proximity", "to": "hamas\u0027s income", "width": 0.5}, {"from": "$100m a year", "title": "contextual proximity", "to": "import taxes", "width": 0.5}, {"from": "$100m a year", "title": "contextual proximity", "to": "israel", "width": 0.75}, {"from": "$100m a year", "title": "The ayatollahs provide $100m a year to Palestinian Islamist groups, mainly in military aid", "to": "ayatollahs", "width": 1.0}, {"from": "$360m each year", "title": "contextual proximity", "to": "american officials", "width": 0.5}, {"from": "$360m each year", "title": "contextual proximity", "to": "goods", "width": 0.5}, {"from": "$360m each year", "title": "contextual proximity", "to": "hamas\u0027s income", "width": 0.5}, {"from": "$360m each year", "title": "contextual proximity", "to": "import taxes", "width": 0.5}, {"from": "$360m each year", "title": "contextual proximity", "to": "israel", "width": 0.75}, {"from": "$750m per year", "title": "contextual proximity", "to": "american officials", "width": 0.5}, {"from": "$750m per year", "title": "contextual proximity", "to": "goods", "width": 0.5}, {"from": "$750m per year", "title": "contextual proximity", "to": "hamas\u0027s income", "width": 0.5}, {"from": "$750m per year", "title": "contextual proximity", "to": "import taxes", "width": 0.5}, {"from": "$750m per year", "title": "contextual proximity", "to": "israel", "width": 0.75}, {"from": "$750m per year", "title": "A much larger income stream comes from abroad and amounts to $750m per year", "to": "larger income stream", "width": 1.0}, {"from": "abroad", "title": "contextual proximity", "to": "doha", "width": 0.5}, {"from": "abroad", "title": "contextual proximity", "to": "hamas", "width": 0.5}, {"from": "abroad", "title": "Hamas\u2019s bankers have lived abroad since 1989,contextual proximity", "to": "hamas\u2019s bankers", "width": 1.5}, {"from": "abroad", "title": "contextual proximity", "to": "istanbul", "width": 0.75}, {"from": "abroad", "title": "contextual proximity", "to": "recep tayyip erdogan", "width": 0.75}, {"from": "abroad", "title": "contextual proximity", "to": "revenue streams", "width": 0.5}, {"from": "abroad", "title": "contextual proximity", "to": "turkish government", "width": 0.75}, {"from": "abroad", "title": "contextual proximity", "to": "zaher jabarin", "width": 0.5}, {"from": "afra mall", "title": "contextual proximity", "to": "companies", "width": 0.5}, {"from": "afra mall", "title": "contextual proximity", "to": "firms", "width": 0.5}, {"from": "afra mall", "title": "contextual proximity", "to": "hamas", "width": 1.75}, {"from": "afra mall", "title": "contextual proximity", "to": "redin", "width": 0.5}, {"from": "afra mall", "title": "One firm built the Afra Mall, Sudan\u2019s first shopping mall.", "to": "sudan", "width": 1.0}, {"from": "algeria, sudan, uae", "title": "contextual proximity", "to": "doha", "width": 0.5}, {"from": "algeria, sudan, uae", "title": "contextual proximity", "to": "hamas", "width": 0.5}, {"from": "algeria, sudan, uae", "title": "contextual proximity", "to": "hamas\u2019s bankers", "width": 0.5}, {"from": "algeria, sudan, uae", "title": "contextual proximity", "to": "istanbul", "width": 0.75}, {"from": "algeria, sudan, uae", "title": "contextual proximity", "to": "recep tayyip erdogan", "width": 0.75}, {"from": "algeria, sudan, uae", "title": "contextual proximity", "to": "revenue streams", "width": 0.5}, {"from": "algeria, sudan, uae", "title": "contextual proximity", "to": "turkish government", "width": 0.75}, {"from": "algeria, sudan, uae", "title": "contextual proximity", "to": "zaher jabarin", "width": 0.5}, {"from": "algeria, sudan, uae", "title": "Hamas\u2019s companies range from Algeria and Sudan to the UAE", "to": "companies of hamas", "width": 1.0}, {"from": "america", "title": "contextual proximity", "to": "doha", "width": 0.5}, {"from": "america", "title": "contextual proximity", "to": "hamas", "width": 1.25}, {"from": "america", "title": "contextual proximity", "to": "hamas\u0027s financial empire", "width": 1.0}, {"from": "america", "title": "contextual proximity", "to": "hamas\u2019s bankers", "width": 0.5}, {"from": "america", "title": "contextual proximity", "to": "israel", "width": 1.0}, {"from": "america", "title": "contextual proximity", "to": "istanbul", "width": 1.0}, {"from": "america", "title": "contextual proximity", "to": "man", "width": 0.5}, {"from": "america", "title": "America pressured Hamas to abandon its financial hub in Amman", "to": "pressure on hamas", "width": 1.0}, {"from": "america", "title": "contextual proximity", "to": "recep tayyip erdogan", "width": 0.75}, {"from": "america", "title": "contextual proximity", "to": "revenue streams", "width": 0.5}, {"from": "america", "title": "contextual proximity", "to": "turkish government", "width": 0.75}, {"from": "america", "title": "contextual proximity", "to": "zaher jabarin", "width": 0.5}, {"from": "american officials", "title": "contextual proximity", "to": "american sanctions", "width": 0.75}, {"from": "american officials", "title": "contextual proximity", "to": "ayatollahs", "width": 0.5}, {"from": "american officials", "title": "contextual proximity", "to": "basic necessities", "width": 0.5}, {"from": "american officials", "title": "contextual proximity", "to": "biggest friendly government", "width": 0.5}, {"from": "american officials", "title": "contextual proximity", "to": "border", "width": 0.5}, {"from": "american officials", "title": "contextual proximity", "to": "companies", "width": 0.5}, {"from": "american officials", "title": "contextual proximity", "to": "egypt", "width": 0.5}, {"from": "american officials", "title": "contextual proximity", "to": "firms", "width": 0.5}, {"from": "american officials", "title": "contextual proximity", "to": "friendly governments", "width": 0.5}, {"from": "american officials", "title": "contextual proximity", "to": "funding for hamas\u0027s stockpile of arms and fuel", "width": 0.5}, {"from": "american officials", "title": "contextual proximity", "to": "funding hamas", "width": 0.5}, {"from": "american officials", "title": "contextual proximity", "to": "goods", "width": 1.0}, {"from": "american officials", "title": "contextual proximity", "to": "goods brought into gaza", "width": 0.5}, {"from": "american officials", "title": "contextual proximity", "to": "hamas", "width": 1.75}, {"from": "american officials", "title": "contextual proximity", "to": "hamas\u0027s financiers", "width": 0.5}, {"from": "american officials", "title": "contextual proximity", "to": "hamas\u0027s income", "width": 1.0}, {"from": "american officials", "title": "contextual proximity", "to": "import taxes", "width": 1.0}, {"from": "american officials", "title": "contextual proximity", "to": "income stream", "width": 0.5}, {"from": "american officials", "title": "contextual proximity", "to": "iran", "width": 0.5}, {"from": "american officials", "title": "contextual proximity", "to": "israel", "width": 1.5}, {"from": "american officials", "title": "contextual proximity", "to": "larger income stream", "width": 0.5}, {"from": "american officials", "title": "contextual proximity", "to": "missiles", "width": 0.5}, {"from": "american officials", "title": "contextual proximity", "to": "money for hamas", "width": 0.5}, {"from": "american officials", "title": "contextual proximity", "to": "movement of goods and people", "width": 0.5}, {"from": "american officials", "title": "contextual proximity", "to": "redin", "width": 0.5}, {"from": "american officials", "title": "contextual proximity", "to": "schoolteachers\u0027 salaries", "width": 0.5}, {"from": "american officials", "title": "contextual proximity", "to": "three rounds of restrictions", "width": 0.5}, {"from": "american officials", "title": "contextual proximity", "to": "west bank", "width": 0.5}, {"from": "american sanctions", "title": "contextual proximity", "to": "companies", "width": 0.5}, {"from": "american sanctions", "title": "contextual proximity", "to": "firms", "width": 0.5}, {"from": "american sanctions", "title": "contextual proximity", "to": "goods", "width": 0.5}, {"from": "american sanctions", "title": "Dodging American sanctions requires ingenuity by Hamas.,contextual proximity", "to": "hamas", "width": 2.75}, {"from": "american sanctions", "title": "contextual proximity", "to": "hamas\u0027s income", "width": 0.5}, {"from": "american sanctions", "title": "contextual proximity", "to": "import taxes", "width": 0.5}, {"from": "american sanctions", "title": "contextual proximity", "to": "israel", "width": 0.75}, {"from": "american sanctions", "title": "contextual proximity", "to": "redin", "width": 0.5}, {"from": "american sanctions", "title": "Hamas\u0027s financiers try to move money without falling prey to America\u0027s sanctions", "to": "hamas\u0027s financiers", "width": 1.0}, {"from": "america\u2019s sanctions", "title": "America\u0027s numerous sanctions are less effective if targets keep cash outside its banking system.", "to": "effectiveness", "width": 1.0}, {"from": "america\u2019s sanctions", "title": "contextual proximity", "to": "hamas", "width": 1.25}, {"from": "america\u2019s sanctions", "title": "contextual proximity", "to": "israel", "width": 1.0}, {"from": "america\u2019s treasury department", "title": "contextual proximity", "to": "companies", "width": 0.5}, {"from": "america\u2019s treasury department", "title": "contextual proximity", "to": "firms", "width": 0.5}, {"from": "america\u2019s treasury department", "title": "contextual proximity", "to": "hamas", "width": 1.75}, {"from": "america\u2019s treasury department", "title": "contextual proximity", "to": "redin", "width": 0.5}, {"from": "amman", "title": "contextual proximity", "to": "doha", "width": 0.5}, {"from": "amman", "title": "contextual proximity", "to": "hamas", "width": 0.5}, {"from": "amman", "title": "contextual proximity", "to": "hamas\u2019s bankers", "width": 0.5}, {"from": "amman", "title": "contextual proximity", "to": "istanbul", "width": 0.75}, {"from": "amman", "title": "Amman is the capital of Jordan", "to": "jordan\u2019s capital", "width": 1.0}, {"from": "amman", "title": "contextual proximity", "to": "recep tayyip erdogan", "width": 0.75}, {"from": "amman", "title": "contextual proximity", "to": "revenue streams", "width": 0.5}, {"from": "amman", "title": "contextual proximity", "to": "turkish government", "width": 0.75}, {"from": "amman", "title": "contextual proximity", "to": "zaher jabarin", "width": 0.5}, {"from": "annual income", "title": "contextual proximity", "to": "hamas", "width": 0.75}, {"from": "annual income", "title": "Hamas\u0027s financial empire is estimated to generate more than $1 billion a year.,contextual proximity", "to": "hamas\u0027s financial empire", "width": 2.0}, {"from": "annual income", "title": "contextual proximity", "to": "israel", "width": 0.75}, {"from": "annual income", "title": "contextual proximity", "to": "man", "width": 0.5}, {"from": "another firm", "title": "contextual proximity", "to": "companies", "width": 0.5}, {"from": "another firm", "title": "contextual proximity", "to": "firms", "width": 0.5}, {"from": "another firm", "title": "contextual proximity", "to": "hamas", "width": 1.75}, {"from": "another firm", "title": "Another firm has mines near Khartoum, the capital of Sudan.", "to": "mines near khartoum", "width": 1.0}, {"from": "another firm", "title": "contextual proximity", "to": "redin", "width": 0.5}, {"from": "attacks on gaza", "title": "contextual proximity", "to": "hamas", "width": 1.25}, {"from": "attacks on gaza", "title": "Israel is stepping up its attacks on Gaza.,contextual proximity", "to": "israel", "width": 2.0}, {"from": "ayatollahs", "title": "contextual proximity", "to": "goods", "width": 0.5}, {"from": "ayatollahs", "title": "contextual proximity", "to": "hamas\u0027s income", "width": 0.5}, {"from": "ayatollahs", "title": "contextual proximity", "to": "import taxes", "width": 0.5}, {"from": "ayatollahs", "title": "contextual proximity", "to": "israel", "width": 0.75}, {"from": "basic necessities", "title": "contextual proximity", "to": "goods", "width": 0.5}, {"from": "basic necessities", "title": "contextual proximity", "to": "hamas\u0027s income", "width": 0.5}, {"from": "basic necessities", "title": "contextual proximity", "to": "import taxes", "width": 0.5}, {"from": "basic necessities", "title": "Israel stops most basic necessities like food and fuel from getting into Gaza,contextual proximity", "to": "israel", "width": 1.75}, {"from": "biggest friendly government", "title": "contextual proximity", "to": "goods", "width": 0.5}, {"from": "biggest friendly government", "title": "contextual proximity", "to": "hamas\u0027s income", "width": 0.5}, {"from": "biggest friendly government", "title": "contextual proximity", "to": "import taxes", "width": 0.5}, {"from": "biggest friendly government", "title": "contextual proximity", "to": "israel", "width": 0.75}, {"from": "biggest friendly government", "title": "Iran is the biggest of the friendly governments funding Hamas", "to": "iran", "width": 1.0}, {"from": "binance", "title": "contextual proximity", "to": "companies", "width": 0.5}, {"from": "binance", "title": "contextual proximity", "to": "firms", "width": 0.5}, {"from": "binance", "title": "contextual proximity", "to": "hamas", "width": 1.75}, {"from": "binance", "title": "contextual proximity", "to": "redin", "width": 0.5}, {"from": "board seats", "title": "contextual proximity", "to": "hamas", "width": 0.75}, {"from": "board seats", "title": "contextual proximity", "to": "hamas\u0027s financial empire", "width": 1.0}, {"from": "board seats", "title": "contextual proximity", "to": "israel", "width": 0.75}, {"from": "board seats", "title": "The sanctioned man describes his various board seats linked to Hamas\u0027s financial activities.,contextual proximity", "to": "man", "width": 1.5}, {"from": "border", "title": "contextual proximity", "to": "goods", "width": 0.5}, {"from": "border", "title": "contextual proximity", "to": "hamas\u0027s income", "width": 0.5}, {"from": "border", "title": "contextual proximity", "to": "import taxes", "width": 0.5}, {"from": "border", "title": "Israel controls the border between Gaza and neighboring territories,contextual proximity", "to": "israel", "width": 1.75}, {"from": "bosporus", "title": "contextual proximity", "to": "hamas", "width": 2.0}, {"from": "bosporus", "title": "contextual proximity", "to": "hamas\u0027s financial empire", "width": 1.0}, {"from": "bosporus", "title": "contextual proximity", "to": "israel", "width": 1.75}, {"from": "bosporus", "title": "contextual proximity", "to": "man", "width": 0.5}, {"from": "bosporus", "title": "Hamas\u2019s financiers enjoy a comfortable life, gazing across the Bosporus.", "to": "hamas financiers", "width": 1.0}, {"from": "bosporus", "title": "The Bosporus is viewed from Istanbul\u2019s glitziest restaurants where Hamas\u2019s financiers gather.", "to": "istanbul", "width": 1.0}, {"from": "business deals", "title": "Many of these companies boast of their business deals.,contextual proximity", "to": "companies", "width": 1.5}, {"from": "business deals", "title": "contextual proximity", "to": "firms", "width": 0.5}, {"from": "business deals", "title": "contextual proximity", "to": "hamas", "width": 1.75}, {"from": "business deals", "title": "contextual proximity", "to": "redin", "width": 0.5}, {"from": "companies", "title": "contextual proximity", "to": "firms", "width": 1.0}, {"from": "companies", "title": "contextual proximity", "to": "firuze segzin", "width": 0.5}, {"from": "companies", "title": "Hamas hides its companies well, making them hard to track financially.,contextual proximity", "to": "hamas", "width": 5.75}, {"from": "companies", "title": "contextual proximity", "to": "hamas affiliation", "width": 0.5}, {"from": "companies", "title": "contextual proximity", "to": "hamas\u2019s annual revenue", "width": 0.5}, {"from": "companies", "title": "contextual proximity", "to": "hamas\u2019s money", "width": 0.5}, {"from": "companies", "title": "contextual proximity", "to": "investment office", "width": 0.5}, {"from": "companies", "title": "contextual proximity", "to": "investments", "width": 0.5}, {"from": "companies", "title": "contextual proximity", "to": "israel", "width": 1.0}, {"from": "companies", "title": "contextual proximity", "to": "israeli officials", "width": 0.5}, {"from": "companies", "title": "contextual proximity", "to": "istanbul\u2019s fatih neighbourhood", "width": 0.5}, {"from": "companies", "title": "contextual proximity", "to": "middle east countries", "width": 0.5}, {"from": "companies", "title": "contextual proximity", "to": "millions of dollars", "width": 0.5}, {"from": "companies", "title": "contextual proximity", "to": "mines near khartoum", "width": 0.5}, {"from": "companies", "title": "contextual proximity", "to": "profits from firms", "width": 0.5}, {"from": "companies", "title": "contextual proximity", "to": "redin", "width": 1.0}, {"from": "companies", "title": "contextual proximity", "to": "revenue streams", "width": 0.5}, {"from": "companies", "title": "contextual proximity", "to": "sharjah, uae", "width": 0.5}, {"from": "companies", "title": "contextual proximity", "to": "sudan", "width": 0.5}, {"from": "companies", "title": "contextual proximity", "to": "third firm", "width": 0.5}, {"from": "companies", "title": "contextual proximity", "to": "turkish officials", "width": 0.5}, {"from": "companies", "title": "contextual proximity", "to": "western regulators", "width": 0.5}, {"from": "companies of hamas", "title": "contextual proximity", "to": "doha", "width": 0.5}, {"from": "companies of hamas", "title": "contextual proximity", "to": "hamas", "width": 0.5}, {"from": "companies of hamas", "title": "contextual proximity", "to": "hamas\u2019s bankers", "width": 0.5}, {"from": "companies of hamas", "title": "contextual proximity", "to": "istanbul", "width": 0.75}, {"from": "companies of hamas", "title": "contextual proximity", "to": "recep tayyip erdogan", "width": 0.75}, {"from": "companies of hamas", "title": "contextual proximity", "to": "revenue streams", "width": 0.5}, {"from": "companies of hamas", "title": "contextual proximity", "to": "turkish government", "width": 0.75}, {"from": "companies of hamas", "title": "contextual proximity", "to": "zaher jabarin", "width": 0.5}, {"from": "construction companies", "title": "contextual proximity", "to": "crypto market", "width": 0.5}, {"from": "construction companies", "title": "contextual proximity", "to": "financial action task force", "width": 1.0}, {"from": "construction companies", "title": "contextual proximity", "to": "g7 watchdog", "width": 0.5}, {"from": "construction companies", "title": "contextual proximity", "to": "hamas", "width": 2.0}, {"from": "construction companies", "title": "contextual proximity", "to": "hamas\u2019s businessmen", "width": 1.0}, {"from": "construction companies", "title": "contextual proximity", "to": "hamas\u2019s cash", "width": 0.5}, {"from": "construction companies", "title": "contextual proximity", "to": "hamas\u2019s portfolio", "width": 0.5}, {"from": "construction companies", "title": "contextual proximity", "to": "israel and america", "width": 0.5}, {"from": "construction companies", "title": "contextual proximity", "to": "istanbul commerce university", "width": 0.5}, {"from": "construction companies", "title": "contextual proximity", "to": "kuveyt turk", "width": 1.0}, {"from": "construction companies", "title": "contextual proximity", "to": "mr erdogan", "width": 0.5}, {"from": "construction companies", "title": "contextual proximity", "to": "trend gyo", "width": 1.0}, {"from": "construction companies", "title": "contextual proximity", "to": "turkey", "width": 0.5}, {"from": "construction companies", "title": "contextual proximity", "to": "turkey\u0027s banking system", "width": 1.5}, {"from": "construction companies", "title": "contextual proximity", "to": "turkey\u0027s biggest banks", "width": 0.5}, {"from": "construction companies", "title": "contextual proximity", "to": "turkish government", "width": 0.5}, {"from": "construction companies", "title": "contextual proximity", "to": "turkish officials", "width": 0.5}, {"from": "cooperation with israel", "title": "contextual proximity", "to": "hamas", "width": 1.25}, {"from": "cooperation with israel", "title": "contextual proximity", "to": "israel", "width": 1.0}, {"from": "cooperation with israel", "title": "Turkey\u2019s banks have been uncooperative, limiting Israel\u2019s efforts.", "to": "turkey\u2019s banks", "width": 1.0}, {"from": "coordination with hamas finance office", "title": "contextual proximity", "to": "hamas", "width": 1.25}, {"from": "coordination with hamas finance office", "title": "contextual proximity", "to": "israel", "width": 1.0}, {"from": "coordination with hamas finance office", "title": "Some civil servants in Erdogan\u2019s economic ministry are rumored to coordinate with Hamas\u2019s finance office.", "to": "erdogan\u2019s economic ministry civil servants", "width": 1.0}, {"from": "countries", "title": "contextual proximity", "to": "doha", "width": 0.5}, {"from": "countries", "title": "contextual proximity", "to": "hamas", "width": 0.5}, {"from": "countries", "title": "contextual proximity", "to": "hamas\u2019s bankers", "width": 0.5}, {"from": "countries", "title": "contextual proximity", "to": "istanbul", "width": 0.75}, {"from": "countries", "title": "contextual proximity", "to": "recep tayyip erdogan", "width": 0.75}, {"from": "countries", "title": "contextual proximity", "to": "revenue streams", "width": 0.5}, {"from": "countries", "title": "contextual proximity", "to": "turkish government", "width": 0.75}, {"from": "countries", "title": "contextual proximity", "to": "zaher jabarin", "width": 0.5}, {"from": "crypto market", "title": "contextual proximity", "to": "financial action task force", "width": 0.5}, {"from": "crypto market", "title": "contextual proximity", "to": "hamas", "width": 1.0}, {"from": "crypto market", "title": "contextual proximity", "to": "hamas\u2019s businessmen", "width": 0.5}, {"from": "crypto market", "title": "contextual proximity", "to": "kuveyt turk", "width": 0.5}, {"from": "crypto market", "title": "contextual proximity", "to": "trend gyo", "width": 0.5}, {"from": "crypto market", "title": "contextual proximity", "to": "turkey\u0027s banking system", "width": 0.75}, {"from": "doha", "title": "contextual proximity", "to": "financial hub in amman", "width": 0.5}, {"from": "doha", "title": "contextual proximity", "to": "financiers of hamas", "width": 0.5}, {"from": "doha", "title": "contextual proximity", "to": "funding hamas", "width": 0.5}, {"from": "doha", "title": "contextual proximity", "to": "geopolitical shifts", "width": 0.5}, {"from": "doha", "title": "contextual proximity", "to": "hamas", "width": 1.0}, {"from": "doha", "title": "contextual proximity", "to": "hamas finances", "width": 0.5}, {"from": "doha", "title": "contextual proximity", "to": "hamas office in turkey", "width": 0.5}, {"from": "doha", "title": "contextual proximity", "to": "hamas\u2019s bankers", "width": 1.0}, {"from": "doha", "title": "contextual proximity", "to": "hamas\u2019s top brass", "width": 0.5}, {"from": "doha", "title": "contextual proximity", "to": "individuals under america sanctions", "width": 0.5}, {"from": "doha", "title": "contextual proximity", "to": "individuals under sanctions", "width": 0.5}, {"from": "doha", "title": "contextual proximity", "to": "israel", "width": 0.5}, {"from": "doha", "title": "contextual proximity", "to": "israeli government", "width": 0.5}, {"from": "doha", "title": "contextual proximity", "to": "istanbul", "width": 1.5}, {"from": "doha", "title": "contextual proximity", "to": "jordan\u2019s capital", "width": 0.5}, {"from": "doha", "title": "contextual proximity", "to": "palestinian cause", "width": 0.5}, {"from": "doha", "title": "contextual proximity", "to": "passports for hamas members", "width": 0.5}, {"from": "doha", "title": "Hamas\u2019s politicians favour Doha,contextual proximity", "to": "politicians of hamas", "width": 1.5}, {"from": "doha", "title": "contextual proximity", "to": "pressure on hamas", "width": 0.5}, {"from": "doha", "title": "contextual proximity", "to": "qatar", "width": 0.5}, {"from": "doha", "title": "contextual proximity", "to": "recep tayyip erdogan", "width": 1.5}, {"from": "doha", "title": "contextual proximity", "to": "revenue streams", "width": 1.0}, {"from": "doha", "title": "contextual proximity", "to": "shelter", "width": 0.5}, {"from": "doha", "title": "contextual proximity", "to": "turkey", "width": 0.5}, {"from": "doha", "title": "contextual proximity", "to": "turkish government", "width": 1.5}, {"from": "doha", "title": "contextual proximity", "to": "zaher jabarin", "width": 1.0}, {"from": "effectiveness", "title": "contextual proximity", "to": "hamas", "width": 1.25}, {"from": "effectiveness", "title": "contextual proximity", "to": "israel", "width": 1.0}, {"from": "egypt", "title": "goods are brought into Gaza from Egypt,contextual proximity", "to": "goods", "width": 1.5}, {"from": "egypt", "title": "contextual proximity", "to": "hamas\u0027s income", "width": 0.5}, {"from": "egypt", "title": "contextual proximity", "to": "import taxes", "width": 0.5}, {"from": "egypt", "title": "contextual proximity", "to": "israel", "width": 0.75}, {"from": "erdogan\u2019s economic ministry civil servants", "title": "contextual proximity", "to": "hamas", "width": 1.25}, {"from": "erdogan\u2019s economic ministry civil servants", "title": "contextual proximity", "to": "israel", "width": 1.0}, {"from": "financial action task force", "title": "contextual proximity", "to": "g7 watchdog", "width": 0.5}, {"from": "financial action task force", "title": "contextual proximity", "to": "hamas", "width": 2.0}, {"from": "financial action task force", "title": "contextual proximity", "to": "hamas\u2019s businessmen", "width": 1.0}, {"from": "financial action task force", "title": "contextual proximity", "to": "hamas\u2019s cash", "width": 0.5}, {"from": "financial action task force", "title": "contextual proximity", "to": "hamas\u2019s portfolio", "width": 0.5}, {"from": "financial action task force", "title": "contextual proximity", "to": "israel and america", "width": 0.5}, {"from": "financial action task force", "title": "contextual proximity", "to": "istanbul commerce university", "width": 0.5}, {"from": "financial action task force", "title": "contextual proximity", "to": "kuveyt turk", "width": 1.0}, {"from": "financial action task force", "title": "contextual proximity", "to": "mr erdogan", "width": 0.5}, {"from": "financial action task force", "title": "contextual proximity", "to": "trend gyo", "width": 1.0}, {"from": "financial action task force", "title": "contextual proximity", "to": "turkey", "width": 0.5}, {"from": "financial action task force", "title": "contextual proximity", "to": "turkey\u0027s banking system", "width": 1.5}, {"from": "financial action task force", "title": "contextual proximity", "to": "turkey\u0027s biggest banks", "width": 0.5}, {"from": "financial action task force", "title": "contextual proximity", "to": "turkish government", "width": 0.5}, {"from": "financial action task force", "title": "contextual proximity", "to": "turkish officials", "width": 0.5}, {"from": "financial empire", "title": "Hamas has a sprawling financial empire that supports its activities.,contextual proximity", "to": "hamas", "width": 1.75}, {"from": "financial empire", "title": "contextual proximity", "to": "hamas\u0027s financial empire", "width": 1.0}, {"from": "financial empire", "title": "contextual proximity", "to": "israel", "width": 0.75}, {"from": "financial empire", "title": "contextual proximity", "to": "man", "width": 0.5}, {"from": "financial hub in amman", "title": "Hamas abandoned its first financial hub in Amman under pressure from America,contextual proximity", "to": "hamas", "width": 1.5}, {"from": "financial hub in amman", "title": "contextual proximity", "to": "hamas\u2019s bankers", "width": 0.5}, {"from": "financial hub in amman", "title": "contextual proximity", "to": "istanbul", "width": 0.75}, {"from": "financial hub in amman", "title": "contextual proximity", "to": "recep tayyip erdogan", "width": 0.75}, {"from": "financial hub in amman", "title": "contextual proximity", "to": "revenue streams", "width": 0.5}, {"from": "financial hub in amman", "title": "contextual proximity", "to": "turkish government", "width": 0.75}, {"from": "financial hub in amman", "title": "contextual proximity", "to": "zaher jabarin", "width": 0.5}, {"from": "financially bulletproof", "title": "Hamas seems financially bulletproof, meaning it has strong protection against financial damage.,contextual proximity", "to": "hamas", "width": 2.25}, {"from": "financially bulletproof", "title": "contextual proximity", "to": "israel", "width": 1.0}, {"from": "financiers of hamas", "title": "contextual proximity", "to": "hamas", "width": 0.5}, {"from": "financiers of hamas", "title": "contextual proximity", "to": "hamas\u2019s bankers", "width": 0.5}, {"from": "financiers of hamas", "title": "contextual proximity", "to": "istanbul", "width": 0.75}, {"from": "financiers of hamas", "title": "contextual proximity", "to": "recep tayyip erdogan", "width": 0.75}, {"from": "financiers of hamas", "title": "contextual proximity", "to": "revenue streams", "width": 0.5}, {"from": "financiers of hamas", "title": "contextual proximity", "to": "turkish government", "width": 0.75}, {"from": "financiers of hamas", "title": "contextual proximity", "to": "zaher jabarin", "width": 0.5}, {"from": "firms", "title": "contextual proximity", "to": "firuze segzin", "width": 0.5}, {"from": "firms", "title": "contextual proximity", "to": "hamas", "width": 3.5}, {"from": "firms", "title": "contextual proximity", "to": "hamas affiliation", "width": 0.5}, {"from": "firms", "title": "contextual proximity", "to": "hamas\u2019s annual revenue", "width": 0.5}, {"from": "firms", "title": "contextual proximity", "to": "hamas\u2019s money", "width": 0.5}, {"from": "firms", "title": "contextual proximity", "to": "investment office", "width": 0.5}, {"from": "firms", "title": "contextual proximity", "to": "investments", "width": 0.5}, {"from": "firms", "title": "contextual proximity", "to": "israeli officials", "width": 0.5}, {"from": "firms", "title": "contextual proximity", "to": "istanbul\u2019s fatih neighbourhood", "width": 0.5}, {"from": "firms", "title": "contextual proximity", "to": "middle east countries", "width": 0.5}, {"from": "firms", "title": "contextual proximity", "to": "millions of dollars", "width": 0.5}, {"from": "firms", "title": "contextual proximity", "to": "mines near khartoum", "width": 0.5}, {"from": "firms", "title": "contextual proximity", "to": "profits from firms", "width": 0.5}, {"from": "firms", "title": "contextual proximity", "to": "redin", "width": 1.0}, {"from": "firms", "title": "contextual proximity", "to": "revenue streams", "width": 0.5}, {"from": "firms", "title": "contextual proximity", "to": "sharjah, uae", "width": 0.5}, {"from": "firms", "title": "contextual proximity", "to": "sudan", "width": 0.5}, {"from": "firms", "title": "contextual proximity", "to": "third firm", "width": 0.5}, {"from": "firms", "title": "contextual proximity", "to": "turkish officials", "width": 0.5}, {"from": "firms", "title": "contextual proximity", "to": "western regulators", "width": 0.5}, {"from": "firuze segzin", "title": "contextual proximity", "to": "hamas", "width": 1.75}, {"from": "firuze segzin", "title": "contextual proximity", "to": "redin", "width": 0.5}, {"from": "friendly governments", "title": "contextual proximity", "to": "goods", "width": 0.5}, {"from": "friendly governments", "title": "contextual proximity", "to": "hamas\u0027s income", "width": 0.5}, {"from": "friendly governments", "title": "contextual proximity", "to": "import taxes", "width": 0.5}, {"from": "friendly governments", "title": "contextual proximity", "to": "israel", "width": 0.75}, {"from": "friendly governments", "title": "Some money for Hamas comes from friendly governments abroad", "to": "money for hamas", "width": 1.0}, {"from": "funding for hamas\u0027s stockpile of arms and fuel", "title": "contextual proximity", "to": "goods", "width": 0.5}, {"from": "funding for hamas\u0027s stockpile of arms and fuel", "title": "contextual proximity", "to": "hamas\u0027s income", "width": 0.5}, {"from": "funding for hamas\u0027s stockpile of arms and fuel", "title": "contextual proximity", "to": "import taxes", "width": 0.5}, {"from": "funding for hamas\u0027s stockpile of arms and fuel", "title": "contextual proximity", "to": "israel", "width": 0.75}, {"from": "funding for hamas\u0027s stockpile of arms and fuel", "title": "The income stream from abroad is the main source of funding for Hamas\u0027s stockpile of arms and fuel", "to": "income stream", "width": 1.0}, {"from": "funding hamas", "title": "contextual proximity", "to": "goods", "width": 0.5}, {"from": "funding hamas", "title": "contextual proximity", "to": "hamas", "width": 0.5}, {"from": "funding hamas", "title": "contextual proximity", "to": "hamas\u0027s income", "width": 0.5}, {"from": "funding hamas", "title": "contextual proximity", "to": "hamas\u2019s bankers", "width": 0.5}, {"from": "funding hamas", "title": "contextual proximity", "to": "import taxes", "width": 0.5}, {"from": "funding hamas", "title": "contextual proximity", "to": "israel", "width": 1.0}, {"from": "funding hamas", "title": "contextual proximity", "to": "istanbul", "width": 0.75}, {"from": "funding hamas", "title": "contextual proximity", "to": "recep tayyip erdogan", "width": 0.75}, {"from": "funding hamas", "title": "contextual proximity", "to": "revenue streams", "width": 0.5}, {"from": "funding hamas", "title": "contextual proximity", "to": "turkish government", "width": 0.75}, {"from": "funding hamas", "title": "contextual proximity", "to": "zaher jabarin", "width": 0.5}, {"from": "funding hamas", "title": "Several individuals under America sanctions are accused of funding Hamas", "to": "individuals under america sanctions", "width": 1.0}, {"from": "g7 watchdog", "title": "contextual proximity", "to": "hamas", "width": 1.0}, {"from": "g7 watchdog", "title": "contextual proximity", "to": "hamas\u2019s businessmen", "width": 0.5}, {"from": "g7 watchdog", "title": "contextual proximity", "to": "kuveyt turk", "width": 0.5}, {"from": "g7 watchdog", "title": "contextual proximity", "to": "trend gyo", "width": 0.5}, {"from": "g7 watchdog", "title": "contextual proximity", "to": "turkey\u0027s banking system", "width": 0.75}, {"from": "gaza", "title": "contextual proximity", "to": "hamas", "width": 0.75}, {"from": "gaza", "title": "contextual proximity", "to": "hamas\u0027s financial empire", "width": 1.0}, {"from": "gaza", "title": "contextual proximity", "to": "israel", "width": 0.75}, {"from": "gaza", "title": "contextual proximity", "to": "man", "width": 0.5}, {"from": "gaza", "title": "Hamas exercises physical force inside Gaza.", "to": "hamas\u0027s physical force", "width": 1.0}, {"from": "gazans", "title": "contextual proximity", "to": "hamas", "width": 1.25}, {"from": "gazans", "title": "contextual proximity", "to": "israel", "width": 1.0}, {"from": "gazans", "title": "Gazans have been plunged into tragedy.", "to": "tragedy", "width": 1.0}, {"from": "geopolitical shifts", "title": "contextual proximity", "to": "hamas", "width": 0.5}, {"from": "geopolitical shifts", "title": "contextual proximity", "to": "hamas\u2019s bankers", "width": 0.5}, {"from": "geopolitical shifts", "title": "contextual proximity", "to": "istanbul", "width": 0.75}, {"from": "geopolitical shifts", "title": "contextual proximity", "to": "recep tayyip erdogan", "width": 0.75}, {"from": "geopolitical shifts", "title": "contextual proximity", "to": "revenue streams", "width": 0.5}, {"from": "geopolitical shifts", "title": "contextual proximity", "to": "turkish government", "width": 0.75}, {"from": "geopolitical shifts", "title": "contextual proximity", "to": "zaher jabarin", "width": 0.5}, {"from": "goods", "title": "contextual proximity", "to": "goods brought into gaza", "width": 0.5}, {"from": "goods", "title": "contextual proximity", "to": "hamas\u0027s financiers", "width": 0.5}, {"from": "goods", "title": "contextual proximity", "to": "hamas\u0027s income", "width": 1.0}, {"from": "goods", "title": "contextual proximity", "to": "import taxes", "width": 1.0}, {"from": "goods", "title": "contextual proximity", "to": "income stream", "width": 0.5}, {"from": "goods", "title": "contextual proximity", "to": "iran", "width": 0.5}, {"from": "goods", "title": "contextual proximity", "to": "israel", "width": 1.5}, {"from": "goods", "title": "contextual proximity", "to": "larger income stream", "width": 0.5}, {"from": "goods", "title": "contextual proximity", "to": "missiles", "width": 0.5}, {"from": "goods", "title": "contextual proximity", "to": "money for hamas", "width": 0.5}, {"from": "goods", "title": "contextual proximity", "to": "movement of goods and people", "width": 0.5}, {"from": "goods", "title": "contextual proximity", "to": "schoolteachers\u0027 salaries", "width": 0.5}, {"from": "goods", "title": "contextual proximity", "to": "three rounds of restrictions", "width": 0.5}, {"from": "goods", "title": "contextual proximity", "to": "west bank", "width": 0.5}, {"from": "goods brought into gaza", "title": "contextual proximity", "to": "hamas\u0027s income", "width": 0.5}, {"from": "goods brought into gaza", "title": "import taxes are on goods brought into Gaza from the West Bank or Egypt,contextual proximity", "to": "import taxes", "width": 1.5}, {"from": "goods brought into gaza", "title": "contextual proximity", "to": "israel", "width": 0.75}, {"from": "hamas", "title": "contextual proximity", "to": "hamas affiliation", "width": 1.75}, {"from": "hamas", "title": "contextual proximity", "to": "hamas finances", "width": 1.75}, {"from": "hamas", "title": "contextual proximity", "to": "hamas financiers", "width": 1.25}, {"from": "hamas", "title": "contextual proximity", "to": "hamas income", "width": 1.25}, {"from": "hamas", "title": "contextual proximity", "to": "hamas money", "width": 1.25}, {"from": "hamas", "title": "contextual proximity", "to": "hamas office in turkey", "width": 0.5}, {"from": "hamas", "title": "contextual proximity", "to": "hamas savings", "width": 1.25}, {"from": "hamas", "title": "contextual proximity", "to": "hamas\u0027s finances", "width": 0.75}, {"from": "hamas", "title": "contextual proximity", "to": "hamas\u0027s financial base", "width": 0.75}, {"from": "hamas", "title": "contextual proximity", "to": "hamas\u0027s financial empire", "width": 3.0}, {"from": "hamas", "title": "contextual proximity", "to": "hamas\u0027s financiers", "width": 0.75}, {"from": "hamas", "title": "contextual proximity", "to": "hamas\u0027s physical force", "width": 0.75}, {"from": "hamas", "title": "contextual proximity", "to": "hamas\u2019s annual revenue", "width": 1.75}, {"from": "hamas", "title": "contextual proximity", "to": "hamas\u2019s bankers", "width": 1.0}, {"from": "hamas", "title": "Hamas\u2019s businessmen benefit the most from Turkey\u2019s tacit approval.,contextual proximity", "to": "hamas\u2019s businessmen", "width": 3.0}, {"from": "hamas", "title": "contextual proximity", "to": "hamas\u2019s cash", "width": 1.0}, {"from": "hamas", "title": "contextual proximity", "to": "hamas\u2019s money", "width": 1.75}, {"from": "hamas", "title": "contextual proximity", "to": "hamas\u2019s portfolio", "width": 1.0}, {"from": "hamas", "title": "contextual proximity", "to": "hamas\u2019s top brass", "width": 0.5}, {"from": "hamas", "title": "contextual proximity", "to": "improvement risk", "width": 1.25}, {"from": "hamas", "title": "contextual proximity", "to": "individuals under america sanctions", "width": 0.5}, {"from": "hamas", "title": "contextual proximity", "to": "individuals under sanctions", "width": 0.5}, {"from": "hamas", "title": "contextual proximity", "to": "investment office", "width": 1.75}, {"from": "hamas", "title": "contextual proximity", "to": "investments", "width": 1.75}, {"from": "hamas", "title": "Israel\u0027s declared goal is to destroy Hamas for good.,contextual proximity", "to": "israel", "width": 8.75}, {"from": "hamas", "title": "contextual proximity", "to": "israel and allies", "width": 0.75}, {"from": "hamas", "title": "contextual proximity", "to": "israel and america", "width": 1.0}, {"from": "hamas", "title": "contextual proximity", "to": "israeli government", "width": 0.5}, {"from": "hamas", "title": "contextual proximity", "to": "israeli officials", "width": 1.75}, {"from": "hamas", "title": "contextual proximity", "to": "istanbul", "width": 2.25}, {"from": "hamas", "title": "contextual proximity", "to": "istanbul commerce university", "width": 1.0}, {"from": "hamas", "title": "contextual proximity", "to": "istanbul restaurants", "width": 0.75}, {"from": "hamas", "title": "contextual proximity", "to": "istanbul\u2019s fatih neighbourhood", "width": 1.75}, {"from": "hamas", "title": "contextual proximity", "to": "jordan\u2019s capital", "width": 0.5}, {"from": "hamas", "title": "contextual proximity", "to": "kuveyt turk", "width": 2.0}, {"from": "hamas", "title": "contextual proximity", "to": "man", "width": 1.5}, {"from": "hamas", "title": "contextual proximity", "to": "middle east countries", "width": 1.75}, {"from": "hamas", "title": "Millions of dollars flow to Hamas through crypto markets.,contextual proximity", "to": "millions of dollars", "width": 2.75}, {"from": "hamas", "title": "contextual proximity", "to": "mines near khartoum", "width": 1.75}, {"from": "hamas", "title": "contextual proximity", "to": "money-launderers and mining companies", "width": 0.75}, {"from": "hamas", "title": "contextual proximity", "to": "mr erdogan", "width": 1.0}, {"from": "hamas", "title": "contextual proximity", "to": "name changes", "width": 1.25}, {"from": "hamas", "title": "contextual proximity", "to": "overseas countries", "width": 0.75}, {"from": "hamas", "title": "contextual proximity", "to": "palestinian cause", "width": 0.5}, {"from": "hamas", "title": "contextual proximity", "to": "palestinians in gaza", "width": 0.75}, {"from": "hamas", "title": "contextual proximity", "to": "passports for hamas members", "width": 0.5}, {"from": "hamas", "title": "contextual proximity", "to": "politicians of hamas", "width": 0.5}, {"from": "hamas", "title": "contextual proximity", "to": "pressure on hamas", "width": 0.5}, {"from": "hamas", "title": "contextual proximity", "to": "pro-palestinian countries", "width": 1.25}, {"from": "hamas", "title": "contextual proximity", "to": "profits from firms", "width": 1.75}, {"from": "hamas", "title": "contextual proximity", "to": "qatar", "width": 0.5}, {"from": "hamas", "title": "contextual proximity", "to": "re-emergence and flourishing", "width": 1.25}, {"from": "hamas", "title": "contextual proximity", "to": "recep tayyip erdogan", "width": 1.5}, {"from": "hamas", "title": "contextual proximity", "to": "redin", "width": 3.5}, {"from": "hamas", "title": "revenue streams are flowing to Hamas,contextual proximity", "to": "revenue streams", "width": 3.75}, {"from": "hamas", "title": "contextual proximity", "to": "risk of hamas growing richer", "width": 1.25}, {"from": "hamas", "title": "contextual proximity", "to": "safe location", "width": 1.25}, {"from": "hamas", "title": "contextual proximity", "to": "sharjah, uae", "width": 1.75}, {"from": "hamas", "title": "contextual proximity", "to": "shelter", "width": 0.5}, {"from": "hamas", "title": "contextual proximity", "to": "sources of power", "width": 0.75}, {"from": "hamas", "title": "contextual proximity", "to": "sudan", "width": 1.75}, {"from": "hamas", "title": "contextual proximity", "to": "support for hamas bankers", "width": 1.25}, {"from": "hamas", "title": "contextual proximity", "to": "third firm", "width": 1.75}, {"from": "hamas", "title": "contextual proximity", "to": "tragedy", "width": 1.25}, {"from": "hamas", "title": "Trend GYO is an Istanbul-listed firm sanctioned by America for funnelling funds to Hamas.,contextual proximity", "to": "trend gyo", "width": 3.0}, {"from": "hamas", "title": "contextual proximity", "to": "turkey", "width": 1.5}, {"from": "hamas", "title": "Turkey\u0027s banking system helps Hamas dodge American sanctions by conducting complex transactions worldwide.,contextual proximity", "to": "turkey\u0027s banking system", "width": 4.0}, {"from": "hamas", "title": "contextual proximity", "to": "turkey\u0027s biggest banks", "width": 1.0}, {"from": "hamas", "title": "contextual proximity", "to": "turkey\u2019s banks", "width": 1.25}, {"from": "hamas", "title": "contextual proximity", "to": "turkish government", "width": 2.5}, {"from": "hamas", "title": "Turkish officials protest that they are not directly lining Hamas\u2019s pockets despite the financial activities.,contextual proximity", "to": "turkish officials", "width": 3.75}, {"from": "hamas", "title": "contextual proximity", "to": "wealth and financial roots", "width": 1.25}, {"from": "hamas", "title": "contextual proximity", "to": "western regulators", "width": 1.75}, {"from": "hamas", "title": "contextual proximity", "to": "western sanctions", "width": 0.75}, {"from": "hamas", "title": "contextual proximity", "to": "zaher jabarin", "width": 1.0}, {"from": "hamas affiliation", "title": "contextual proximity", "to": "redin", "width": 0.5}, {"from": "hamas finances", "title": "contextual proximity", "to": "hamas\u2019s bankers", "width": 0.5}, {"from": "hamas finances", "title": "There is a risk that Hamas\u2019s finances will improve despite the conflict.", "to": "improvement risk", "width": 1.0}, {"from": "hamas finances", "title": "contextual proximity", "to": "israel", "width": 1.25}, {"from": "hamas finances", "title": "contextual proximity", "to": "istanbul", "width": 0.75}, {"from": "hamas finances", "title": "contextual proximity", "to": "recep tayyip erdogan", "width": 0.75}, {"from": "hamas finances", "title": "contextual proximity", "to": "revenue streams", "width": 0.5}, {"from": "hamas finances", "title": "contextual proximity", "to": "turkish government", "width": 0.75}, {"from": "hamas finances", "title": "Zaher Jabarin is accused by Israel of running Hamas\u2019s finances,contextual proximity", "to": "zaher jabarin", "width": 1.5}, {"from": "hamas financiers", "title": "contextual proximity", "to": "israel", "width": 1.0}, {"from": "hamas income", "title": "Israel has managed to inflict little harm on Hamas\u0027s income.,contextual proximity", "to": "israel", "width": 2.0}, {"from": "hamas money", "title": "contextual proximity", "to": "israel", "width": 1.0}, {"from": "hamas money", "title": "Hamas\u2019s money is safely ensconced elsewhere, away from the conflict zone.", "to": "safe location", "width": 1.0}, {"from": "hamas office in turkey", "title": "contextual proximity", "to": "hamas\u2019s bankers", "width": 0.5}, {"from": "hamas office in turkey", "title": "contextual proximity", "to": "istanbul", "width": 0.75}, {"from": "hamas office in turkey", "title": "contextual proximity", "to": "recep tayyip erdogan", "width": 0.75}, {"from": "hamas office in turkey", "title": "contextual proximity", "to": "revenue streams", "width": 0.5}, {"from": "hamas office in turkey", "title": "contextual proximity", "to": "turkish government", "width": 0.75}, {"from": "hamas office in turkey", "title": "contextual proximity", "to": "zaher jabarin", "width": 0.5}, {"from": "hamas savings", "title": "Israel has managed to inflict little harm on Hamas\u0027s savings.,contextual proximity", "to": "israel", "width": 2.0}, {"from": "hamas\u0027s finances", "title": "contextual proximity", "to": "hamas\u0027s financial empire", "width": 1.0}, {"from": "hamas\u0027s finances", "title": "Israel is powerless to dismantle Hamas\u0027s finances.,contextual proximity", "to": "israel", "width": 1.75}, {"from": "hamas\u0027s finances", "title": "contextual proximity", "to": "man", "width": 0.5}, {"from": "hamas\u0027s financial base", "title": "contextual proximity", "to": "hamas\u0027s financial empire", "width": 1.0}, {"from": "hamas\u0027s financial base", "title": "contextual proximity", "to": "israel", "width": 0.75}, {"from": "hamas\u0027s financial base", "title": "contextual proximity", "to": "man", "width": 0.5}, {"from": "hamas\u0027s financial base", "title": "Hamas\u0027s financial base is primarily located overseas in friendly countries, not in Gaza.", "to": "overseas countries", "width": 1.0}, {"from": "hamas\u0027s financial empire", "title": "contextual proximity", "to": "hamas\u0027s financiers", "width": 1.0}, {"from": "hamas\u0027s financial empire", "title": "contextual proximity", "to": "hamas\u0027s physical force", "width": 1.0}, {"from": "hamas\u0027s financial empire", "title": "contextual proximity", "to": "israel", "width": 3.0}, {"from": "hamas\u0027s financial empire", "title": "Hamas\u0027s financial empire may be out of reach for Israel and its allies.,contextual proximity", "to": "israel and allies", "width": 2.0}, {"from": "hamas\u0027s financial empire", "title": "contextual proximity", "to": "istanbul", "width": 1.0}, {"from": "hamas\u0027s financial empire", "title": "contextual proximity", "to": "istanbul restaurants", "width": 1.0}, {"from": "hamas\u0027s financial empire", "title": "contextual proximity", "to": "man", "width": 2.0}, {"from": "hamas\u0027s financial empire", "title": "contextual proximity", "to": "money-launderers and mining companies", "width": 1.0}, {"from": "hamas\u0027s financial empire", "title": "contextual proximity", "to": "overseas countries", "width": 1.0}, {"from": "hamas\u0027s financial empire", "title": "contextual proximity", "to": "palestinians in gaza", "width": 1.0}, {"from": "hamas\u0027s financial empire", "title": "contextual proximity", "to": "sources of power", "width": 1.0}, {"from": "hamas\u0027s financial empire", "title": "contextual proximity", "to": "western sanctions", "width": 1.0}, {"from": "hamas\u0027s financiers", "title": "contextual proximity", "to": "hamas\u0027s income", "width": 0.5}, {"from": "hamas\u0027s financiers", "title": "contextual proximity", "to": "import taxes", "width": 0.5}, {"from": "hamas\u0027s financiers", "title": "contextual proximity", "to": "israel", "width": 1.5}, {"from": "hamas\u0027s financiers", "title": "Hamas\u2019s financiers frequent some of Istanbul\u2019s glitziest restaurants.", "to": "istanbul restaurants", "width": 1.0}, {"from": "hamas\u0027s financiers", "title": "contextual proximity", "to": "man", "width": 0.5}, {"from": "hamas\u0027s income", "title": "contextual proximity", "to": "import taxes", "width": 1.0}, {"from": "hamas\u0027s income", "title": "contextual proximity", "to": "income stream", "width": 0.5}, {"from": "hamas\u0027s income", "title": "contextual proximity", "to": "iran", "width": 0.5}, {"from": "hamas\u0027s income", "title": "contextual proximity", "to": "israel", "width": 1.5}, {"from": "hamas\u0027s income", "title": "contextual proximity", "to": "larger income stream", "width": 0.5}, {"from": "hamas\u0027s income", "title": "contextual proximity", "to": "missiles", "width": 0.5}, {"from": "hamas\u0027s income", "title": "contextual proximity", "to": "money for hamas", "width": 0.5}, {"from": "hamas\u0027s income", "title": "contextual proximity", "to": "movement of goods and people", "width": 0.5}, {"from": "hamas\u0027s income", "title": "contextual proximity", "to": "schoolteachers\u0027 salaries", "width": 0.5}, {"from": "hamas\u0027s income", "title": "contextual proximity", "to": "three rounds of restrictions", "width": 0.5}, {"from": "hamas\u0027s income", "title": "contextual proximity", "to": "west bank", "width": 0.5}, {"from": "hamas\u0027s physical force", "title": "contextual proximity", "to": "israel", "width": 0.75}, {"from": "hamas\u0027s physical force", "title": "contextual proximity", "to": "man", "width": 0.5}, {"from": "hamas\u2019s annual revenue", "title": "contextual proximity", "to": "redin", "width": 0.5}, {"from": "hamas\u2019s annual revenue", "title": "Israeli officials say Hamas earns at least $500m a year from investments.", "to": "israeli officials", "width": 1.0}, {"from": "hamas\u2019s bankers", "title": "contextual proximity", "to": "hamas\u2019s top brass", "width": 0.5}, {"from": "hamas\u2019s bankers", "title": "contextual proximity", "to": "individuals under america sanctions", "width": 0.5}, {"from": "hamas\u2019s bankers", "title": "contextual proximity", "to": "individuals under sanctions", "width": 0.5}, {"from": "hamas\u2019s bankers", "title": "contextual proximity", "to": "israel", "width": 0.5}, {"from": "hamas\u2019s bankers", "title": "contextual proximity", "to": "israeli government", "width": 0.5}, {"from": "hamas\u2019s bankers", "title": "contextual proximity", "to": "istanbul", "width": 1.5}, {"from": "hamas\u2019s bankers", "title": "contextual proximity", "to": "jordan\u2019s capital", "width": 0.5}, {"from": "hamas\u2019s bankers", "title": "contextual proximity", "to": "palestinian cause", "width": 0.5}, {"from": "hamas\u2019s bankers", "title": "contextual proximity", "to": "passports for hamas members", "width": 0.5}, {"from": "hamas\u2019s bankers", "title": "contextual proximity", "to": "politicians of hamas", "width": 0.5}, {"from": "hamas\u2019s bankers", "title": "contextual proximity", "to": "pressure on hamas", "width": 0.5}, {"from": "hamas\u2019s bankers", "title": "contextual proximity", "to": "qatar", "width": 0.5}, {"from": "hamas\u2019s bankers", "title": "contextual proximity", "to": "recep tayyip erdogan", "width": 1.5}, {"from": "hamas\u2019s bankers", "title": "contextual proximity", "to": "revenue streams", "width": 1.0}, {"from": "hamas\u2019s bankers", "title": "contextual proximity", "to": "shelter", "width": 0.5}, {"from": "hamas\u2019s bankers", "title": "contextual proximity", "to": "turkey", "width": 0.5}, {"from": "hamas\u2019s bankers", "title": "contextual proximity", "to": "turkish government", "width": 1.5}, {"from": "hamas\u2019s bankers", "title": "contextual proximity", "to": "zaher jabarin", "width": 1.0}, {"from": "hamas\u2019s businessmen", "title": "contextual proximity", "to": "hamas\u2019s cash", "width": 0.5}, {"from": "hamas\u2019s businessmen", "title": "contextual proximity", "to": "hamas\u2019s portfolio", "width": 0.5}, {"from": "hamas\u2019s businessmen", "title": "contextual proximity", "to": "israel and america", "width": 0.5}, {"from": "hamas\u2019s businessmen", "title": "contextual proximity", "to": "istanbul commerce university", "width": 0.5}, {"from": "hamas\u2019s businessmen", "title": "contextual proximity", "to": "kuveyt turk", "width": 1.0}, {"from": "hamas\u2019s businessmen", "title": "contextual proximity", "to": "mr erdogan", "width": 0.5}, {"from": "hamas\u2019s businessmen", "title": "contextual proximity", "to": "trend gyo", "width": 1.0}, {"from": "hamas\u2019s businessmen", "title": "contextual proximity", "to": "turkey", "width": 0.5}, {"from": "hamas\u2019s businessmen", "title": "contextual proximity", "to": "turkey\u0027s banking system", "width": 1.5}, {"from": "hamas\u2019s businessmen", "title": "contextual proximity", "to": "turkey\u0027s biggest banks", "width": 0.5}, {"from": "hamas\u2019s businessmen", "title": "Turkish government\u2019s tacit approval \u2018opens doors and makes things smooth in business\u2019 for Hamas\u2019s businessmen.,contextual proximity", "to": "turkish government", "width": 1.5}, {"from": "hamas\u2019s businessmen", "title": "contextual proximity", "to": "turkish officials", "width": 0.5}, {"from": "hamas\u2019s cash", "title": "contextual proximity", "to": "kuveyt turk", "width": 0.5}, {"from": "hamas\u2019s cash", "title": "contextual proximity", "to": "trend gyo", "width": 0.5}, {"from": "hamas\u2019s cash", "title": "contextual proximity", "to": "turkey\u0027s banking system", "width": 0.75}, {"from": "hamas\u2019s money", "title": "The lion\u2019s share of Hamas\u2019s money comes from its investments.", "to": "investments", "width": 1.0}, {"from": "hamas\u2019s money", "title": "contextual proximity", "to": "redin", "width": 0.5}, {"from": "hamas\u2019s portfolio", "title": "contextual proximity", "to": "kuveyt turk", "width": 0.5}, {"from": "hamas\u2019s portfolio", "title": "contextual proximity", "to": "trend gyo", "width": 0.5}, {"from": "hamas\u2019s portfolio", "title": "contextual proximity", "to": "turkey\u0027s banking system", "width": 0.75}, {"from": "hamas\u2019s top brass", "title": "contextual proximity", "to": "istanbul", "width": 0.75}, {"from": "hamas\u2019s top brass", "title": "contextual proximity", "to": "recep tayyip erdogan", "width": 0.75}, {"from": "hamas\u2019s top brass", "title": "contextual proximity", "to": "revenue streams", "width": 0.5}, {"from": "hamas\u2019s top brass", "title": "contextual proximity", "to": "turkish government", "width": 0.75}, {"from": "hamas\u2019s top brass", "title": "contextual proximity", "to": "zaher jabarin", "width": 0.5}, {"from": "hamas\u2019s top brass", "title": "Israel arrested a handful of Hamas\u2019s top brass in Gaza and the West Bank in 1989", "to": "israel", "width": 1.0}, {"from": "import taxes", "title": "contextual proximity", "to": "income stream", "width": 0.5}, {"from": "import taxes", "title": "contextual proximity", "to": "iran", "width": 0.5}, {"from": "import taxes", "title": "contextual proximity", "to": "israel", "width": 1.5}, {"from": "import taxes", "title": "contextual proximity", "to": "larger income stream", "width": 0.5}, {"from": "import taxes", "title": "contextual proximity", "to": "missiles", "width": 0.5}, {"from": "import taxes", "title": "contextual proximity", "to": "money for hamas", "width": 0.5}, {"from": "import taxes", "title": "contextual proximity", "to": "movement of goods and people", "width": 0.5}, {"from": "import taxes", "title": "contextual proximity", "to": "schoolteachers\u0027 salaries", "width": 0.5}, {"from": "import taxes", "title": "contextual proximity", "to": "three rounds of restrictions", "width": 0.5}, {"from": "import taxes", "title": "contextual proximity", "to": "west bank", "width": 0.5}, {"from": "improvement risk", "title": "contextual proximity", "to": "israel", "width": 1.0}, {"from": "income stream", "title": "contextual proximity", "to": "israel", "width": 0.75}, {"from": "individuals under america sanctions", "title": "contextual proximity", "to": "istanbul", "width": 0.75}, {"from": "individuals under america sanctions", "title": "contextual proximity", "to": "recep tayyip erdogan", "width": 0.75}, {"from": "individuals under america sanctions", "title": "contextual proximity", "to": "revenue streams", "width": 0.5}, {"from": "individuals under america sanctions", "title": "contextual proximity", "to": "turkish government", "width": 0.75}, {"from": "individuals under america sanctions", "title": "contextual proximity", "to": "zaher jabarin", "width": 0.5}, {"from": "individuals under sanctions", "title": "contextual proximity", "to": "istanbul", "width": 0.75}, {"from": "individuals under sanctions", "title": "contextual proximity", "to": "recep tayyip erdogan", "width": 0.75}, {"from": "individuals under sanctions", "title": "contextual proximity", "to": "revenue streams", "width": 0.5}, {"from": "individuals under sanctions", "title": "contextual proximity", "to": "turkish government", "width": 0.75}, {"from": "individuals under sanctions", "title": "contextual proximity", "to": "zaher jabarin", "width": 0.5}, {"from": "investment office", "title": "contextual proximity", "to": "redin", "width": 0.5}, {"from": "investments", "title": "contextual proximity", "to": "redin", "width": 0.5}, {"from": "iran", "title": "contextual proximity", "to": "israel", "width": 0.75}, {"from": "israel", "title": "contextual proximity", "to": "israel and allies", "width": 0.75}, {"from": "israel", "title": "contextual proximity", "to": "istanbul", "width": 1.5}, {"from": "israel", "title": "contextual proximity", "to": "istanbul restaurants", "width": 0.75}, {"from": "israel", "title": "contextual proximity", "to": "larger income stream", "width": 0.75}, {"from": "israel", "title": "contextual proximity", "to": "man", "width": 1.5}, {"from": "israel", "title": "contextual proximity", "to": "missiles", "width": 0.75}, {"from": "israel", "title": "contextual proximity", "to": "money for hamas", "width": 0.75}, {"from": "israel", "title": "contextual proximity", "to": "money-launderers and mining companies", "width": 0.75}, {"from": "israel", "title": "contextual proximity", "to": "movement of goods and people", "width": 0.75}, {"from": "israel", "title": "contextual proximity", "to": "name changes", "width": 1.0}, {"from": "israel", "title": "contextual proximity", "to": "overseas countries", "width": 0.75}, {"from": "israel", "title": "contextual proximity", "to": "palestinians in gaza", "width": 0.75}, {"from": "israel", "title": "contextual proximity", "to": "pro-palestinian countries", "width": 1.0}, {"from": "israel", "title": "contextual proximity", "to": "re-emergence and flourishing", "width": 1.0}, {"from": "israel", "title": "contextual proximity", "to": "recep tayyip erdogan", "width": 0.75}, {"from": "israel", "title": "contextual proximity", "to": "revenue streams", "width": 0.5}, {"from": "israel", "title": "contextual proximity", "to": "risk of hamas growing richer", "width": 1.0}, {"from": "israel", "title": "contextual proximity", "to": "safe location", "width": 1.0}, {"from": "israel", "title": "contextual proximity", "to": "schoolteachers\u0027 salaries", "width": 0.75}, {"from": "israel", "title": "contextual proximity", "to": "sources of power", "width": 0.75}, {"from": "israel", "title": "contextual proximity", "to": "support for hamas bankers", "width": 1.0}, {"from": "israel", "title": "contextual proximity", "to": "three rounds of restrictions", "width": 0.75}, {"from": "israel", "title": "contextual proximity", "to": "tragedy", "width": 1.0}, {"from": "israel", "title": "contextual proximity", "to": "turkey\u2019s banks", "width": 1.0}, {"from": "israel", "title": "contextual proximity", "to": "turkish government", "width": 0.75}, {"from": "israel", "title": "contextual proximity", "to": "wealth and financial roots", "width": 1.0}, {"from": "israel", "title": "contextual proximity", "to": "west bank", "width": 0.75}, {"from": "israel", "title": "contextual proximity", "to": "western sanctions", "width": 0.75}, {"from": "israel", "title": "contextual proximity", "to": "zaher jabarin", "width": 0.5}, {"from": "israel and allies", "title": "contextual proximity", "to": "man", "width": 0.5}, {"from": "israel and america", "title": "contextual proximity", "to": "kuveyt turk", "width": 0.5}, {"from": "israel and america", "title": "contextual proximity", "to": "trend gyo", "width": 0.5}, {"from": "israel and america", "title": "contextual proximity", "to": "turkey\u0027s banking system", "width": 0.75}, {"from": "israeli government", "title": "contextual proximity", "to": "istanbul", "width": 0.75}, {"from": "israeli government", "title": "contextual proximity", "to": "recep tayyip erdogan", "width": 0.75}, {"from": "israeli government", "title": "contextual proximity", "to": "revenue streams", "width": 0.5}, {"from": "israeli government", "title": "contextual proximity", "to": "turkish government", "width": 0.75}, {"from": "israeli government", "title": "contextual proximity", "to": "zaher jabarin", "width": 0.5}, {"from": "israeli officials", "title": "contextual proximity", "to": "redin", "width": 0.5}, {"from": "istanbul", "title": "contextual proximity", "to": "jordan\u2019s capital", "width": 0.75}, {"from": "istanbul", "title": "contextual proximity", "to": "man", "width": 0.5}, {"from": "istanbul", "title": "contextual proximity", "to": "palestinian cause", "width": 0.75}, {"from": "istanbul", "title": "contextual proximity", "to": "passports for hamas members", "width": 0.75}, {"from": "istanbul", "title": "contextual proximity", "to": "politicians of hamas", "width": 0.75}, {"from": "istanbul", "title": "contextual proximity", "to": "pressure on hamas", "width": 0.75}, {"from": "istanbul", "title": "contextual proximity", "to": "qatar", "width": 0.75}, {"from": "istanbul", "title": "contextual proximity", "to": "recep tayyip erdogan", "width": 2.25}, {"from": "istanbul", "title": "contextual proximity", "to": "revenue streams", "width": 1.5}, {"from": "istanbul", "title": "contextual proximity", "to": "shelter", "width": 0.75}, {"from": "istanbul", "title": "contextual proximity", "to": "turkey", "width": 0.75}, {"from": "istanbul", "title": "contextual proximity", "to": "turkish government", "width": 2.25}, {"from": "istanbul", "title": "Zaher Jabarin is based in Istanbul,contextual proximity", "to": "zaher jabarin", "width": 2.5}, {"from": "istanbul commerce university", "title": "contextual proximity", "to": "kuveyt turk", "width": 0.5}, {"from": "istanbul commerce university", "title": "Trend GYO won an official contract to build Istanbul Commerce University.,contextual proximity", "to": "trend gyo", "width": 1.5}, {"from": "istanbul commerce university", "title": "contextual proximity", "to": "turkey\u0027s banking system", "width": 0.75}, {"from": "istanbul restaurants", "title": "contextual proximity", "to": "man", "width": 0.5}, {"from": "istanbul\u2019s fatih neighbourhood", "title": "Redin is a currency exchange located in Istanbul\u2019s run-down Fatih neighbourhood.,contextual proximity", "to": "redin", "width": 1.5}, {"from": "jordan\u2019s capital", "title": "contextual proximity", "to": "recep tayyip erdogan", "width": 0.75}, {"from": "jordan\u2019s capital", "title": "contextual proximity", "to": "revenue streams", "width": 0.5}, {"from": "jordan\u2019s capital", "title": "contextual proximity", "to": "turkish government", "width": 0.75}, {"from": "jordan\u2019s capital", "title": "contextual proximity", "to": "zaher jabarin", "width": 0.5}, {"from": "kuveyt turk", "title": "contextual proximity", "to": "mr erdogan", "width": 0.5}, {"from": "kuveyt turk", "title": "contextual proximity", "to": "trend gyo", "width": 1.0}, {"from": "kuveyt turk", "title": "contextual proximity", "to": "turkey", "width": 0.5}, {"from": "kuveyt turk", "title": "contextual proximity", "to": "turkey\u0027s banking system", "width": 1.5}, {"from": "kuveyt turk", "title": "contextual proximity", "to": "turkey\u0027s biggest banks", "width": 0.5}, {"from": "kuveyt turk", "title": "contextual proximity", "to": "turkish government", "width": 0.5}, {"from": "kuveyt turk", "title": "contextual proximity", "to": "turkish officials", "width": 0.5}, {"from": "man", "title": "contextual proximity", "to": "money-launderers and mining companies", "width": 0.5}, {"from": "man", "title": "contextual proximity", "to": "overseas countries", "width": 0.5}, {"from": "man", "title": "contextual proximity", "to": "palestinians in gaza", "width": 0.5}, {"from": "man", "title": "contextual proximity", "to": "sources of power", "width": 0.5}, {"from": "man", "title": "contextual proximity", "to": "western sanctions", "width": 0.5}, {"from": "middle east countries", "title": "contextual proximity", "to": "redin", "width": 0.5}, {"from": "millions of dollars", "title": "contextual proximity", "to": "redin", "width": 0.5}, {"from": "mines near khartoum", "title": "contextual proximity", "to": "redin", "width": 0.5}, {"from": "mr erdogan", "title": "contextual proximity", "to": "trend gyo", "width": 0.5}, {"from": "mr erdogan", "title": "contextual proximity", "to": "turkey\u0027s banking system", "width": 0.75}, {"from": "palestinian cause", "title": "Recep Tayyip Erdogan supports the Palestinian cause,contextual proximity", "to": "recep tayyip erdogan", "width": 1.75}, {"from": "palestinian cause", "title": "contextual proximity", "to": "revenue streams", "width": 0.5}, {"from": "palestinian cause", "title": "contextual proximity", "to": "turkish government", "width": 0.75}, {"from": "palestinian cause", "title": "contextual proximity", "to": "zaher jabarin", "width": 0.5}, {"from": "passports for hamas members", "title": "contextual proximity", "to": "recep tayyip erdogan", "width": 0.75}, {"from": "passports for hamas members", "title": "contextual proximity", "to": "revenue streams", "width": 0.5}, {"from": "passports for hamas members", "title": "Israel accuses the Turkish government of handing out passports to Hamas members, which Turkey denies,contextual proximity", "to": "turkish government", "width": 1.75}, {"from": "passports for hamas members", "title": "contextual proximity", "to": "zaher jabarin", "width": 0.5}, {"from": "politicians of hamas", "title": "contextual proximity", "to": "recep tayyip erdogan", "width": 0.75}, {"from": "politicians of hamas", "title": "contextual proximity", "to": "revenue streams", "width": 0.5}, {"from": "politicians of hamas", "title": "contextual proximity", "to": "turkish government", "width": 0.75}, {"from": "politicians of hamas", "title": "contextual proximity", "to": "zaher jabarin", "width": 0.5}, {"from": "pressure on hamas", "title": "contextual proximity", "to": "recep tayyip erdogan", "width": 0.75}, {"from": "pressure on hamas", "title": "contextual proximity", "to": "revenue streams", "width": 0.5}, {"from": "pressure on hamas", "title": "contextual proximity", "to": "turkish government", "width": 0.75}, {"from": "pressure on hamas", "title": "contextual proximity", "to": "zaher jabarin", "width": 0.5}, {"from": "pro-palestinian countries", "title": "Countries with pro-Palestinian populations may make life easier for Hamas\u2019s bankers.", "to": "support for hamas bankers", "width": 1.0}, {"from": "profits from firms", "title": "contextual proximity", "to": "redin", "width": 0.5}, {"from": "profits from firms", "title": "Turkish officials say profits from firms are sometimes taken directly by Hamas.", "to": "turkish officials", "width": 1.0}, {"from": "qatar", "title": "contextual proximity", "to": "recep tayyip erdogan", "width": 0.75}, {"from": "qatar", "title": "contextual proximity", "to": "revenue streams", "width": 0.5}, {"from": "qatar", "title": "contextual proximity", "to": "turkish government", "width": 0.75}, {"from": "qatar", "title": "contextual proximity", "to": "zaher jabarin", "width": 0.5}, {"from": "recep tayyip erdogan", "title": "contextual proximity", "to": "revenue streams", "width": 1.5}, {"from": "recep tayyip erdogan", "title": "contextual proximity", "to": "shelter", "width": 0.75}, {"from": "recep tayyip erdogan", "title": "contextual proximity", "to": "turkey", "width": 0.75}, {"from": "recep tayyip erdogan", "title": "contextual proximity", "to": "turkish government", "width": 2.25}, {"from": "recep tayyip erdogan", "title": "contextual proximity", "to": "zaher jabarin", "width": 1.5}, {"from": "redin", "title": "contextual proximity", "to": "revenue streams", "width": 0.5}, {"from": "redin", "title": "contextual proximity", "to": "sharjah, uae", "width": 0.5}, {"from": "redin", "title": "contextual proximity", "to": "sudan", "width": 0.5}, {"from": "redin", "title": "contextual proximity", "to": "third firm", "width": 0.5}, {"from": "redin", "title": "contextual proximity", "to": "turkish officials", "width": 0.5}, {"from": "redin", "title": "contextual proximity", "to": "western regulators", "width": 0.5}, {"from": "revenue streams", "title": "contextual proximity", "to": "shelter", "width": 0.5}, {"from": "revenue streams", "title": "contextual proximity", "to": "turkey", "width": 0.5}, {"from": "revenue streams", "title": "contextual proximity", "to": "turkish government", "width": 1.5}, {"from": "revenue streams", "title": "contextual proximity", "to": "zaher jabarin", "width": 1.0}, {"from": "revenue streams", "title": "Untangling revenue streams to Hamas is tricky for Western regulators.", "to": "western regulators", "width": 1.0}, {"from": "sharjah, uae", "title": "A third firm built skyscrapers in Sharjah, United Arab Emirates.", "to": "third firm", "width": 1.0}, {"from": "shelter", "title": "contextual proximity", "to": "turkish government", "width": 0.75}, {"from": "shelter", "title": "contextual proximity", "to": "zaher jabarin", "width": 0.5}, {"from": "trend gyo", "title": "contextual proximity", "to": "turkey", "width": 0.5}, {"from": "trend gyo", "title": "contextual proximity", "to": "turkey\u0027s banking system", "width": 1.5}, {"from": "trend gyo", "title": "contextual proximity", "to": "turkey\u0027s biggest banks", "width": 0.5}, {"from": "trend gyo", "title": "contextual proximity", "to": "turkish government", "width": 0.5}, {"from": "trend gyo", "title": "contextual proximity", "to": "turkish officials", "width": 0.5}, {"from": "turkey", "title": "contextual proximity", "to": "turkey\u0027s banking system", "width": 0.75}, {"from": "turkey", "title": "contextual proximity", "to": "turkish government", "width": 1.0}, {"from": "turkey", "title": "contextual proximity", "to": "zaher jabarin", "width": 0.5}, {"from": "turkey\u0027s banking system", "title": "contextual proximity", "to": "turkey\u0027s biggest banks", "width": 0.75}, {"from": "turkey\u0027s banking system", "title": "contextual proximity", "to": "turkish government", "width": 0.75}, {"from": "turkey\u0027s banking system", "title": "contextual proximity", "to": "turkish officials", "width": 0.75}, {"from": "turkish government", "title": "contextual proximity", "to": "zaher jabarin", "width": 1.5}]);
+
+                  nodeColors = {};
+                  allNodes = nodes.get({ returnType: "Object" });
+                  for (nodeId in allNodes) {
+                    nodeColors[nodeId] = allNodes[nodeId].color;
+                  }
+                  allEdges = edges.get({ returnType: "Object" });
+                  // adding nodes and edges to the graph
+                  data = {nodes: nodes, edges: edges};
+
+                  var options = {
+    "configure": {
+        "enabled": true,
+        "filter": [
+            "physics"
+        ]
+    },
+    "edges": {
+        "color": {
+            "inherit": true
+        },
+        "smooth": {
+            "enabled": true,
+            "type": "dynamic"
+        }
+    },
+    "interaction": {
+        "dragNodes": true,
+        "hideEdgesOnDrag": false,
+        "hideNodesOnDrag": false
+    },
+    "physics": {
+        "enabled": true,
+        "forceAtlas2Based": {
+            "avoidOverlap": 0,
+            "centralGravity": 0.015,
+            "damping": 0.4,
+            "gravitationalConstant": -31,
+            "springConstant": 0.08,
+            "springLength": 100
+        },
+        "solver": "forceAtlas2Based",
+        "stabilization": {
+            "enabled": true,
+            "fit": true,
+            "iterations": 1000,
+            "onlyDynamicEdges": false,
+            "updateInterval": 50
+        }
+    }
+};
+
+                  
+
+
+                  
+                  // if this network requires displaying the configure window,
+                  // put it in its div
+                  options.configure["container"] = document.getElementById("config");
+                  
+
+                  network = new vis.Network(container, data, options);
+
+                  
+
+                  
+                    network.on("selectNode", neighbourhoodHighlight);
+                  
+
+                  
+
+
+                  
+                      network.on("stabilizationProgress", function(params) {
+                          document.getElementById('loadingBar').removeAttribute("style");
+                          var maxWidth = 496;
+                          var minWidth = 20;
+                          var widthFactor = params.iterations/params.total;
+                          var width = Math.max(minWidth,maxWidth * widthFactor);
+                          document.getElementById('bar').style.width = width + 'px';
+                          document.getElementById('text').innerHTML = Math.round(widthFactor*100) + '%';
+                      });
+                      network.once("stabilizationIterationsDone", function() {
+                          document.getElementById('text').innerHTML = '100%';
+                          document.getElementById('bar').style.width = '496px';
+                          document.getElementById('loadingBar').style.opacity = 0;
+                          // really clean the dom element
+                          setTimeout(function () {document.getElementById('loadingBar').style.display = 'none';}, 500);
+                      });
+                  
+
+                  return network;
+
+              }
+              drawGraph();
+        </script>
+    </body>
+</html>
