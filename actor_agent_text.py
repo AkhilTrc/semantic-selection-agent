@@ -4,11 +4,8 @@ from typing import List, Tuple, Dict, Set
 import openai
 from load_dotenv import load_dotenv
 load_dotenv()
-# Configuration
 openai.api_key = os.getenv('OPENAI_API_KEY')
 MODEL_NAME = 'gpt-4.1-nano'
-
-
 
 class PromptEngine:
     def __init__(self):
@@ -67,7 +64,6 @@ class PromptEngine:
     def cache_result(self, pair: Tuple[str, str], result: str):
         self.cache[pair] = result
 
-# 4. LLM Client
 class LLMClient:
     def __init__(self, model: str = MODEL_NAME):
         self.model = model
