@@ -1,0 +1,377 @@
+text|source|chunk_id
+"Water and Earth gives me Mud
+Mud and Water gives me Swamp
+Mud and Earth gives me Clay
+Swamp and Earth gives me Bog
+Swamp and Water gives me Quagmire
+
+Clay and Water gives me Sludge
+Fire and Water gives me Steam
+
+Steam and Water gives me Cloud
+
+Steam and Fire gives me Energy
+
+Cloud and Fire gives me Thundercloud
+
+Cloud and Water gives me Mist
+
+Energy and Water gives me Boil
+
+Energy and Fire gives me Plasma
+Water and Air gives me Mist
+
+Mist and Water gives me Dew
+
+Mist and Air gives me Vapor
+
+Dew and Water gives me Humidity
+
+Dew and Air gives me Fog
+Fire and Water gives me Steam  
+Steam and Earth gives me Geothermal Vapor  
+Steam and Water gives me Condensed Mist
+Earth and Fire gives me Lava
+
+Lava and Earth gives me Obsidian
+
+Lava and Fire gives me Plasma
+
+Obsidian and Earth gives me Geode
+
+Obsidian and Fire gives me Charcoal
+
+Plasma and Earth gives me Geothermal Essence
+
+Plasma and Fire gives me Stellar Flame
+earth and air gives me Dust
+
+Dust and earth gives me Clay
+
+Dust and air gives me Mist
+Fire and Water gives me Steam  
+Steam and Fire gives me Energy  
+Steam and Water gives me Cloud
+Fire and Earth gives me Lava
+
+Lava and Fire gives me Magma
+
+Lava and Earth gives me Obsidian
+Fire and Air gives me **Ignisphere**
+
+Ignisphere and Fire gives me **Blazewhirl**
+
+Ignisphere and Air gives me **Sparkveil**
+Air and Water gives me Mist
+
+Mist and Air gives me Vapor
+Mist and Water gives me Dew
+Air and Earth gives me Dust  
+Dust and Air gives me Mist  
+Dust and Earth gives me Clay
+Air and Fire gives me **Zephyrium**  
+Zephyrium and Air gives me **Stratosphere**  
+Zephyrium and Fire gives me **Infernium**  
+Stratosphere and Fire gives me **Cumulonimbus**
+Fire and Water gives me Steam  
+Steam and Fire gives me Energy  
+Steam and Water gives me Cloud
+water_and_earth and earth gives me Mud
+
+mud and water_and_earth gives me Clay
+
+mud and earth gives me Loam
+
+mud and water_and_earth gives me Silt
+
+earth and water_and_earth gives me Soil
+Water and Earth gives me Mud
+
+Mud and Fire gives me Brick
+
+Water and Brick gives me Ceramic
+
+Earth and Brick gives me Terracotta
+
+Fire and Terracotta gives me Glazed Pottery
+
+Water and Glazed Pottery gives me Enamelware
+
+Earth and Enamelware gives me Mineralized Ceramics
+Water and Earth gives me Mud
+
+Mud and Air gives me Dust
+
+Water and Air gives me Fog
+
+Earth and Air gives me Dust
+
+Mud and Air gives me Clay
+
+Dust and Water gives me Silt
+
+Dust and Earth gives me Loam
+Mud and Water gives me Clay
+
+Clay and Mud gives me Ceramic
+
+Clay and Water gives me Loam
+
+---
+
+Note: Each new element is derived by combining the properties of the previous results with the original base elements. For instance, clay is a hardened, workable form of mud and water, leading to ceramic (a crafted, durable material). Loam is a fertile soil, blending mud and water qualities for growth.
+Mud and Earth gives me Clay
+
+Clay and Mud gives me Ceramic  
+Clay and Earth gives me Sediment
+Mud and Fire gives me Molten Clay
+
+Molten Clay and Mud gives me Hardened Lava
+
+Molten Clay and Fire gives me Glazed Earthen Stone
+
+Hardened Lava and Mud gives me Obsidian Mud
+
+Hardened Lava and Fire gives me Crystallized Lava
+Mud and Air gives me Dust
+
+Dust and Mud gives me Clay
+
+Dust and Air gives me Particulate
+
+Clay and Air gives me Ceramic
+
+Clay and Mud gives me Terracotta
+
+Particulate and Mud gives me Loam
+
+Particulate and Air gives me Aerosol
+Fire and Water gives me Steam  
+Steam and Fire gives me Energy  
+Steam and Water gives me Cloud
+Mud_and_water and Earth gives me Clay  
+Clay and Mud_and_water gives me Silt  
+Clay and Earth gives me Soil  
+Silt and Mud_and_water gives me Loam  
+Silt and Earth gives me Topsoil
+Fire and Mud_and_Water gives me Steam-Infused Clay  
+Mud_and_Water and Fire gives me Vapor Mud  
+Fire and Vapor_Mud gives me Charred Vapor  
+Mud_and_Water and Vapor_Mud gives me Silted Mist
+Mud_and_water and air gives me Dampness  
+Dampness and mud_and_water gives me Sogginess  
+Dampness and air gives me Mist  
+Sogginess and air gives me Humidity
+Swamp and Water gives me Marshland
+
+Marshland and Swamp gives me Fenlands
+
+Marshland and Water gives me Quagmire
+Swamp and Earth gives me Marshland
+
+Marshland and Swamp gives me Quagmire
+
+Marshland and Earth gives me Fertile Ground
+Swamp and Fire gives me **Lava**  
+Lava and Swamp gives me **Magma**  
+Lava and Fire gives me **Pyrolith**
+Swamp and Air gives me Miasma
+Mud_and_earth and water gives me Clay  
+Clay and mud_and_earth gives me Ceramic  
+Clay and water gives me Muddy Water
+Fire and Water gives me Steam  
+Steam and Fire gives me Energy  
+Steam and Water gives me Cloud
+Fire and Mud_and_earth gives me Lava
+
+Lava and Mud_and_earth gives me Magma
+
+Lava and Fire gives me Obsidian
+
+Magma and Fire gives me Glass
+
+Obsidian and Mud_and_earth gives me Volcanic Glass
+
+Obsidian and Fire gives me Pyroclast
+
+Glass and Mud_and_earth gives me Terraglass
+
+Pyroclast and Mud_and_earth gives me Ashstone
+Fire and Water gives me Steam
+Steam and Fire gives me Energy
+Steam and Water gives me Cloud
+Clay and Water gives me Mud
+
+Mud and Clay gives me Silt
+
+Mud and Water gives me Slimestone
+
+Silt and Water gives me Sediment
+
+Silt and Clay gives me Loam
+
+Sediment and Clay gives me Claystone
+
+Sediment and Water gives me Alluvium
+Clay and Earth gives me TerraMud
+
+TerraMud and Clay gives me CompactClay
+
+TerraMud and Earth gives me RichSoil
+Clay and Fire gives me FusedClay
+
+FusedClay and Clay gives me HardenedFusedClay
+
+FusedClay and Fire gives me MoltenClay
+Clay and Air gives me Earthen Breeze
+
+Earthen Breeze and Clay gives me Mudwhisper
+
+Earthen Breeze and Air gives me Skyclay
+
+Mudwhisper and Clay gives me Siltveil
+
+Mudwhisper and Air gives me Dustglide
+Swamp_and_earth and water gives me Marshland Essence
+
+Marshland Essence and swamp_and_earth gives me Bog Spirit
+
+Marshland Essence and water gives me Mudflow
+
+Bog Spirit and water gives me Poisonous Mire
+
+Mudflow and swamp_and_earth gives me Sediment Core
+Swamp_and_earth and earth gives me Marshland Essence
+Swamp_and_earth and fire gives me Marshfire
+
+Marshfire and swamp_and_earth gives me Quagmireflame  
+Marshfire and fire gives me Emberstorm
+Swamp_and_earth and air gives me Marshland Essence
+
+Marshland Essence and swamp_and_earth gives me Peat Soil
+
+Marshland Essence and air gives me Misty Vapors
+Bog and Water gives me Mud
+
+Mud and Bog gives me Silt
+
+Mud and Water gives me Swamp
+
+Silt and Bog gives me Rich Sediment
+
+Silt and Water gives me Silty Stream
+
+Rich Sediment and Bog gives me Fertile Deposit
+
+Rich Sediment and Water gives me Nutrient-Rich Soil
+Bog and Earth gives me Mire
+
+Mire and Bog gives me Quagmire
+
+Mire and Earth gives me Clay
+
+Quagmire and Bog gives me Marshland
+
+Quagmire and Earth gives me Swampland
+Bog and Fire gives me Mudfire
+Bog and Air gives me Mist
+
+Mist and Bog gives me Swamp Vapor
+
+Mist and Air gives me Light Breeze
+
+Swamp Vapor and Bog gives me Marsh Gas
+
+Swamp Vapor and Air gives me Ethereal Fog
+Fire and Water gives me Steam  
+Steam and Fire gives me Energy  
+Steam and Water gives me Cloud
+Swamp and Water gives me Marshfluid
+
+Marshfluid and Earth gives me Bogstone
+
+Marshfluid and Swamp gives me Quagmire Essence
+
+Bogstone and Swamp gives me Mudcore
+
+Quagmire Essence and Earth gives me Swamp Heart
+Swamp_and_water and fire gives me Bogfire
+
+Bogfire and swamp_and_water gives me Marshblaze
+
+Bogfire and fire gives me Emberstorm
+Swamp_and_water and air gives me Misty Marsh
+
+Misty Marsh and swamp_and_water gives me Saturated Bog
+
+Misty Marsh and air gives me Vapor Veil
+Fire and Water gives me Steam  
+Steam and Quagmire gives me Murkflow  
+Murkflow and Water gives me Swampmelt
+Fire and Water gives me Steam  
+Steam and Fire gives me Energy  
+Steam and Water gives me Cloud
+Fire and Quagmire gives me Ashen Mire
+
+Ashen Mire and Quagmire gives me Murky Ember
+
+Ashen Mire and Fire gives me Lava Veil
+Quagmire and Air gives me Mistral Mist
+
+Mistral Mist and Quagmire gives me Eroded Veil
+
+Mistral Mist and Air gives me Vaporveil
+Clay and Water gives me Mudsand
+
+Mudsand and Water gives me Siltstone
+
+Siltstone and Clay gives me Earthenware
+
+Earthenware and Water gives me Porcelain
+
+Porcelain and Clay gives me Finechina
+
+Finechina and Water gives me Porcelite
+
+---
+
+Please provide your specific input elements if you'd like me to continue generating more elements!
+Clay_and_water and earth gives me Mud
+
+Mud and clay_and_water gives me Silt
+
+Mud and earth gives me Loam
+
+Silt and earth gives me Fertile_soil
+
+Loam and water gives me Quagmire
+Clay_and_water and fire gives me Molten Clay  
+Molten Clay and clay_and_water gives me Semi-Solid Clay  
+Molten Clay and fire gives me Fired Molten Clay  
+Semi-Solid Clay and fire gives me Burnt Clay
+Clay_and_water and air gives me Mist  
+Mist and clay_and_water gives me Muddy Mist  
+Misty Mist and clay_and_water gives me Silt Cloud  
+Mist and air gives me Vapor  
+Misty Mist and air gives me Hazy Vapor
+Sludge and Water gives me Muck
+
+Muck and Sludge gives me Viscid Ooze
+
+Muck and Water gives me Mudflow
+Sludge and Earth gives me Mire
+
+Mire and Sludge gives me Thicket
+
+Mire and Earth gives me Clay
+Fire and Sludge gives me Molten Ash
+
+Molten Ash and Sludge gives me Lava Residue
+
+Molten Ash and Fire gives me Incandescent Ember
+Sludge and Air gives me Muckair
+
+Muckair and Sludge gives me Mirecloud
+
+Muckair and Air gives me Gasquagmire
+"|data_input\final.txt|5833209633c64fb7b4baee57975450e1

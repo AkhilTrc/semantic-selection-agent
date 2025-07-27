@@ -1,0 +1,540 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        
+            <script>function neighbourhoodHighlight(params) {
+  // console.log("in nieghbourhoodhighlight");
+  allNodes = nodes.get({ returnType: "Object" });
+  // originalNodes = JSON.parse(JSON.stringify(allNodes));
+  // if something is selected:
+  if (params.nodes.length > 0) {
+    highlightActive = true;
+    var i, j;
+    var selectedNode = params.nodes[0];
+    var degrees = 2;
+
+    // mark all nodes as hard to read.
+    for (let nodeId in allNodes) {
+      // nodeColors[nodeId] = allNodes[nodeId].color;
+      allNodes[nodeId].color = "rgba(200,200,200,0.5)";
+      if (allNodes[nodeId].hiddenLabel === undefined) {
+        allNodes[nodeId].hiddenLabel = allNodes[nodeId].label;
+        allNodes[nodeId].label = undefined;
+      }
+    }
+    var connectedNodes = network.getConnectedNodes(selectedNode);
+    var allConnectedNodes = [];
+
+    // get the second degree nodes
+    for (i = 1; i < degrees; i++) {
+      for (j = 0; j < connectedNodes.length; j++) {
+        allConnectedNodes = allConnectedNodes.concat(
+          network.getConnectedNodes(connectedNodes[j])
+        );
+      }
+    }
+
+    // all second degree nodes get a different color and their label back
+    for (i = 0; i < allConnectedNodes.length; i++) {
+      // allNodes[allConnectedNodes[i]].color = "pink";
+      allNodes[allConnectedNodes[i]].color = "rgba(150,150,150,0.75)";
+      if (allNodes[allConnectedNodes[i]].hiddenLabel !== undefined) {
+        allNodes[allConnectedNodes[i]].label =
+          allNodes[allConnectedNodes[i]].hiddenLabel;
+        allNodes[allConnectedNodes[i]].hiddenLabel = undefined;
+      }
+    }
+
+    // all first degree nodes get their own color and their label back
+    for (i = 0; i < connectedNodes.length; i++) {
+      // allNodes[connectedNodes[i]].color = undefined;
+      allNodes[connectedNodes[i]].color = nodeColors[connectedNodes[i]];
+      if (allNodes[connectedNodes[i]].hiddenLabel !== undefined) {
+        allNodes[connectedNodes[i]].label =
+          allNodes[connectedNodes[i]].hiddenLabel;
+        allNodes[connectedNodes[i]].hiddenLabel = undefined;
+      }
+    }
+
+    // the main node gets its own color and its label back.
+    // allNodes[selectedNode].color = undefined;
+    allNodes[selectedNode].color = nodeColors[selectedNode];
+    if (allNodes[selectedNode].hiddenLabel !== undefined) {
+      allNodes[selectedNode].label = allNodes[selectedNode].hiddenLabel;
+      allNodes[selectedNode].hiddenLabel = undefined;
+    }
+  } else if (highlightActive === true) {
+    // console.log("highlightActive was true");
+    // reset all nodes
+    for (let nodeId in allNodes) {
+      // allNodes[nodeId].color = "purple";
+      allNodes[nodeId].color = nodeColors[nodeId];
+      // delete allNodes[nodeId].color;
+      if (allNodes[nodeId].hiddenLabel !== undefined) {
+        allNodes[nodeId].label = allNodes[nodeId].hiddenLabel;
+        allNodes[nodeId].hiddenLabel = undefined;
+      }
+    }
+    highlightActive = false;
+  }
+
+  // transform the object into an array
+  var updateArray = [];
+  if (params.nodes.length > 0) {
+    for (let nodeId in allNodes) {
+      if (allNodes.hasOwnProperty(nodeId)) {
+        // console.log(allNodes[nodeId]);
+        updateArray.push(allNodes[nodeId]);
+      }
+    }
+    nodes.update(updateArray);
+  } else {
+    // console.log("Nothing was selected");
+    for (let nodeId in allNodes) {
+      if (allNodes.hasOwnProperty(nodeId)) {
+        // console.log(allNodes[nodeId]);
+        // allNodes[nodeId].color = {};
+        updateArray.push(allNodes[nodeId]);
+      }
+    }
+    nodes.update(updateArray);
+  }
+}
+
+function filterHighlight(params) {
+  allNodes = nodes.get({ returnType: "Object" });
+  // if something is selected:
+  if (params.nodes.length > 0) {
+    filterActive = true;
+    let selectedNodes = params.nodes;
+
+    // hiding all nodes and saving the label
+    for (let nodeId in allNodes) {
+      allNodes[nodeId].hidden = true;
+      if (allNodes[nodeId].savedLabel === undefined) {
+        allNodes[nodeId].savedLabel = allNodes[nodeId].label;
+        allNodes[nodeId].label = undefined;
+      }
+    }
+
+    for (let i=0; i < selectedNodes.length; i++) {
+      allNodes[selectedNodes[i]].hidden = false;
+      if (allNodes[selectedNodes[i]].savedLabel !== undefined) {
+        allNodes[selectedNodes[i]].label = allNodes[selectedNodes[i]].savedLabel;
+        allNodes[selectedNodes[i]].savedLabel = undefined;
+      }
+    }
+
+  } else if (filterActive === true) {
+    // reset all nodes
+    for (let nodeId in allNodes) {
+      allNodes[nodeId].hidden = false;
+      if (allNodes[nodeId].savedLabel !== undefined) {
+        allNodes[nodeId].label = allNodes[nodeId].savedLabel;
+        allNodes[nodeId].savedLabel = undefined;
+      }
+    }
+    filterActive = false;
+  }
+
+  // transform the object into an array
+  var updateArray = [];
+  if (params.nodes.length > 0) {
+    for (let nodeId in allNodes) {
+      if (allNodes.hasOwnProperty(nodeId)) {
+        updateArray.push(allNodes[nodeId]);
+      }
+    }
+    nodes.update(updateArray);
+  } else {
+    for (let nodeId in allNodes) {
+      if (allNodes.hasOwnProperty(nodeId)) {
+        updateArray.push(allNodes[nodeId]);
+      }
+    }
+    nodes.update(updateArray);
+  }
+}
+
+function selectNode(nodes) {
+  network.selectNodes(nodes);
+  neighbourhoodHighlight({ nodes: nodes });
+  return nodes;
+}
+
+function selectNodes(nodes) {
+  network.selectNodes(nodes);
+  filterHighlight({nodes: nodes});
+  return nodes;
+}
+
+function highlightFilter(filter) {
+  let selectedNodes = []
+  let selectedProp = filter['property']
+  if (filter['item'] === 'node') {
+    let allNodes = nodes.get({ returnType: "Object" });
+    for (let nodeId in allNodes) {
+      if (allNodes[nodeId][selectedProp] && filter['value'].includes((allNodes[nodeId][selectedProp]).toString())) {
+        selectedNodes.push(nodeId)
+      }
+    }
+  }
+  else if (filter['item'] === 'edge'){
+    let allEdges = edges.get({returnType: 'object'});
+    // check if the selected property exists for selected edge and select the nodes connected to the edge
+    for (let edge in allEdges) {
+      if (allEdges[edge][selectedProp] && filter['value'].includes((allEdges[edge][selectedProp]).toString())) {
+        selectedNodes.push(allEdges[edge]['from'])
+        selectedNodes.push(allEdges[edge]['to'])
+      }
+    }
+  }
+  selectNodes(selectedNodes)
+}</script>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/dist/vis-network.min.css" integrity="sha512-WgxfT5LWjfszlPHXRmBWHkV2eceiWTOBvrKCNbdgDYTHrT2AeLCGbF4sZlZw3UMN3WtL0tGUoIAKsu8mllg/XA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/vis-network.min.js" integrity="sha512-LnvoEWDFrqGHlHmDD2101OrLcbsfkrzoSpvtSQtxK3RMnRV0eOkhhBN2dXHKRrUU8p2DGRTk35n4O8nWSVe1mQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+            
+            
+            
+            
+            
+            
+                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tom-select/2.0.0-rc.4/css/tom-select.min.css" integrity="sha512-43fHB3GLgZfz8QXl1RPQ8O66oIgv3po9cJ5erMt1c4QISq9dYb195T3vr5ImnJPXuVroKcGBPXBFKETW8jrPNQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/tom-select/2.0.0-rc.4/js/tom-select.complete.js" integrity="sha512-jeF9CfnvzDiw9G9xiksVjxR2lib44Gnovvkv+3CgCG6NXCD4gqlA5nDAVW5WjpA+i+/zKsUWV5xNEbW1X/HH0Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+            
+
+        
+<center>
+<h1></h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+        <link
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
+          crossorigin="anonymous"
+        />
+        <script
+          src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+          crossorigin="anonymous"
+        ></script>
+
+
+        <center>
+          <h1></h1>
+        </center>
+        <style type="text/css">
+
+             #mynetwork {
+                 width: 100%;
+                 height: 900px;
+                 background-color: #ffffff;
+                 border: 1px solid lightgray;
+                 position: relative;
+                 float: left;
+             }
+
+             
+
+             
+             #config {
+                 float: left;
+                 width: 400px;
+                 height: 600px;
+             }
+             
+
+             
+        </style>
+    </head>
+
+
+    <body>
+        <div class="card" style="width: 100%">
+            
+                <div id="select-menu" class="card-header">
+                    <div class="row no-gutters">
+                        <div class="col-10 pb-2">
+                            <select
+                            class="form-select"
+                            aria-label="Default select example"
+                            onchange="selectNode([value]);"
+                            id="select-node"
+                            placeholder="Select node..."
+                            >
+                                <option selected>Select a Node by ID</option>
+                                
+                                    <option value="water">water</option>
+                                
+                                    <option value="earth">earth</option>
+                                
+                                    <option value="mud">mud</option>
+                                
+                                    <option value="swamp">swamp</option>
+                                
+                                    <option value="clay">clay</option>
+                                
+                                    <option value="fire">fire</option>
+                                
+                                    <option value="steam">steam</option>
+                                
+                                    <option value="cloud">cloud</option>
+                                
+                                    <option value="energy">energy</option>
+                                
+                                    <option value="air">air</option>
+                                
+                                    <option value="mist">mist</option>
+                                
+                                    <option value="dew">dew</option>
+                                
+                                    <option value="brick">brick</option>
+                                
+                                    <option value="glazed pottery">glazed pottery</option>
+                                
+                                    <option value="dust">dust</option>
+                                
+                                    <option value="marshland">marshland</option>
+                                
+                                    <option value="bog">bog</option>
+                                
+                                    <option value="mudsand">mudsand</option>
+                                
+                                    <option value="earthenware">earthenware</option>
+                                
+                                    <option value="finechina">finechina</option>
+                                
+                                    <option value="mud and air">mud and air</option>
+                                
+                                    <option value="sludge and fire">sludge and fire</option>
+                                
+                                    <option value="molten clay">molten clay</option>
+                                
+                                    <option value="hardened lava">hardened lava</option>
+                                
+                                    <option value="particulate">particulate</option>
+                                
+                                    <option value="mist and air">mist and air</option>
+                                
+                                    <option value="misty mist and air">misty mist and air</option>
+                                
+                                    <option value="lava">lava</option>
+                                
+                                    <option value="marshfluid">marshfluid</option>
+                                
+                                    <option value="bogstone">bogstone</option>
+                                
+                                    <option value="water and fire">water and fire</option>
+                                
+                                    <option value="bogfire">bogfire</option>
+                                
+                                    <option value="water and air">water and air</option>
+                                
+                                    <option value="misty marsh">misty marsh</option>
+                                
+                                    <option value="terramud">terramud</option>
+                                
+                                    <option value="fusedclay">fusedclay</option>
+                                
+                                    <option value="earthen breeze">earthen breeze</option>
+                                
+                                    <option value="mudwhisper">mudwhisper</option>
+                                
+                                    <option value="siltstone">siltstone</option>
+                                
+                                    <option value="porcelain">porcelain</option>
+                                
+                                    <option value="obsidian">obsidian</option>
+                                
+                                    <option value="plasma">plasma</option>
+                                
+                                    <option value="ignisphere">ignisphere</option>
+                                
+                                    <option value="zephyrium">zephyrium</option>
+                                
+                                    <option value="stratosphere">stratosphere</option>
+                                
+                                    <option value="terracotta">terracotta</option>
+                                
+                                    <option value="quagmire">quagmire</option>
+                                
+                                    <option value="ashen mire">ashen mire</option>
+                                
+                                    <option value="sludge and air">sludge and air</option>
+                                
+                                    <option value="enamelware">enamelware</option>
+                                
+                                    <option value="mire">mire</option>
+                                
+                                    <option value="quagmire essence">quagmire essence</option>
+                                
+                                    <option value="mud and water">mud and water</option>
+                                
+                                    <option value="clay and mud and water">clay and mud and water</option>
+                                
+                                    <option value="loam and water">loam and water</option>
+                                
+                                    <option value="clay and water and fire">clay and water and fire</option>
+                                
+                                    <option value="molten clay and fire">molten clay and fire</option>
+                                
+                                    <option value="sludge and water">sludge and water</option>
+                                
+                                    <option value="swamp vapor">swamp vapor</option>
+                                
+                                    <option value="mistral mist">mistral mist</option>
+                                
+                                    <option value="dampness and water">dampness and water</option>
+                                
+                                    <option value="sludge and earth">sludge and earth</option>
+                                
+                                    <option value="muckair and sludge">muckair and sludge</option>
+                                
+                                    <option value="silt">silt</option>
+                                
+                                    <option value="rich sediment">rich sediment</option>
+                                
+                                    <option value="muckair and air">muckair and air</option>
+                                
+                                    <option value="sludge">sludge</option>
+                                
+                            </select>
+                        </div>
+                        <div class="col-2 pb-2">
+                            <button type="button" class="btn btn-primary btn-block" onclick="neighbourhoodHighlight({nodes: []});">Reset Selection</button>
+                        </div>
+                    </div>
+                </div>
+            
+            
+            <div id="mynetwork" class="card-body"></div>
+        </div>
+
+        
+        
+            <div id="config"></div>
+        
+
+        <script type="text/javascript">
+
+              // initialize global variables.
+              var edges;
+              var nodes;
+              var allNodes;
+              var allEdges;
+              var nodeColors;
+              var originalNodes;
+              var network;
+              var container;
+              var options, data;
+              var filter = {
+                  item : '',
+                  property : '',
+                  value : []
+              };
+
+              
+                  new TomSelect("#select-node",{
+                      create: false,
+                      sortField: {
+                          field: "text",
+                          direction: "asc"
+                      }
+                  });
+              
+
+              
+
+              // This method is responsible for drawing the graph, returns the drawn network
+              function drawGraph() {
+                  var container = document.getElementById('mynetwork');
+
+                  
+
+                  // parsing and collecting nodes and edges from the python
+                  nodes = new vis.DataSet([{"color": "#97c2fc", "id": "water", "label": "water", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "earth", "label": "earth", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "mud", "label": "mud", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "swamp", "label": "swamp", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "clay", "label": "clay", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "fire", "label": "fire", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "steam", "label": "steam", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "cloud", "label": "cloud", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "energy", "label": "energy", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "air", "label": "air", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "mist", "label": "mist", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "dew", "label": "dew", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "brick", "label": "brick", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "glazed pottery", "label": "glazed pottery", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "dust", "label": "dust", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "marshland", "label": "marshland", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "bog", "label": "bog", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "mudsand", "label": "mudsand", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "earthenware", "label": "earthenware", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "finechina", "label": "finechina", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "mud and air", "label": "mud and air", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "sludge and fire", "label": "sludge and fire", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "molten clay", "label": "molten clay", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "hardened lava", "label": "hardened lava", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "particulate", "label": "particulate", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "mist and air", "label": "mist and air", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "misty mist and air", "label": "misty mist and air", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "lava", "label": "lava", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "marshfluid", "label": "marshfluid", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "bogstone", "label": "bogstone", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "water and fire", "label": "water and fire", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "bogfire", "label": "bogfire", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "water and air", "label": "water and air", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "misty marsh", "label": "misty marsh", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "terramud", "label": "terramud", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "fusedclay", "label": "fusedclay", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "earthen breeze", "label": "earthen breeze", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "mudwhisper", "label": "mudwhisper", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "siltstone", "label": "siltstone", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "porcelain", "label": "porcelain", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "obsidian", "label": "obsidian", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "plasma", "label": "plasma", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "ignisphere", "label": "ignisphere", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "zephyrium", "label": "zephyrium", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "stratosphere", "label": "stratosphere", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "terracotta", "label": "terracotta", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "quagmire", "label": "quagmire", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "ashen mire", "label": "ashen mire", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "sludge and air", "label": "sludge and air", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "enamelware", "label": "enamelware", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "mire", "label": "mire", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "quagmire essence", "label": "quagmire essence", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "mud and water", "label": "mud and water", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "clay and mud and water", "label": "clay and mud and water", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "loam and water", "label": "loam and water", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "clay and water and fire", "label": "clay and water and fire", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "molten clay and fire", "label": "molten clay and fire", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "sludge and water", "label": "sludge and water", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "swamp vapor", "label": "swamp vapor", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "mistral mist", "label": "mistral mist", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "dampness and water", "label": "dampness and water", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "sludge and earth", "label": "sludge and earth", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "muckair and sludge", "label": "muckair and sludge", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "silt", "label": "silt", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "rich sediment", "label": "rich sediment", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "muckair and air", "label": "muckair and air", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "sludge", "label": "sludge", "shape": "dot", "size": 10}]);
+                  edges = new vis.DataSet([{"from": "water", "title": "Water and Earth combine to form Mud.", "to": "earth", "width": 1.0}, {"from": "water", "title": "Mud and Water combine to form Swamp.", "to": "mud", "width": 1.0}, {"from": "water", "title": "Swamp and Water combine to form Marshfluid.", "to": "swamp", "width": 1.0}, {"from": "water", "title": "Clay and Water combine to form Mudsand.", "to": "clay", "width": 1.0}, {"from": "water", "title": "Fire and Water combine to form Steam.", "to": "fire", "width": 1.0}, {"from": "water", "title": "Steam and Water combine to form Condensed Mist.", "to": "steam", "width": 1.0}, {"from": "water", "title": "Cloud and Water combine to form Mist.", "to": "cloud", "width": 1.0}, {"from": "water", "title": "Energy and Water combine to form Boil.", "to": "energy", "width": 1.0}, {"from": "water", "title": "Water and Air combine to form Fog.", "to": "air", "width": 1.0}, {"from": "water", "title": "Mist and Water combine to form Dew.", "to": "mist", "width": 1.0}, {"from": "water", "title": "Dew and Water combine to form Humidity.", "to": "dew", "width": 1.0}, {"from": "water", "title": "Water and Brick combine to form Ceramic.", "to": "brick", "width": 1.0}, {"from": "water", "title": "Water and Glazed Pottery combine to form Enamelware.", "to": "glazed pottery", "width": 1.0}, {"from": "water", "title": "Dust and Water combine to form Silt.", "to": "dust", "width": 1.0}, {"from": "water", "title": "Marshland and Water combine to form Quagmire.", "to": "marshland", "width": 1.0}, {"from": "water", "title": "Bog and Water combine to form Mud.", "to": "bog", "width": 1.0}, {"from": "water", "title": "Mudsand and Water combine to form Siltstone.", "to": "mudsand", "width": 1.0}, {"from": "water", "title": "Earthenware and Water combine to form Porcelain.", "to": "earthenware", "width": 1.0}, {"from": "water", "title": "Finechina and Water combine to form Porcelite.", "to": "finechina", "width": 1.0}, {"from": "water", "title": "Mud and Air combined with Water produce Dampness.", "to": "mud and air", "width": 1.0}, {"from": "water", "title": "Sludge and Fire combined with Water produce Molten Ash.", "to": "sludge and fire", "width": 1.0}, {"from": "mud", "title": "Mud and Earth combine to form Clay.", "to": "earth", "width": 1.0}, {"from": "mud", "title": "Mud and Fire combine to form Molten Clay.", "to": "fire", "width": 1.0}, {"from": "mud", "title": "Mud and Air combine to form Dust.", "to": "air", "width": 1.0}, {"from": "mud", "title": "Clay and Mud combine to form Terracotta.", "to": "clay", "width": 1.0}, {"from": "mud", "title": "Molten Clay and Mud combine to form Hardened Lava.", "to": "molten clay", "width": 1.0}, {"from": "mud", "title": "Hardened Lava and Mud combine to form Obsidian Mud.", "to": "hardened lava", "width": 1.0}, {"from": "mud", "title": "Dust and Mud combine to form Clay.", "to": "dust", "width": 1.0}, {"from": "mud", "title": "Particulate and Mud combine to form Loam.", "to": "particulate", "width": 1.0}, {"from": "mud", "title": "Mud and Bog combine to form Silt.", "to": "bog", "width": 1.0}, {"from": "mud", "title": "Mist and Air combined with Mud produces Muddy Mist.", "to": "mist and air", "width": 1.0}, {"from": "mud", "title": "Misty Mist and Air combined with Mud produces Hazy Vapor.", "to": "misty mist and air", "width": 1.0}, {"from": "swamp", "title": "Swamp and Earth combine to form Marshland.", "to": "earth", "width": 1.0}, {"from": "swamp", "title": "Marshland and Swamp combine to form Fenlands.", "to": "marshland", "width": 1.0}, {"from": "swamp", "title": "Swamp and Fire combine to form Lava.", "to": "fire", "width": 1.0}, {"from": "swamp", "title": "Lava and Swamp combine to form Magma.", "to": "lava", "width": 1.0}, {"from": "swamp", "title": "Swamp and Air combine to form Miasma.", "to": "air", "width": 1.0}, {"from": "swamp", "title": "Marshfluid and Swamp combine to form Quagmire Essence.", "to": "marshfluid", "width": 1.0}, {"from": "swamp", "title": "Bogstone and Swamp combine to form Mudcore.", "to": "bogstone", "width": 1.0}, {"from": "swamp", "title": "Swamp combined with Water and Fire produces Bogfire.", "to": "water and fire", "width": 1.0}, {"from": "swamp", "title": "Bogfire and Swamp combine to form Marshblaze.", "to": "bogfire", "width": 1.0}, {"from": "swamp", "title": "Swamp combined with Water and Air form Misty Marsh.", "to": "water and air", "width": 1.0}, {"from": "swamp", "title": "Misty Marsh and Swamp combine to form Saturated Bog.", "to": "misty marsh", "width": 1.0}, {"from": "clay", "title": "Clay and Earth combine to form TerraMud.", "to": "earth", "width": 1.0}, {"from": "clay", "title": "Clay and Air combine to form Earthen Breeze.", "to": "air", "width": 1.0}, {"from": "clay", "title": "TerraMud and Clay combine to form CompactClay.", "to": "terramud", "width": 1.0}, {"from": "clay", "title": "Clay and Fire combine to form FusedClay.", "to": "fire", "width": 1.0}, {"from": "clay", "title": "FusedClay and Clay combine to form HardenedFusedClay.", "to": "fusedclay", "width": 1.0}, {"from": "clay", "title": "Earthen Breeze and Clay combine to form Mudwhisper.", "to": "earthen breeze", "width": 1.0}, {"from": "clay", "title": "Mudwhisper and Clay combine to form Siltveil.", "to": "mudwhisper", "width": 1.0}, {"from": "clay", "title": "Siltstone and Clay combine to form Earthenware.", "to": "siltstone", "width": 1.0}, {"from": "clay", "title": "Porcelain and Clay combine to form Finechina.", "to": "porcelain", "width": 1.0}, {"from": "fire", "title": "Steam and Fire combine to form Energy.", "to": "steam", "width": 1.0}, {"from": "fire", "title": "Cloud and Fire combine to form Thundercloud.", "to": "cloud", "width": 1.0}, {"from": "fire", "title": "Energy and Fire combine to form Plasma.", "to": "energy", "width": 1.0}, {"from": "fire", "title": "Earth and Fire combine to form Lava.", "to": "earth", "width": 1.0}, {"from": "fire", "title": "Lava and Fire combine to form Pyrolith.", "to": "lava", "width": 1.0}, {"from": "fire", "title": "Obsidian and Fire combine to form Charcoal.", "to": "obsidian", "width": 1.0}, {"from": "fire", "title": "Plasma and Fire combine to form Stellar Flame.", "to": "plasma", "width": 1.0}, {"from": "fire", "title": "Air and Fire combine to form Zephyrium.", "to": "air", "width": 1.0}, {"from": "fire", "title": "Ignisphere and Fire combine to form Blazewhirl.", "to": "ignisphere", "width": 1.0}, {"from": "fire", "title": "Zephyrium and Fire combine to form Infernium.", "to": "zephyrium", "width": 1.0}, {"from": "fire", "title": "Stratosphere and Fire combine to form Cumulonimbus.", "to": "stratosphere", "width": 1.0}, {"from": "fire", "title": "Fire and Terracotta combine to form Glazed Pottery.", "to": "terracotta", "width": 1.0}, {"from": "fire", "title": "Molten Clay and Fire combine to form Glazed Earthen Stone.", "to": "molten clay", "width": 1.0}, {"from": "fire", "title": "Hardened Lava and Fire combine to form Crystallized Lava.", "to": "hardened lava", "width": 1.0}, {"from": "fire", "title": "FusedClay and Fire combine to form MoltenClay.", "to": "fusedclay", "width": 1.0}, {"from": "fire", "title": "Bog and Fire combine to form Mudfire.", "to": "bog", "width": 1.0}, {"from": "fire", "title": "Bogfire and Fire combine to form Emberstorm.", "to": "bogfire", "width": 1.0}, {"from": "fire", "title": "Fire and Quagmire combine to form Ashen Mire.", "to": "quagmire", "width": 1.0}, {"from": "fire", "title": "Ashen Mire and Fire combine to form Lava Veil.", "to": "ashen mire", "width": 1.0}, {"from": "fire", "title": "Sludge and Air combined with Fire produce Muckair.", "to": "sludge and air", "width": 1.0}, {"from": "steam", "title": "Steam and Earth combine to form Geothermal Vapor.", "to": "earth", "width": 1.0}, {"from": "mist", "title": "Mist and Air combine to form Vapor.", "to": "air", "width": 1.0}, {"from": "mist", "title": "Mist and Bog combine to form Swamp Vapor.", "to": "bog", "width": 1.0}, {"from": "dew", "title": "Dew and Air combine to form Fog.", "to": "air", "width": 1.0}, {"from": "earth", "title": "Lava and Earth combine to form Obsidian.", "to": "lava", "width": 1.0}, {"from": "earth", "title": "Obsidian and Earth combine to form Geode.", "to": "obsidian", "width": 1.0}, {"from": "earth", "title": "Plasma and Earth combine to form Geothermal Essence.", "to": "plasma", "width": 1.0}, {"from": "earth", "title": "Earth and Air combine to form Dust.", "to": "air", "width": 1.0}, {"from": "earth", "title": "Dust and Earth combine to form Loam.", "to": "dust", "width": 1.0}, {"from": "earth", "title": "Earth and Brick combine to form Terracotta.", "to": "brick", "width": 1.0}, {"from": "earth", "title": "Earth and Enamelware combine to form Mineralized Ceramics.", "to": "enamelware", "width": 1.0}, {"from": "earth", "title": "TerraMud and Earth combine to form RichSoil.", "to": "terramud", "width": 1.0}, {"from": "earth", "title": "Marshland and Earth combine to form Fertile Ground.", "to": "marshland", "width": 1.0}, {"from": "earth", "title": "Bog and Earth combine to form Mire.", "to": "bog", "width": 1.0}, {"from": "earth", "title": "Mire and Earth combine to form Clay.", "to": "mire", "width": 1.0}, {"from": "earth", "title": "Marshfluid and Earth combine to form Bogstone.", "to": "marshfluid", "width": 1.0}, {"from": "earth", "title": "Quagmire Essence and Earth combine to form Swamp Heart.", "to": "quagmire essence", "width": 1.0}, {"from": "earth", "title": "Mud and Water combined with Earth gives Clay.", "to": "mud and water", "width": 1.0}, {"from": "earth", "title": "Clay and Mud and Water combined with Earth gives Loam.", "to": "clay and mud and water", "width": 1.0}, {"from": "earth", "title": "Loam and Water combined with Earth gives Quagmire.", "to": "loam and water", "width": 1.0}, {"from": "earth", "title": "Clay and Water and Fire combined with Earth produces Molten Clay.", "to": "clay and water and fire", "width": 1.0}, {"from": "earth", "title": "Molten Clay and Fire combined with Earth produces Fired Molten Clay.", "to": "molten clay and fire", "width": 1.0}, {"from": "earth", "title": "Sludge and Water combined with Earth produce Muck.", "to": "sludge and water", "width": 1.0}, {"from": "dust", "title": "Dust and Air combine to form Particulate.", "to": "air", "width": 1.0}, {"from": "ignisphere", "title": "Ignisphere and Air combine to form Sparkveil.", "to": "air", "width": 1.0}, {"from": "air", "title": "Zephyrium and Air combine to form Stratosphere.", "to": "zephyrium", "width": 1.0}, {"from": "air", "title": "Particulate and Air combine to form Aerosol.", "to": "particulate", "width": 1.0}, {"from": "air", "title": "Earthen Breeze and Air combine to form Skyclay.", "to": "earthen breeze", "width": 1.0}, {"from": "air", "title": "Mudwhisper and Air combine to form Dustglide.", "to": "mudwhisper", "width": 1.0}, {"from": "air", "title": "Swamp Vapor and Air combine to form Ethereal Fog.", "to": "swamp vapor", "width": 1.0}, {"from": "air", "title": "Misty Marsh and Air combine to form Vapor Veil.", "to": "misty marsh", "width": 1.0}, {"from": "air", "title": "Quagmire and Air combine to form Mistral Mist.", "to": "quagmire", "width": 1.0}, {"from": "air", "title": "Mistral Mist and Air combine to form Vaporveil.", "to": "mistral mist", "width": 1.0}, {"from": "air", "title": "Dampness and Water combined with Air produce Mist.", "to": "dampness and water", "width": 1.0}, {"from": "air", "title": "Sludge and Earth combined with Air produce Mire.", "to": "sludge and earth", "width": 1.0}, {"from": "air", "title": "Muckair and Sludge combined with Air produce Mirecloud.", "to": "muckair and sludge", "width": 1.0}, {"from": "bog", "title": "Silt and Bog combine to form Rich Sediment.", "to": "silt", "width": 1.0}, {"from": "bog", "title": "Rich Sediment and Bog combine to form Fertile Deposit.", "to": "rich sediment", "width": 1.0}, {"from": "bog", "title": "Mire and Bog combine to form Quagmire.", "to": "mire", "width": 1.0}, {"from": "bog", "title": "Quagmire and Bog combine to form Marshland.", "to": "quagmire", "width": 1.0}, {"from": "bog", "title": "Swamp Vapor and Bog combine to form Marsh Gas.", "to": "swamp vapor", "width": 1.0}, {"from": "quagmire", "title": "Ashen Mire and Quagmire combine to form Murky Ember.", "to": "ashen mire", "width": 1.0}, {"from": "quagmire", "title": "Mistral Mist and Quagmire combine to form Eroded Veil.", "to": "mistral mist", "width": 1.0}, {"from": "muckair and air", "title": "Muckair and Air combined with Sludge produce Gasquagmire.", "to": "sludge", "width": 1.0}]);
+
+                  nodeColors = {};
+                  allNodes = nodes.get({ returnType: "Object" });
+                  for (nodeId in allNodes) {
+                    nodeColors[nodeId] = allNodes[nodeId].color;
+                  }
+                  allEdges = edges.get({ returnType: "Object" });
+                  // adding nodes and edges to the graph
+                  data = {nodes: nodes, edges: edges};
+
+                  var options = {
+    "configure": {
+        "enabled": true,
+        "filter": [
+            "physics"
+        ]
+    },
+    "edges": {
+        "color": {
+            "inherit": true
+        },
+        "smooth": {
+            "enabled": true,
+            "type": "dynamic"
+        }
+    },
+    "interaction": {
+        "dragNodes": true,
+        "hideEdgesOnDrag": false,
+        "hideNodesOnDrag": false
+    },
+    "physics": {
+        "enabled": true,
+        "forceAtlas2Based": {
+            "avoidOverlap": 0,
+            "centralGravity": 0.015,
+            "damping": 0.4,
+            "gravitationalConstant": -31,
+            "springConstant": 0.08,
+            "springLength": 100
+        },
+        "solver": "forceAtlas2Based",
+        "stabilization": {
+            "enabled": true,
+            "fit": true,
+            "iterations": 1000,
+            "onlyDynamicEdges": false,
+            "updateInterval": 50
+        }
+    }
+};
+
+                  
+
+
+                  
+                  // if this network requires displaying the configure window,
+                  // put it in its div
+                  options.configure["container"] = document.getElementById("config");
+                  
+
+                  network = new vis.Network(container, data, options);
+
+                  
+
+                  
+                    network.on("selectNode", neighbourhoodHighlight);
+                  
+
+                  
+
+
+                  
+
+                  return network;
+
+              }
+              drawGraph();
+        </script>
+    </body>
+</html>
