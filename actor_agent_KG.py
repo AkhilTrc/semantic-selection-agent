@@ -86,7 +86,9 @@ class GraphBuilder:
 
             subj, base = left.split(" and ", 1)
             subj, base = subj.strip().lower(), base.strip().lower()
-            subj = subj+"_and_"+base
+            final = subj+"_and_"+base
+            triples.append([subj, "part", final])
+            triples.append([base, "part", final])
             triples.append([subj, "gives", obj.lower()])
         return triples
 
@@ -126,6 +128,8 @@ class GraphBuilder:
                 print(f"\n🔄 Response for '{node}':\n{raw}")
                 try:
                     triples = self.preprocess_response(raw)
+                    with open(f"triples_{node}.json", "w") as f:
+                        json.dump(triples, f, indent=2)
                     print(f"  Extracted triples: {triples}")
                     
                 except Exception as e:
