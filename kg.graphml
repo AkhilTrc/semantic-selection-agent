@@ -1,0 +1,2315 @@
+<?xml version='1.0' encoding='utf-8'?>
+<graphml xmlns="http://graphml.graphdrawing.org/xmlns" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd"><key id="d2" for="edge" attr.name="width" attr.type="long"/>
+<key id="d1" for="edge" attr.name="label" attr.type="string"/>
+<key id="d0" for="node" attr.name="size" attr.type="long"/>
+<graph edgedefault="directed"><node id="water">
+  <data key="d0">10</data>
+</node>
+<node id="earth">
+  <data key="d0">10</data>
+</node>
+<node id="fire">
+  <data key="d0">10</data>
+</node>
+<node id="air">
+  <data key="d0">10</data>
+</node>
+<node id="water_and_earth">
+  <data key="d0">10</data>
+</node>
+<node id="mud">
+  <data key="d0">10</data>
+</node>
+<node id="mud_and_water">
+  <data key="d0">10</data>
+</node>
+<node id="clay">
+  <data key="d0">10</data>
+</node>
+<node id="mud_and_earth">
+  <data key="d0">10</data>
+</node>
+<node id="petrified soil">
+  <data key="d0">10</data>
+</node>
+<node id="clay_and_water">
+  <data key="d0">10</data>
+</node>
+<node id="ceramic">
+  <data key="d0">10</data>
+</node>
+<node id="clay_and_earth">
+  <data key="d0">10</data>
+</node>
+<node id="earthenware">
+  <data key="d0">10</data>
+</node>
+<node id="fire_and_water">
+  <data key="d0">10</data>
+</node>
+<node id="steam">
+  <data key="d0">10</data>
+</node>
+<node id="steam_and_water">
+  <data key="d0">10</data>
+</node>
+<node id="mist">
+  <data key="d0">10</data>
+</node>
+<node id="steam_and_fire">
+  <data key="d0">10</data>
+</node>
+<node id="blaze">
+  <data key="d0">10</data>
+</node>
+<node id="mist_and_fire">
+  <data key="d0">10</data>
+</node>
+<node id="ember">
+  <data key="d0">10</data>
+</node>
+<node id="mist_and_water">
+  <data key="d0">10</data>
+</node>
+<node id="dew">
+  <data key="d0">10</data>
+</node>
+<node id="water_and_air">
+  <data key="d0">10</data>
+</node>
+<node id="mist_and_air">
+  <data key="d0">10</data>
+</node>
+<node id="fog">
+  <data key="d0">10</data>
+</node>
+<node id="dew_and_water">
+  <data key="d0">10</data>
+</node>
+<node id="condensation">
+  <data key="d0">10</data>
+</node>
+<node id="dew_and_air">
+  <data key="d0">10</data>
+</node>
+<node id="humidity">
+  <data key="d0">10</data>
+</node>
+<node id="fog_and_water">
+  <data key="d0">10</data>
+</node>
+<node id="cloud">
+  <data key="d0">10</data>
+</node>
+<node id="fog_and_air">
+  <data key="d0">10</data>
+</node>
+<node id="vapory">
+  <data key="d0">10</data>
+</node>
+<node id="cloud_and_water">
+  <data key="d0">10</data>
+</node>
+<node id="nimbus">
+  <data key="d0">10</data>
+</node>
+<node id="cloud_and_air">
+  <data key="d0">10</data>
+</node>
+<node id="cirrus">
+  <data key="d0">10</data>
+</node>
+<node id="earth_and_water">
+  <data key="d0">10</data>
+</node>
+<node id="earth_and_fire">
+  <data key="d0">10</data>
+</node>
+<node id="lava">
+  <data key="d0">10</data>
+</node>
+<node id="lava_and_earth">
+  <data key="d0">10</data>
+</node>
+<node id="magma">
+  <data key="d0">10</data>
+</node>
+<node id="lava_and_fire">
+  <data key="d0">10</data>
+</node>
+<node id="glowing ember">
+  <data key="d0">10</data>
+</node>
+<node id="earth_and_air">
+  <data key="d0">10</data>
+</node>
+<node id="dust">
+  <data key="d0">10</data>
+</node>
+<node id="dust_and_earth">
+  <data key="d0">10</data>
+</node>
+<node id="loam">
+  <data key="d0">10</data>
+</node>
+<node id="dust_and_air">
+  <data key="d0">10</data>
+</node>
+<node id="gossamer">
+  <data key="d0">10</data>
+</node>
+<node id="loam_and_air">
+  <data key="d0">10</data>
+</node>
+<node id="fertile mist">
+  <data key="d0">10</data>
+</node>
+<node id="gossamer_and_earth">
+  <data key="d0">10</data>
+</node>
+<node id="silken soil">
+  <data key="d0">10</data>
+</node>
+<node id="energy">
+  <data key="d0">10</data>
+</node>
+<node id="fire_and_earth">
+  <data key="d0">10</data>
+</node>
+<node id="obsidian">
+  <data key="d0">10</data>
+</node>
+<node id="fire_and_air">
+  <data key="d0">10</data>
+</node>
+<node id="ignispectra">
+  <data key="d0">10</data>
+</node>
+<node id="ignispectra_and_fire">
+  <data key="d0">10</data>
+</node>
+<node id="blazeflame">
+  <data key="d0">10</data>
+</node>
+<node id="ignispectra_and_air">
+  <data key="d0">10</data>
+</node>
+<node id="voltwing">
+  <data key="d0">10</data>
+</node>
+<node id="air_and_water">
+  <data key="d0">10</data>
+</node>
+<node id="vaporveil">
+  <data key="d0">10</data>
+</node>
+<node id="dewdrop">
+  <data key="d0">10</data>
+</node>
+<node id="air_and_earth">
+  <data key="d0">10</data>
+</node>
+<node id="mist_and_earth">
+  <data key="d0">10</data>
+</node>
+<node id="vapor">
+  <data key="d0">10</data>
+</node>
+<node id="clay_and_air">
+  <data key="d0">10</data>
+</node>
+<node id="porcelain">
+  <data key="d0">10</data>
+</node>
+<node id="ceramics">
+  <data key="d0">10</data>
+</node>
+<node id="scorchwind">
+  <data key="d0">10</data>
+</node>
+<node id="scorchwind_and_air">
+  <data key="d0">10</data>
+</node>
+<node id="zephyrflare">
+  <data key="d0">10</data>
+</node>
+<node id="scorchwind_and_fire">
+  <data key="d0">10</data>
+</node>
+<node id="blazestorm">
+  <data key="d0">10</data>
+</node>
+<node id="sediment">
+  <data key="d0">10</data>
+</node>
+<node id="water_and_water">
+  <data key="d0">10</data>
+</node>
+<node id="pure water">
+  <data key="d0">10</data>
+</node>
+<node id="earth_and_earth">
+  <data key="d0">10</data>
+</node>
+<node id="stone">
+  <data key="d0">10</data>
+</node>
+<node id="brick">
+  <data key="d0">10</data>
+</node>
+<node id="sediment_and_water">
+  <data key="d0">10</data>
+</node>
+<node id="silt">
+  <data key="d0">10</data>
+</node>
+<node id="stone_and_water">
+  <data key="d0">10</data>
+</node>
+<node id="mineral">
+  <data key="d0">10</data>
+</node>
+<node id="brick_and_earth">
+  <data key="d0">10</data>
+</node>
+<node id="fired brick">
+  <data key="d0">10</data>
+</node>
+<node id="ceramic_and_water">
+  <data key="d0">10</data>
+</node>
+<node id="glazed ceramic">
+  <data key="d0">10</data>
+</node>
+<node id="water_and_earth_and_earth">
+  <data key="d0">10</data>
+</node>
+<node id="water_and_earth_and_water_and_earth">
+  <data key="d0">10</data>
+</node>
+<node id="mud_and_water_and_earth">
+  <data key="d0">10</data>
+</node>
+<node id="sediment_and_earth">
+  <data key="d0">10</data>
+</node>
+<node id="soil">
+  <data key="d0">10</data>
+</node>
+<node id="loam_and_water">
+  <data key="d0">10</data>
+</node>
+<node id="fertile soil">
+  <data key="d0">10</data>
+</node>
+<node id="water_and_fire">
+  <data key="d0">10</data>
+</node>
+<node id="water_and_steam">
+  <data key="d0">10</data>
+</node>
+<node id="fire_and_steam">
+  <data key="d0">10</data>
+</node>
+<node id="water_and_energy">
+  <data key="d0">10</data>
+</node>
+<node id="fire_and_cloud">
+  <data key="d0">10</data>
+</node>
+<node id="storm">
+  <data key="d0">10</data>
+</node>
+<node id="water_and_storm">
+  <data key="d0">10</data>
+</node>
+<node id="drizzle">
+  <data key="d0">10</data>
+</node>
+<node id="fire_and_humidity">
+  <data key="d0">10</data>
+</node>
+<node id="lightning">
+  <data key="d0">10</data>
+</node>
+<node id="water_and_lightning">
+  <data key="d0">10</data>
+</node>
+<node id="thunderstorm">
+  <data key="d0">10</data>
+</node>
+<node id="1. water">
+  <data key="d0">10</data>
+</node>
+<node id="1. water_and_earth">
+  <data key="d0">10</data>
+</node>
+<node id="2. water">
+  <data key="d0">10</data>
+</node>
+<node id="2. water_and_air">
+  <data key="d0">10</data>
+</node>
+<node id="3. earth">
+  <data key="d0">10</data>
+</node>
+<node id="3. earth_and_air">
+  <data key="d0">10</data>
+</node>
+<node id="4. mud">
+  <data key="d0">10</data>
+</node>
+<node id="4. mud_and_water">
+  <data key="d0">10</data>
+</node>
+<node id="sludge">
+  <data key="d0">10</data>
+</node>
+<node id="5. mud">
+  <data key="d0">10</data>
+</node>
+<node id="5. mud_and_earth">
+  <data key="d0">10</data>
+</node>
+<node id="6. mud">
+  <data key="d0">10</data>
+</node>
+<node id="6. mud_and_air">
+  <data key="d0">10</data>
+</node>
+<node id="7. mist">
+  <data key="d0">10</data>
+</node>
+<node id="7. mist_and_water">
+  <data key="d0">10</data>
+</node>
+<node id="8. mist">
+  <data key="d0">10</data>
+</node>
+<node id="8. mist_and_earth">
+  <data key="d0">10</data>
+</node>
+<node id="9. mist">
+  <data key="d0">10</data>
+</node>
+<node id="9. mist_and_air">
+  <data key="d0">10</data>
+</node>
+<node id="mud_and_air">
+  <data key="d0">10</data>
+</node>
+<node id="clay_and_mud">
+  <data key="d0">10</data>
+</node>
+<node id="pottery">
+  <data key="d0">10</data>
+</node>
+<node id="pottery_and_water">
+  <data key="d0">10</data>
+</node>
+<node id="glaze">
+  <data key="d0">10</data>
+</node>
+<node id="terraquint">
+  <data key="d0">10</data>
+</node>
+<node id="terraquint_and_mud">
+  <data key="d0">10</data>
+</node>
+<node id="clayveil">
+  <data key="d0">10</data>
+</node>
+<node id="terraquint_and_earth">
+  <data key="d0">10</data>
+</node>
+<node id="geonexus">
+  <data key="d0">10</data>
+</node>
+<node id="mud_and_fire">
+  <data key="d0">10</data>
+</node>
+<node id="clay_and_fire">
+  <data key="d0">10</data>
+</node>
+<node id="fired clay">
+  <data key="d0">10</data>
+</node>
+<node id="fired clay_and_mud">
+  <data key="d0">10</data>
+</node>
+<node id="terracotta">
+  <data key="d0">10</data>
+</node>
+<node id="fired clay_and_fire">
+  <data key="d0">10</data>
+</node>
+<node id="fired earthenware">
+  <data key="d0">10</data>
+</node>
+<node id="charred earth">
+  <data key="d0">10</data>
+</node>
+<node id="ceramic_and_fire">
+  <data key="d0">10</data>
+</node>
+<node id="terracotta_and_fire">
+  <data key="d0">10</data>
+</node>
+<node id="burnt clay">
+  <data key="d0">10</data>
+</node>
+<node id="dust_and_mud">
+  <data key="d0">10</data>
+</node>
+<node id="mud_and_water_and_water">
+  <data key="d0">10</data>
+</node>
+<node id="quagmire essence">
+  <data key="d0">10</data>
+</node>
+<node id="quagmire essence_and_mud_and_water">
+  <data key="d0">10</data>
+</node>
+<node id="marshland spirit">
+  <data key="d0">10</data>
+</node>
+<node id="quagmire essence_and_water">
+  <data key="d0">10</data>
+</node>
+<node id="swamp vapor">
+  <data key="d0">10</data>
+</node>
+<node id="clay_and_mud_and_water">
+  <data key="d0">10</data>
+</node>
+<node id="fire_and_mud_and_water">
+  <data key="d0">10</data>
+</node>
+<node id="mudfire">
+  <data key="d0">10</data>
+</node>
+<node id="mudfire_and_mud_and_water">
+  <data key="d0">10</data>
+</node>
+<node id="thick mudfire">
+  <data key="d0">10</data>
+</node>
+<node id="mudfire_and_fire">
+  <data key="d0">10</data>
+</node>
+<node id="glowing lava">
+  <data key="d0">10</data>
+</node>
+<node id="mud_and_water_and_air">
+  <data key="d0">10</data>
+</node>
+<node id="mist_and_mud_and_water">
+  <data key="d0">10</data>
+</node>
+<node id="mudded clay">
+  <data key="d0">10</data>
+</node>
+<node id="mudded clay_and_clay">
+  <data key="d0">10</data>
+</node>
+<node id="friable mud">
+  <data key="d0">10</data>
+</node>
+<node id="mudded clay_and_water">
+  <data key="d0">10</data>
+</node>
+<node id="siltstone">
+  <data key="d0">10</data>
+</node>
+<node id="earthenware_and_clay">
+  <data key="d0">10</data>
+</node>
+<node id="earthenware_and_earth">
+  <data key="d0">10</data>
+</node>
+<node id="pottery_and_clay">
+  <data key="d0">10</data>
+</node>
+<node id="terracotta_and_earth">
+  <data key="d0">10</data>
+</node>
+<node id="sedimentary clay">
+  <data key="d0">10</data>
+</node>
+<node id="fire_and_clay">
+  <data key="d0">10</data>
+</node>
+<node id="glazed stone">
+  <data key="d0">10</data>
+</node>
+<node id="fired clay_and_clay">
+  <data key="d0">10</data>
+</node>
+<node id="ceramic composite">
+  <data key="d0">10</data>
+</node>
+<node id="glazed stone_and_clay">
+  <data key="d0">10</data>
+</node>
+<node id="ceramic composite_and_fire">
+  <data key="d0">10</data>
+</node>
+<node id="refractory material">
+  <data key="d0">10</data>
+</node>
+<node id="earthen breeze">
+  <data key="d0">10</data>
+</node>
+<node id="earthen breeze_and_clay">
+  <data key="d0">10</data>
+</node>
+<node id="terrawhirl">
+  <data key="d0">10</data>
+</node>
+<node id="earthen breeze_and_air">
+  <data key="d0">10</data>
+</node>
+<node id="skyclay">
+  <data key="d0">10</data>
+</node>
+<node id="terrawhirl_and_clay">
+  <data key="d0">10</data>
+</node>
+<node id="mudspire">
+  <data key="d0">10</data>
+</node>
+<node id="terrawhirl_and_air">
+  <data key="d0">10</data>
+</node>
+<node id="cloudstone">
+  <data key="d0">10</data>
+</node>
+<node id="mud_and_earth_and_water">
+  <data key="d0">10</data>
+</node>
+<node id="clay_and_mud_and_earth">
+  <data key="d0">10</data>
+</node>
+<node id="terracotta_and_water">
+  <data key="d0">10</data>
+</node>
+<node id="glazed_clay">
+  <data key="d0">10</data>
+</node>
+<node id="ceramic_and_mud_and_earth">
+  <data key="d0">10</data>
+</node>
+<node id="glazed_clay_and_water">
+  <data key="d0">10</data>
+</node>
+<node id="enamel">
+  <data key="d0">10</data>
+</node>
+<node id="porcelain_and_water">
+  <data key="d0">10</data>
+</node>
+<node id="fine_china">
+  <data key="d0">10</data>
+</node>
+<node id="fire_and_mud_and_earth">
+  <data key="d0">10</data>
+</node>
+<node id="lava_and_mud_and_earth">
+  <data key="d0">10</data>
+</node>
+<node id="volcanic clay">
+  <data key="d0">10</data>
+</node>
+<node id="basalt">
+  <data key="d0">10</data>
+</node>
+<node id="magma_and_mud_and_earth">
+  <data key="d0">10</data>
+</node>
+<node id="obsidian_and_fire">
+  <data key="d0">10</data>
+</node>
+<node id="glass">
+  <data key="d0">10</data>
+</node>
+<node id="basalt_and_fire">
+  <data key="d0">10</data>
+</node>
+<node id="blackened stone">
+  <data key="d0">10</data>
+</node>
+<node id="mud_and_earth_and_air">
+  <data key="d0">10</data>
+</node>
+<node id="dusty breeze">
+  <data key="d0">10</data>
+</node>
+<node id="dusty breeze_and_mud_and_earth">
+  <data key="d0">10</data>
+</node>
+<node id="claystorm">
+  <data key="d0">10</data>
+</node>
+<node id="dusty breeze_and_air">
+  <data key="d0">10</data>
+</node>
+<node id="whisperwind">
+  <data key="d0">10</data>
+</node>
+<node id="claystorm_and_mud_and_earth">
+  <data key="d0">10</data>
+</node>
+<node id="terracotta force">
+  <data key="d0">10</data>
+</node>
+<node id="claystorm_and_air">
+  <data key="d0">10</data>
+</node>
+<node id="petrified gale">
+  <data key="d0">10</data>
+</node>
+<node id="petrified soil_and_water">
+  <data key="d0">10</data>
+</node>
+<node id="fossilized essence">
+  <data key="d0">10</data>
+</node>
+<node id="fossilized essence_and_petrified soil">
+  <data key="d0">10</data>
+</node>
+<node id="ancient crystal">
+  <data key="d0">10</data>
+</node>
+<node id="fossilized essence_and_water">
+  <data key="d0">10</data>
+</node>
+<node id="mineral dew">
+  <data key="d0">10</data>
+</node>
+<node id="petrified soil_and_earth">
+  <data key="d0">10</data>
+</node>
+<node id="fossilized terra">
+  <data key="d0">10</data>
+</node>
+<node id="fossilized terra_and_petrified soil">
+  <data key="d0">10</data>
+</node>
+<node id="ancient relic rock">
+  <data key="d0">10</data>
+</node>
+<node id="fossilized terra_and_earth">
+  <data key="d0">10</data>
+</node>
+<node id="mineralized substrate">
+  <data key="d0">10</data>
+</node>
+<node id="fire_and_petrified soil">
+  <data key="d0">10</data>
+</node>
+<node id="emberstone">
+  <data key="d0">10</data>
+</node>
+<node id="petrified soil_and_air">
+  <data key="d0">10</data>
+</node>
+<node id="fossilized breeze">
+  <data key="d0">10</data>
+</node>
+<node id="fossilized breeze_and_petrified soil">
+  <data key="d0">10</data>
+</node>
+<node id="ancient zephyr">
+  <data key="d0">10</data>
+</node>
+<node id="fossilized breeze_and_air">
+  <data key="d0">10</data>
+</node>
+<node id="whispering dust">
+  <data key="d0">10</data>
+</node>
+<edge source="water" target="water_and_earth" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="water" target="mud" id="gives">
+  <data key="d1">gives</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="water" target="mud_and_water" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="water" target="clay_and_water" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="water" target="fire_and_water" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="water" target="steam_and_water" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="water" target="mist_and_water" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="water" target="water_and_air" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="water" target="mist" id="gives">
+  <data key="d1">gives</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="water" target="dew_and_water" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="water" target="fog_and_water" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="water" target="cloud_and_water" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="water" target="earth_and_water" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="water" target="air_and_water" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="water" target="water_and_water" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="water" target="pure water" id="gives">
+  <data key="d1">gives</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="water" target="sediment_and_water" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="water" target="stone_and_water" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="water" target="ceramic_and_water" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="water" target="loam_and_water" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="water" target="water_and_fire" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="water" target="vapor" id="gives">
+  <data key="d1">gives</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="water" target="water_and_steam" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="water" target="cloud" id="gives">
+  <data key="d1">gives</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="water" target="water_and_energy" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="water" target="humidity" id="gives">
+  <data key="d1">gives</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="water" target="water_and_storm" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="water" target="drizzle" id="gives">
+  <data key="d1">gives</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="water" target="water_and_lightning" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="water" target="thunderstorm" id="gives">
+  <data key="d1">gives</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="water" target="4. mud_and_water" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="water" target="7. mist_and_water" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="water" target="pottery_and_water" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="water" target="mud_and_water_and_water" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="water" target="quagmire essence_and_water" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="water" target="mudded clay_and_water" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="water" target="mud_and_earth_and_water" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="water" target="terracotta_and_water" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="water" target="glazed_clay_and_water" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="water" target="porcelain_and_water" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="water" target="petrified soil_and_water" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="water" target="fossilized essence_and_water" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="earth" target="water_and_earth" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="earth" target="mud_and_earth" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="earth" target="clay_and_earth" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="earth" target="earth_and_water" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="earth" target="mud" id="gives">
+  <data key="d1">gives</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="earth" target="earth_and_fire" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="earth" target="lava" id="gives">
+  <data key="d1">gives</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="earth" target="lava_and_earth" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="earth" target="earth_and_air" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="earth" target="dust" id="gives">
+  <data key="d1">gives</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="earth" target="dust_and_earth" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="earth" target="gossamer_and_earth" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="earth" target="fire_and_earth" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="earth" target="air_and_earth" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="earth" target="mist_and_earth" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="earth" target="earth_and_earth" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="earth" target="stone" id="gives">
+  <data key="d1">gives</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="earth" target="brick_and_earth" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="earth" target="water_and_earth_and_earth" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="earth" target="sediment_and_earth" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="earth" target="1. water_and_earth" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="earth" target="5. mud_and_earth" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="earth" target="8. mist_and_earth" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="earth" target="terraquint_and_earth" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="earth" target="mud_and_water_and_earth" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="earth" target="earthenware_and_earth" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="earth" target="terracotta_and_earth" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="earth" target="petrified soil_and_earth" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="earth" target="fossilized terra_and_earth" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="fire" target="fire_and_water" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="fire" target="steam" id="gives">
+  <data key="d1">gives</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="fire" target="steam_and_fire" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="fire" target="mist_and_fire" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="fire" target="earth_and_fire" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="fire" target="lava_and_fire" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="fire" target="fire_and_earth" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="fire" target="lava" id="gives">
+  <data key="d1">gives</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="fire" target="fire_and_air" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="fire" target="ignispectra" id="gives">
+  <data key="d1">gives</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="fire" target="ignispectra_and_fire" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="fire" target="scorchwind" id="gives">
+  <data key="d1">gives</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="fire" target="scorchwind_and_fire" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="fire" target="water_and_fire" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="fire" target="fire_and_steam" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="fire" target="energy" id="gives">
+  <data key="d1">gives</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="fire" target="fire_and_cloud" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="fire" target="storm" id="gives">
+  <data key="d1">gives</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="fire" target="fire_and_humidity" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="fire" target="lightning" id="gives">
+  <data key="d1">gives</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="fire" target="mud_and_fire" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="fire" target="clay_and_fire" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="fire" target="fired clay_and_fire" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="fire" target="ceramic_and_fire" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="fire" target="terracotta_and_fire" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="fire" target="fire_and_mud_and_water" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="fire" target="mudfire" id="gives">
+  <data key="d1">gives</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="fire" target="mudfire_and_fire" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="fire" target="fire_and_clay" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="fire" target="fired clay" id="gives">
+  <data key="d1">gives</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="fire" target="ceramic composite_and_fire" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="fire" target="fire_and_mud_and_earth" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="fire" target="obsidian_and_fire" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="fire" target="basalt_and_fire" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="fire" target="fire_and_petrified soil" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="fire" target="emberstone" id="gives">
+  <data key="d1">gives</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="air" target="water_and_air" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="air" target="mist_and_air" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="air" target="dew_and_air" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="air" target="fog_and_air" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="air" target="cloud_and_air" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="air" target="earth_and_air" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="air" target="dust_and_air" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="air" target="loam_and_air" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="air" target="fire_and_air" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="air" target="ignispectra_and_air" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="air" target="air_and_water" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="air" target="mist" id="gives">
+  <data key="d1">gives</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="air" target="air_and_earth" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="air" target="dust" id="gives">
+  <data key="d1">gives</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="air" target="clay_and_air" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="air" target="scorchwind_and_air" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="air" target="2. water_and_air" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="air" target="3. earth_and_air" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="air" target="6. mud_and_air" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="air" target="9. mist_and_air" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="air" target="mud_and_air" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="air" target="mud_and_water_and_air" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="air" target="earthen breeze_and_air" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="air" target="terrawhirl_and_air" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="air" target="mud_and_earth_and_air" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="air" target="dusty breeze_and_air" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="air" target="claystorm_and_air" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="air" target="petrified soil_and_air" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="air" target="fossilized breeze_and_air" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="water_and_earth" target="water_and_earth_and_earth" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="water_and_earth" target="mud" id="gives">
+  <data key="d1">gives</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="water_and_earth" target="water_and_earth_and_water_and_earth" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="water_and_earth" target="sediment" id="gives">
+  <data key="d1">gives</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="water_and_earth" target="mud_and_water_and_earth" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="mud" target="mud_and_water" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="mud" target="clay" id="gives">
+  <data key="d1">gives</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="mud" target="mud_and_earth" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="mud" target="petrified soil" id="gives">
+  <data key="d1">gives</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="mud" target="dew" id="gives">
+  <data key="d1">gives</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="mud" target="sediment" id="gives">
+  <data key="d1">gives</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="mud" target="mud_and_water_and_earth" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="mud" target="loam" id="gives">
+  <data key="d1">gives</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="mud" target="sludge" id="gives">
+  <data key="d1">gives</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="mud" target="mud_and_air" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="mud" target="silt" id="gives">
+  <data key="d1">gives</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="mud" target="clay_and_mud" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="mud" target="terraquint" id="gives">
+  <data key="d1">gives</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="mud" target="terraquint_and_mud" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="mud" target="mud_and_fire" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="mud" target="fired clay_and_mud" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="mud" target="charred earth" id="gives">
+  <data key="d1">gives</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="mud" target="dust" id="gives">
+  <data key="d1">gives</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="mud" target="dust_and_mud" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="mud_and_water" target="mud_and_water_and_water" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="mud_and_water" target="quagmire essence" id="gives">
+  <data key="d1">gives</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="mud_and_water" target="quagmire essence_and_mud_and_water" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="mud_and_water" target="mud_and_water_and_earth" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="mud_and_water" target="clay" id="gives">
+  <data key="d1">gives</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="mud_and_water" target="clay_and_mud_and_water" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="mud_and_water" target="fire_and_mud_and_water" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="mud_and_water" target="mudfire_and_mud_and_water" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="mud_and_water" target="mud_and_water_and_air" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="mud_and_water" target="mist" id="gives">
+  <data key="d1">gives</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="mud_and_water" target="mist_and_mud_and_water" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="clay" target="clay_and_water" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="clay" target="ceramic" id="gives">
+  <data key="d1">gives</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="clay" target="clay_and_earth" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="clay" target="earthenware" id="gives">
+  <data key="d1">gives</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="clay" target="clay_and_air" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="clay" target="porcelain" id="gives">
+  <data key="d1">gives</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="clay" target="ceramics" id="gives">
+  <data key="d1">gives</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="clay" target="brick" id="gives">
+  <data key="d1">gives</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="clay" target="clay_and_mud" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="clay" target="pottery" id="gives">
+  <data key="d1">gives</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="clay" target="clay_and_fire" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="clay" target="fired clay" id="gives">
+  <data key="d1">gives</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="clay" target="fired earthenware" id="gives">
+  <data key="d1">gives</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="clay" target="clay_and_mud_and_water" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="clay" target="sludge" id="gives">
+  <data key="d1">gives</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="clay" target="terracotta" id="gives">
+  <data key="d1">gives</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="clay" target="mudded clay" id="gives">
+  <data key="d1">gives</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="clay" target="mudded clay_and_clay" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="clay" target="earthenware_and_clay" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="clay" target="pottery_and_clay" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="clay" target="fire_and_clay" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="clay" target="fired clay_and_clay" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="clay" target="glazed stone_and_clay" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="clay" target="earthen breeze" id="gives">
+  <data key="d1">gives</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="clay" target="earthen breeze_and_clay" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="clay" target="terrawhirl_and_clay" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="clay" target="clay_and_mud_and_earth" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="mud_and_earth" target="mud_and_earth_and_water" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="mud_and_earth" target="clay" id="gives">
+  <data key="d1">gives</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="mud_and_earth" target="clay_and_mud_and_earth" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="mud_and_earth" target="ceramic_and_mud_and_earth" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="mud_and_earth" target="fire_and_mud_and_earth" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="mud_and_earth" target="lava_and_mud_and_earth" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="mud_and_earth" target="magma_and_mud_and_earth" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="mud_and_earth" target="mud_and_earth_and_air" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="mud_and_earth" target="dusty breeze" id="gives">
+  <data key="d1">gives</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="mud_and_earth" target="dusty breeze_and_mud_and_earth" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="mud_and_earth" target="claystorm_and_mud_and_earth" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="petrified soil" target="petrified soil_and_water" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="petrified soil" target="fossilized essence" id="gives">
+  <data key="d1">gives</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="petrified soil" target="fossilized essence_and_petrified soil" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="petrified soil" target="petrified soil_and_earth" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="petrified soil" target="fossilized terra" id="gives">
+  <data key="d1">gives</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="petrified soil" target="fossilized terra_and_petrified soil" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="petrified soil" target="fire_and_petrified soil" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="petrified soil" target="petrified soil_and_air" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="petrified soil" target="fossilized breeze" id="gives">
+  <data key="d1">gives</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="petrified soil" target="fossilized breeze_and_petrified soil" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="ceramic" target="ceramic_and_water" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="ceramic" target="glazed ceramic" id="gives">
+  <data key="d1">gives</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="ceramic" target="porcelain" id="gives">
+  <data key="d1">gives</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="ceramic" target="ceramic_and_fire" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="ceramic" target="ceramic_and_mud_and_earth" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="earthenware" target="earthenware_and_clay" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="earthenware" target="pottery" id="gives">
+  <data key="d1">gives</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="earthenware" target="earthenware_and_earth" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="earthenware" target="terracotta" id="gives">
+  <data key="d1">gives</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="steam" target="steam_and_water" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="steam" target="mist" id="gives">
+  <data key="d1">gives</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="steam" target="steam_and_fire" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="steam" target="blaze" id="gives">
+  <data key="d1">gives</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="steam" target="energy" id="gives">
+  <data key="d1">gives</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="steam" target="cloud" id="gives">
+  <data key="d1">gives</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="steam" target="water_and_steam" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="steam" target="fire_and_steam" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="mist" target="mist_and_fire" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="mist" target="ember" id="gives">
+  <data key="d1">gives</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="mist" target="mist_and_water" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="mist" target="dew" id="gives">
+  <data key="d1">gives</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="mist" target="mist_and_air" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="mist" target="fog" id="gives">
+  <data key="d1">gives</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="mist" target="vaporveil" id="gives">
+  <data key="d1">gives</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="mist" target="dewdrop" id="gives">
+  <data key="d1">gives</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="mist" target="mist_and_earth" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="mist" target="loam" id="gives">
+  <data key="d1">gives</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="mist" target="vapor" id="gives">
+  <data key="d1">gives</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="mist" target="mist_and_mud_and_water" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="mist" target="sludge" id="gives">
+  <data key="d1">gives</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="dew" target="dew_and_water" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="dew" target="condensation" id="gives">
+  <data key="d1">gives</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="dew" target="dew_and_air" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="dew" target="humidity" id="gives">
+  <data key="d1">gives</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="fog" target="fog_and_water" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="fog" target="cloud" id="gives">
+  <data key="d1">gives</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="fog" target="fog_and_air" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="fog" target="vapory" id="gives">
+  <data key="d1">gives</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="humidity" target="fire_and_humidity" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="cloud" target="cloud_and_water" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="cloud" target="nimbus" id="gives">
+  <data key="d1">gives</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="cloud" target="cloud_and_air" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="cloud" target="cirrus" id="gives">
+  <data key="d1">gives</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="cloud" target="fire_and_cloud" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="lava" target="lava_and_earth" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="lava" target="magma" id="gives">
+  <data key="d1">gives</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="lava" target="lava_and_fire" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="lava" target="glowing ember" id="gives">
+  <data key="d1">gives</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="lava" target="obsidian" id="gives">
+  <data key="d1">gives</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="lava" target="lava_and_mud_and_earth" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="lava" target="volcanic clay" id="gives">
+  <data key="d1">gives</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="lava" target="basalt" id="gives">
+  <data key="d1">gives</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="magma" target="magma_and_mud_and_earth" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="magma" target="obsidian" id="gives">
+  <data key="d1">gives</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="dust" target="dust_and_earth" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="dust" target="loam" id="gives">
+  <data key="d1">gives</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="dust" target="dust_and_air" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="dust" target="gossamer" id="gives">
+  <data key="d1">gives</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="dust" target="mist" id="gives">
+  <data key="d1">gives</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="dust" target="clay" id="gives">
+  <data key="d1">gives</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="dust" target="dust_and_mud" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="loam" target="loam_and_air" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="loam" target="fertile mist" id="gives">
+  <data key="d1">gives</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="loam" target="loam_and_water" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="loam" target="fertile soil" id="gives">
+  <data key="d1">gives</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="gossamer" target="gossamer_and_earth" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="gossamer" target="silken soil" id="gives">
+  <data key="d1">gives</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="energy" target="water_and_energy" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="obsidian" target="obsidian_and_fire" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="obsidian" target="glass" id="gives">
+  <data key="d1">gives</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="ignispectra" target="ignispectra_and_fire" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="ignispectra" target="blazeflame" id="gives">
+  <data key="d1">gives</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="ignispectra" target="ignispectra_and_air" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="ignispectra" target="voltwing" id="gives">
+  <data key="d1">gives</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="porcelain" target="porcelain_and_water" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="porcelain" target="fine_china" id="gives">
+  <data key="d1">gives</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="scorchwind" target="scorchwind_and_air" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="scorchwind" target="zephyrflare" id="gives">
+  <data key="d1">gives</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="scorchwind" target="scorchwind_and_fire" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="scorchwind" target="blazestorm" id="gives">
+  <data key="d1">gives</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="sediment" target="sediment_and_water" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="sediment" target="silt" id="gives">
+  <data key="d1">gives</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="sediment" target="sediment_and_earth" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="sediment" target="soil" id="gives">
+  <data key="d1">gives</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="stone" target="stone_and_water" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="stone" target="mineral" id="gives">
+  <data key="d1">gives</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="brick" target="brick_and_earth" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="brick" target="fired brick" id="gives">
+  <data key="d1">gives</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="storm" target="water_and_storm" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="lightning" target="water_and_lightning" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="1. water" target="1. water_and_earth" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="1. water" target="mud" id="gives">
+  <data key="d1">gives</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="2. water" target="2. water_and_air" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="2. water" target="mist" id="gives">
+  <data key="d1">gives</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="3. earth" target="3. earth_and_air" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="3. earth" target="dust" id="gives">
+  <data key="d1">gives</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="4. mud" target="4. mud_and_water" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="4. mud" target="sludge" id="gives">
+  <data key="d1">gives</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="5. mud" target="5. mud_and_earth" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="5. mud" target="clay" id="gives">
+  <data key="d1">gives</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="6. mud" target="6. mud_and_air" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="6. mud" target="silt" id="gives">
+  <data key="d1">gives</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="7. mist" target="7. mist_and_water" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="7. mist" target="vapor" id="gives">
+  <data key="d1">gives</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="8. mist" target="8. mist_and_earth" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="8. mist" target="dew" id="gives">
+  <data key="d1">gives</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="9. mist" target="9. mist_and_air" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="9. mist" target="fog" id="gives">
+  <data key="d1">gives</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="pottery" target="pottery_and_water" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="pottery" target="glaze" id="gives">
+  <data key="d1">gives</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="pottery" target="pottery_and_clay" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="pottery" target="ceramic" id="gives">
+  <data key="d1">gives</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="terraquint" target="terraquint_and_mud" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="terraquint" target="clayveil" id="gives">
+  <data key="d1">gives</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="terraquint" target="terraquint_and_earth" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="terraquint" target="geonexus" id="gives">
+  <data key="d1">gives</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="fired clay" target="fired clay_and_mud" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="fired clay" target="terracotta" id="gives">
+  <data key="d1">gives</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="fired clay" target="fired clay_and_fire" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="fired clay" target="glazed ceramic" id="gives">
+  <data key="d1">gives</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="fired clay" target="glazed stone" id="gives">
+  <data key="d1">gives</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="fired clay" target="fired clay_and_clay" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="fired clay" target="ceramic composite" id="gives">
+  <data key="d1">gives</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="terracotta" target="terracotta_and_fire" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="terracotta" target="burnt clay" id="gives">
+  <data key="d1">gives</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="terracotta" target="terracotta_and_earth" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="terracotta" target="sedimentary clay" id="gives">
+  <data key="d1">gives</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="terracotta" target="terracotta_and_water" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="terracotta" target="glazed_clay" id="gives">
+  <data key="d1">gives</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="quagmire essence" target="quagmire essence_and_mud_and_water" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="quagmire essence" target="marshland spirit" id="gives">
+  <data key="d1">gives</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="quagmire essence" target="quagmire essence_and_water" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="quagmire essence" target="swamp vapor" id="gives">
+  <data key="d1">gives</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="mudfire" target="mudfire_and_mud_and_water" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="mudfire" target="thick mudfire" id="gives">
+  <data key="d1">gives</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="mudfire" target="mudfire_and_fire" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="mudfire" target="glowing lava" id="gives">
+  <data key="d1">gives</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="mudded clay" target="mudded clay_and_clay" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="mudded clay" target="friable mud" id="gives">
+  <data key="d1">gives</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="mudded clay" target="mudded clay_and_water" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="mudded clay" target="siltstone" id="gives">
+  <data key="d1">gives</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="glazed stone" target="glazed stone_and_clay" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="glazed stone" target="porcelain" id="gives">
+  <data key="d1">gives</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="ceramic composite" target="ceramic composite_and_fire" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="ceramic composite" target="refractory material" id="gives">
+  <data key="d1">gives</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="earthen breeze" target="earthen breeze_and_clay" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="earthen breeze" target="terrawhirl" id="gives">
+  <data key="d1">gives</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="earthen breeze" target="earthen breeze_and_air" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="earthen breeze" target="skyclay" id="gives">
+  <data key="d1">gives</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="terrawhirl" target="terrawhirl_and_clay" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="terrawhirl" target="mudspire" id="gives">
+  <data key="d1">gives</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="terrawhirl" target="terrawhirl_and_air" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="terrawhirl" target="cloudstone" id="gives">
+  <data key="d1">gives</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="glazed_clay" target="glazed_clay_and_water" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="glazed_clay" target="enamel" id="gives">
+  <data key="d1">gives</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="basalt" target="basalt_and_fire" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="basalt" target="blackened stone" id="gives">
+  <data key="d1">gives</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="dusty breeze" target="dusty breeze_and_mud_and_earth" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="dusty breeze" target="claystorm" id="gives">
+  <data key="d1">gives</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="dusty breeze" target="dusty breeze_and_air" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="dusty breeze" target="whisperwind" id="gives">
+  <data key="d1">gives</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="claystorm" target="claystorm_and_mud_and_earth" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="claystorm" target="terracotta force" id="gives">
+  <data key="d1">gives</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="claystorm" target="claystorm_and_air" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="claystorm" target="petrified gale" id="gives">
+  <data key="d1">gives</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="fossilized essence" target="fossilized essence_and_petrified soil" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="fossilized essence" target="ancient crystal" id="gives">
+  <data key="d1">gives</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="fossilized essence" target="fossilized essence_and_water" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="fossilized essence" target="mineral dew" id="gives">
+  <data key="d1">gives</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="fossilized terra" target="fossilized terra_and_petrified soil" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="fossilized terra" target="ancient relic rock" id="gives">
+  <data key="d1">gives</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="fossilized terra" target="fossilized terra_and_earth" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="fossilized terra" target="mineralized substrate" id="gives">
+  <data key="d1">gives</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="fossilized breeze" target="fossilized breeze_and_petrified soil" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="fossilized breeze" target="ancient zephyr" id="gives">
+  <data key="d1">gives</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="fossilized breeze" target="fossilized breeze_and_air" id="part">
+  <data key="d1">part</data>
+  <data key="d2">1</data>
+</edge>
+<edge source="fossilized breeze" target="whispering dust" id="gives">
+  <data key="d1">gives</data>
+  <data key="d2">1</data>
+</edge>
+</graph></graphml>

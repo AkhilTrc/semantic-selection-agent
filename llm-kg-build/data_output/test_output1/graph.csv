@@ -1,132 +1,132 @@
 node_1|node_2|edge|chunk_id
-water|earth|Water and Earth combine to form Mud.|5833209633c64fb7b4baee57975450e1
-mud|water|Mud and Water combine to form Swamp.|5833209633c64fb7b4baee57975450e1
-mud|earth|Mud and Earth combine to form Clay.|5833209633c64fb7b4baee57975450e1
-swamp|earth|Swamp and Earth combine to form Bog.|5833209633c64fb7b4baee57975450e1
-swamp|water|Swamp and Water combine to form Quagmire.|5833209633c64fb7b4baee57975450e1
-clay|water|Clay and Water combine to form Sludge.|5833209633c64fb7b4baee57975450e1
-fire|water|Fire and Water combine to form Steam.|5833209633c64fb7b4baee57975450e1
-steam|water|Steam and Water combine to form Cloud.|5833209633c64fb7b4baee57975450e1
-steam|fire|Steam and Fire combine to form Energy.|5833209633c64fb7b4baee57975450e1
-cloud|fire|Cloud and Fire combine to form Thundercloud.|5833209633c64fb7b4baee57975450e1
-cloud|water|Cloud and Water combine to form Mist.|5833209633c64fb7b4baee57975450e1
-energy|water|Energy and Water combine to form Boil.|5833209633c64fb7b4baee57975450e1
-energy|fire|Energy and Fire combine to form Plasma.|5833209633c64fb7b4baee57975450e1
-water|air|Water and Air combine to form Mist.|5833209633c64fb7b4baee57975450e1
-mist|water|Mist and Water combine to form Dew.|5833209633c64fb7b4baee57975450e1
-mist|air|Mist and Air combine to form Vapor.|5833209633c64fb7b4baee57975450e1
-dew|water|Dew and Water combine to form Humidity.|5833209633c64fb7b4baee57975450e1
-dew|air|Dew and Air combine to form Fog.|5833209633c64fb7b4baee57975450e1
-steam|earth|Steam and Earth combine to form Geothermal Vapor.|5833209633c64fb7b4baee57975450e1
-steam|water|Steam and Water combine to form Condensed Mist.|5833209633c64fb7b4baee57975450e1
-earth|fire|Earth and Fire combine to form Lava.|5833209633c64fb7b4baee57975450e1
-lava|earth|Lava and Earth combine to form Obsidian.|5833209633c64fb7b4baee57975450e1
-lava|fire|Lava and Fire combine to form Plasma.|5833209633c64fb7b4baee57975450e1
-obsidian|earth|Obsidian and Earth combine to form Geode.|5833209633c64fb7b4baee57975450e1
-obsidian|fire|Obsidian and Fire combine to form Charcoal.|5833209633c64fb7b4baee57975450e1
-plasma|earth|Plasma and Earth combine to form Geothermal Essence.|5833209633c64fb7b4baee57975450e1
-plasma|fire|Plasma and Fire combine to form Stellar Flame.|5833209633c64fb7b4baee57975450e1
-earth|air|Earth and Air combine to form Dust.|5833209633c64fb7b4baee57975450e1
-dust|earth|Dust and Earth combine to form Clay.|5833209633c64fb7b4baee57975450e1
-dust|air|Dust and Air combine to form Mist.|5833209633c64fb7b4baee57975450e1
-fire|air|Fire and Air combine to form Ignisphere.|5833209633c64fb7b4baee57975450e1
-ignisphere|fire|Ignisphere and Fire combine to form Blazewhirl.|5833209633c64fb7b4baee57975450e1
-ignisphere|air|Ignisphere and Air combine to form Sparkveil.|5833209633c64fb7b4baee57975450e1
-air|fire|Air and Fire combine to form Zephyrium.|5833209633c64fb7b4baee57975450e1
-zephyrium|air|Zephyrium and Air combine to form Stratosphere.|5833209633c64fb7b4baee57975450e1
-zephyrium|fire|Zephyrium and Fire combine to form Infernium.|5833209633c64fb7b4baee57975450e1
-stratosphere|fire|Stratosphere and Fire combine to form Cumulonimbus.|5833209633c64fb7b4baee57975450e1
-mud|fire|Mud and Fire combine to form Brick.|5833209633c64fb7b4baee57975450e1
-water|brick|Water and Brick combine to form Ceramic.|5833209633c64fb7b4baee57975450e1
-earth|brick|Earth and Brick combine to form Terracotta.|5833209633c64fb7b4baee57975450e1
-fire|terracotta|Fire and Terracotta combine to form Glazed Pottery.|5833209633c64fb7b4baee57975450e1
-water|glazed pottery|Water and Glazed Pottery combine to form Enamelware.|5833209633c64fb7b4baee57975450e1
-earth|enamelware|Earth and Enamelware combine to form Mineralized Ceramics.|5833209633c64fb7b4baee57975450e1
-mud|air|Mud and Air combine to form Dust.|5833209633c64fb7b4baee57975450e1
-water|air|Water and Air combine to form Fog.|5833209633c64fb7b4baee57975450e1
-dust|water|Dust and Water combine to form Silt.|5833209633c64fb7b4baee57975450e1
-dust|earth|Dust and Earth combine to form Loam.|5833209633c64fb7b4baee57975450e1
-clay|mud|Clay and Mud combine to form Ceramic.|5833209633c64fb7b4baee57975450e1
-clay|earth|Clay and Earth combine to form Sediment.|5833209633c64fb7b4baee57975450e1
-mud|fire|Mud and Fire combine to form Molten Clay.|5833209633c64fb7b4baee57975450e1
-molten clay|mud|Molten Clay and Mud combine to form Hardened Lava.|5833209633c64fb7b4baee57975450e1
-molten clay|fire|Molten Clay and Fire combine to form Glazed Earthen Stone.|5833209633c64fb7b4baee57975450e1
-hardened lava|mud|Hardened Lava and Mud combine to form Obsidian Mud.|5833209633c64fb7b4baee57975450e1
-hardened lava|fire|Hardened Lava and Fire combine to form Crystallized Lava.|5833209633c64fb7b4baee57975450e1
-dust|mud|Dust and Mud combine to form Clay.|5833209633c64fb7b4baee57975450e1
-dust|air|Dust and Air combine to form Particulate.|5833209633c64fb7b4baee57975450e1
-clay|air|Clay and Air combine to form Ceramic.|5833209633c64fb7b4baee57975450e1
-clay|mud|Clay and Mud combine to form Terracotta.|5833209633c64fb7b4baee57975450e1
-particulate|mud|Particulate and Mud combine to form Loam.|5833209633c64fb7b4baee57975450e1
-particulate|air|Particulate and Air combine to form Aerosol.|5833209633c64fb7b4baee57975450e1
-clay|earth|Clay and Earth combine to form TerraMud.|5833209633c64fb7b4baee57975450e1
-terramud|clay|TerraMud and Clay combine to form CompactClay.|5833209633c64fb7b4baee57975450e1
-terramud|earth|TerraMud and Earth combine to form RichSoil.|5833209633c64fb7b4baee57975450e1
-clay|fire|Clay and Fire combine to form FusedClay.|5833209633c64fb7b4baee57975450e1
-fusedclay|clay|FusedClay and Clay combine to form HardenedFusedClay.|5833209633c64fb7b4baee57975450e1
-fusedclay|fire|FusedClay and Fire combine to form MoltenClay.|5833209633c64fb7b4baee57975450e1
-clay|air|Clay and Air combine to form Earthen Breeze.|5833209633c64fb7b4baee57975450e1
-earthen breeze|clay|Earthen Breeze and Clay combine to form Mudwhisper.|5833209633c64fb7b4baee57975450e1
-earthen breeze|air|Earthen Breeze and Air combine to form Skyclay.|5833209633c64fb7b4baee57975450e1
-mudwhisper|clay|Mudwhisper and Clay combine to form Siltveil.|5833209633c64fb7b4baee57975450e1
-mudwhisper|air|Mudwhisper and Air combine to form Dustglide.|5833209633c64fb7b4baee57975450e1
-swamp|water|Swamp and Water combine to form Marshland.|5833209633c64fb7b4baee57975450e1
-marshland|swamp|Marshland and Swamp combine to form Fenlands.|5833209633c64fb7b4baee57975450e1
-marshland|water|Marshland and Water combine to form Quagmire.|5833209633c64fb7b4baee57975450e1
-swamp|earth|Swamp and Earth combine to form Marshland.|5833209633c64fb7b4baee57975450e1
-marshland|earth|Marshland and Earth combine to form Fertile Ground.|5833209633c64fb7b4baee57975450e1
-swamp|fire|Swamp and Fire combine to form Lava.|5833209633c64fb7b4baee57975450e1
-lava|swamp|Lava and Swamp combine to form Magma.|5833209633c64fb7b4baee57975450e1
-lava|fire|Lava and Fire combine to form Pyrolith.|5833209633c64fb7b4baee57975450e1
-swamp|air|Swamp and Air combine to form Miasma.|5833209633c64fb7b4baee57975450e1
-bog|water|Bog and Water combine to form Mud.|5833209633c64fb7b4baee57975450e1
-mud|bog|Mud and Bog combine to form Silt.|5833209633c64fb7b4baee57975450e1
-mud|water|Mud and Water combine to form Swamp.|5833209633c64fb7b4baee57975450e1
-silt|bog|Silt and Bog combine to form Rich Sediment.|5833209633c64fb7b4baee57975450e1
-rich sediment|bog|Rich Sediment and Bog combine to form Fertile Deposit.|5833209633c64fb7b4baee57975450e1
-bog|earth|Bog and Earth combine to form Mire.|5833209633c64fb7b4baee57975450e1
-mire|bog|Mire and Bog combine to form Quagmire.|5833209633c64fb7b4baee57975450e1
-mire|earth|Mire and Earth combine to form Clay.|5833209633c64fb7b4baee57975450e1
-quagmire|bog|Quagmire and Bog combine to form Marshland.|5833209633c64fb7b4baee57975450e1
-bog|fire|Bog and Fire combine to form Mudfire.|5833209633c64fb7b4baee57975450e1
-mist|bog|Mist and Bog combine to form Swamp Vapor.|5833209633c64fb7b4baee57975450e1
-swamp vapor|bog|Swamp Vapor and Bog combine to form Marsh Gas.|5833209633c64fb7b4baee57975450e1
-swamp vapor|air|Swamp Vapor and Air combine to form Ethereal Fog.|5833209633c64fb7b4baee57975450e1
-swamp|water|Swamp and Water combine to form Marshfluid.|5833209633c64fb7b4baee57975450e1
-marshfluid|earth|Marshfluid and Earth combine to form Bogstone.|5833209633c64fb7b4baee57975450e1
-marshfluid|swamp|Marshfluid and Swamp combine to form Quagmire Essence.|5833209633c64fb7b4baee57975450e1
-bogstone|swamp|Bogstone and Swamp combine to form Mudcore.|5833209633c64fb7b4baee57975450e1
-quagmire essence|earth|Quagmire Essence and Earth combine to form Swamp Heart.|5833209633c64fb7b4baee57975450e1
-swamp|water and fire|Swamp combined with Water and Fire produces Bogfire.|5833209633c64fb7b4baee57975450e1
-bogfire|swamp|Bogfire and Swamp combine to form Marshblaze.|5833209633c64fb7b4baee57975450e1
-bogfire|fire|Bogfire and Fire combine to form Emberstorm.|5833209633c64fb7b4baee57975450e1
-swamp|water and air|Swamp combined with Water and Air form Misty Marsh.|5833209633c64fb7b4baee57975450e1
-misty marsh|swamp|Misty Marsh and Swamp combine to form Saturated Bog.|5833209633c64fb7b4baee57975450e1
-misty marsh|air|Misty Marsh and Air combine to form Vapor Veil.|5833209633c64fb7b4baee57975450e1
-fire|quagmire|Fire and Quagmire combine to form Ashen Mire.|5833209633c64fb7b4baee57975450e1
-ashen mire|quagmire|Ashen Mire and Quagmire combine to form Murky Ember.|5833209633c64fb7b4baee57975450e1
-ashen mire|fire|Ashen Mire and Fire combine to form Lava Veil.|5833209633c64fb7b4baee57975450e1
-quagmire|air|Quagmire and Air combine to form Mistral Mist.|5833209633c64fb7b4baee57975450e1
-mistral mist|quagmire|Mistral Mist and Quagmire combine to form Eroded Veil.|5833209633c64fb7b4baee57975450e1
-mistral mist|air|Mistral Mist and Air combine to form Vaporveil.|5833209633c64fb7b4baee57975450e1
-clay|water|Clay and Water combine to form Mudsand.|5833209633c64fb7b4baee57975450e1
-mudsand|water|Mudsand and Water combine to form Siltstone.|5833209633c64fb7b4baee57975450e1
-siltstone|clay|Siltstone and Clay combine to form Earthenware.|5833209633c64fb7b4baee57975450e1
-earthenware|water|Earthenware and Water combine to form Porcelain.|5833209633c64fb7b4baee57975450e1
-porcelain|clay|Porcelain and Clay combine to form Finechina.|5833209633c64fb7b4baee57975450e1
-finechina|water|Finechina and Water combine to form Porcelite.|5833209633c64fb7b4baee57975450e1
-mud and water|earth|Mud and Water combined with Earth gives Clay.|5833209633c64fb7b4baee57975450e1
-clay and mud and water|earth|Clay and Mud and Water combined with Earth gives Loam.|5833209633c64fb7b4baee57975450e1
-loam and water|earth|Loam and Water combined with Earth gives Quagmire.|5833209633c64fb7b4baee57975450e1
-clay and water and fire|earth|Clay and Water and Fire combined with Earth produces Molten Clay.|5833209633c64fb7b4baee57975450e1
-molten clay and fire|earth|Molten Clay and Fire combined with Earth produces Fired Molten Clay.|5833209633c64fb7b4baee57975450e1
-mud and air|water|Mud and Air combined with Water produce Dampness.|5833209633c64fb7b4baee57975450e1
-dampness and water|air|Dampness and Water combined with Air produce Mist.|5833209633c64fb7b4baee57975450e1
-mist and air|mud|Mist and Air combined with Mud produces Muddy Mist.|5833209633c64fb7b4baee57975450e1
-misty mist and air|mud|Misty Mist and Air combined with Mud produces Hazy Vapor.|5833209633c64fb7b4baee57975450e1
-sludge and water|earth|Sludge and Water combined with Earth produce Muck.|5833209633c64fb7b4baee57975450e1
-sludge and earth|air|Sludge and Earth combined with Air produce Mire.|5833209633c64fb7b4baee57975450e1
-sludge and fire|water|Sludge and Fire combined with Water produce Molten Ash.|5833209633c64fb7b4baee57975450e1
-sludge and air|fire|Sludge and Air combined with Fire produce Muckair.|5833209633c64fb7b4baee57975450e1
-muckair and sludge|air|Muckair and Sludge combined with Air produce Mirecloud.|5833209633c64fb7b4baee57975450e1
-muckair and air|sludge|Muckair and Air combined with Sludge produce Gasquagmire.|5833209633c64fb7b4baee57975450e1
+water|earth|Water and Earth gives Mud|487025f3d9b140279cc94421bd625168
+mud|water|Mud and Water gives Swamp|487025f3d9b140279cc94421bd625168
+mud|earth|Mud and Earth gives Clay|487025f3d9b140279cc94421bd625168
+swamp|earth|Swamp and Earth gives Bog|487025f3d9b140279cc94421bd625168
+swamp|water|Swamp and Water gives Quagmire|487025f3d9b140279cc94421bd625168
+clay|water|Clay and Water gives Sludge|487025f3d9b140279cc94421bd625168
+fire|water|Fire and Water gives Steam|487025f3d9b140279cc94421bd625168
+steam|water|Steam and Water gives Cloud|487025f3d9b140279cc94421bd625168
+steam|fire|Steam and Fire gives Energy|487025f3d9b140279cc94421bd625168
+cloud|fire|Cloud and Fire gives Thundercloud|487025f3d9b140279cc94421bd625168
+cloud|water|Cloud and Water gives Mist|487025f3d9b140279cc94421bd625168
+energy|water|Energy and Water gives Boil|487025f3d9b140279cc94421bd625168
+energy|fire|Energy and Fire gives Plasma|487025f3d9b140279cc94421bd625168
+water|air|Water and Air gives Mist|487025f3d9b140279cc94421bd625168
+mist|water|Mist and Water gives Dew|487025f3d9b140279cc94421bd625168
+mist|air|Mist and Air gives Vapor|487025f3d9b140279cc94421bd625168
+dew|water|Dew and Water gives Humidity|487025f3d9b140279cc94421bd625168
+dew|air|Dew and Air gives Fog|487025f3d9b140279cc94421bd625168
+steam|earth|Steam and Earth gives Geothermal Vapor|487025f3d9b140279cc94421bd625168
+steam|water|Steam and Water gives Condensed Mist|487025f3d9b140279cc94421bd625168
+earth|fire|Earth and Fire gives Lava|487025f3d9b140279cc94421bd625168
+lava|earth|Lava and Earth gives Obsidian|487025f3d9b140279cc94421bd625168
+lava|fire|Lava and Fire gives Plasma|487025f3d9b140279cc94421bd625168
+obsidian|earth|Obsidian and Earth gives Geode|487025f3d9b140279cc94421bd625168
+obsidian|fire|Obsidian and Fire gives Charcoal|487025f3d9b140279cc94421bd625168
+plasma|earth|Plasma and Earth gives Geothermal Essence|487025f3d9b140279cc94421bd625168
+plasma|fire|Plasma and Fire gives Stellar Flame|487025f3d9b140279cc94421bd625168
+earth|air|Earth and Air gives Dust|487025f3d9b140279cc94421bd625168
+dust|earth|Dust and Earth gives Clay|487025f3d9b140279cc94421bd625168
+dust|air|Dust and Air gives Mist|487025f3d9b140279cc94421bd625168
+fire|air|Fire and Air gives Ignisphere|487025f3d9b140279cc94421bd625168
+ignisphere|fire|Ignisphere and Fire gives Blazewhirl|487025f3d9b140279cc94421bd625168
+ignisphere|air|Ignisphere and Air gives Sparkveil|487025f3d9b140279cc94421bd625168
+air|fire|Air and Fire gives Zephyrium|487025f3d9b140279cc94421bd625168
+zephyrium|air|Zephyrium and Air gives Stratosphere|487025f3d9b140279cc94421bd625168
+zephyrium|fire|Zephyrium and Fire gives Infernium|487025f3d9b140279cc94421bd625168
+stratosphere|fire|Stratosphere and Fire gives Cumulonimbus|487025f3d9b140279cc94421bd625168
+mud|fire|Mud and Fire gives Brick|487025f3d9b140279cc94421bd625168
+water|brick|Water and Brick gives Ceramic|487025f3d9b140279cc94421bd625168
+earth|brick|Earth and Brick gives Terracotta|487025f3d9b140279cc94421bd625168
+fire|terracotta|Fire and Terracotta gives Glazed Pottery|487025f3d9b140279cc94421bd625168
+water|glazed pottery|Water and Glazed Pottery gives Enamelware|487025f3d9b140279cc94421bd625168
+earth|enamelware|Earth and Enamelware gives Mineralized Ceramics|487025f3d9b140279cc94421bd625168
+mud|air|Mud and Air gives Dust|487025f3d9b140279cc94421bd625168
+water|air|Water and Air gives Fog|487025f3d9b140279cc94421bd625168
+dust|water|Dust and Water gives Silt|487025f3d9b140279cc94421bd625168
+mud|water|Mud and Water gives Clay|487025f3d9b140279cc94421bd625168
+clay|mud|Clay and Mud gives Ceramic|487025f3d9b140279cc94421bd625168
+clay|earth|Clay and Earth gives Sediment|487025f3d9b140279cc94421bd625168
+mud|fire|Mud and Fire gives Molten Clay|487025f3d9b140279cc94421bd625168
+molten clay|mud|Molten Clay and Mud gives Hardened Lava|487025f3d9b140279cc94421bd625168
+molten clay|fire|Molten Clay and Fire gives Glazed Earthen Stone|487025f3d9b140279cc94421bd625168
+hardened lava|mud|Hardened Lava and Mud gives Obsidian Mud|487025f3d9b140279cc94421bd625168
+hardened lava|fire|Hardened Lava and Fire gives Crystallized Lava|487025f3d9b140279cc94421bd625168
+dust|mud|Dust and Mud gives Clay|487025f3d9b140279cc94421bd625168
+dust|air|Dust and Air gives Particulate|487025f3d9b140279cc94421bd625168
+clay|air|Clay and Air gives Ceramic|487025f3d9b140279cc94421bd625168
+clay|mud|Clay and Mud gives Terracotta|487025f3d9b140279cc94421bd625168
+particulate|mud|Particulate and Mud gives Loam|487025f3d9b140279cc94421bd625168
+particulate|air|Particulate and Air gives Aerosol|487025f3d9b140279cc94421bd625168
+clay|water|Clay and Water gives Mud|487025f3d9b140279cc94421bd625168
+mud|clay|Mud and Clay gives Silt|487025f3d9b140279cc94421bd625168
+silt|water|Silt and Water gives Sediment|487025f3d9b140279cc94421bd625168
+silt|clay|Silt and Clay gives Loam|487025f3d9b140279cc94421bd625168
+sediment|clay|Sediment and Clay gives Claystone|487025f3d9b140279cc94421bd625168
+sediment|water|Sediment and Water gives Alluvium|487025f3d9b140279cc94421bd625168
+clay|earth|Clay and Earth gives TerraMud|487025f3d9b140279cc94421bd625168
+terramud|clay|TerraMud and Clay gives CompactClay|487025f3d9b140279cc94421bd625168
+terramud|earth|TerraMud and Earth gives RichSoil|487025f3d9b140279cc94421bd625168
+clay|fire|Clay and Fire gives FusedClay|487025f3d9b140279cc94421bd625168
+fusedclay|clay|FusedClay and Clay gives HardenedFusedClay|487025f3d9b140279cc94421bd625168
+fusedclay|fire|FusedClay and Fire gives MoltenClay|487025f3d9b140279cc94421bd625168
+clay|air|Clay and Air gives Earthen Breeze|487025f3d9b140279cc94421bd625168
+earthen breeze|clay|Earthen Breeze and Clay gives Mudwhisper|487025f3d9b140279cc94421bd625168
+earthen breeze|air|Earthen Breeze and Air gives Skyclay|487025f3d9b140279cc94421bd625168
+mudwhisper|clay|Mudwhisper and Clay gives Siltveil|487025f3d9b140279cc94421bd625168
+mudwhisper|air|Mudwhisper and Air gives Dustglide|487025f3d9b140279cc94421bd625168
+swamp|water|Swamp and Water gives Marshland|487025f3d9b140279cc94421bd625168
+marshland|swamp|Marshland and Swamp gives Fenlands|487025f3d9b140279cc94421bd625168
+marshland|water|Marshland and Water gives Quagmire|487025f3d9b140279cc94421bd625168
+marshland|earth|Marshland and Earth gives Fertile Ground|487025f3d9b140279cc94421bd625168
+swamp|fire|Swamp and Fire gives Lava|487025f3d9b140279cc94421bd625168
+lava|swamp|Lava and Swamp gives Magma|487025f3d9b140279cc94421bd625168
+lava|fire|Lava and Fire gives Pyrolith|487025f3d9b140279cc94421bd625168
+swamp|air|Swamp and Air gives Miasma|487025f3d9b140279cc94421bd625168
+magma|fire|Magma and Fire gives Glass|487025f3d9b140279cc94421bd625168
+obsidian|mud_and_earth|Obsidian and Mud_and_earth gives Volcanic Glass|487025f3d9b140279cc94421bd625168
+obsidian|fire|Obsidian and Fire gives Pyroclast|487025f3d9b140279cc94421bd625168
+glass|mud_and_earth|Glass and Mud_and_earth gives Terraglass|487025f3d9b140279cc94421bd625168
+pyroclast|mud_and_earth|Pyroclast and Mud_and_earth gives Ashstone|487025f3d9b140279cc94421bd625168
+swamp_and_water|fire|Swamp_and_water and Fire gives Bogfire|487025f3d9b140279cc94421bd625168
+bogfire|swamp_and_water|Bogfire and swamp_and_water gives Marshblaze|487025f3d9b140279cc94421bd625168
+bogfire|fire|Bogfire and Fire gives Emberstorm|487025f3d9b140279cc94421bd625168
+mud_and_water|air|Mud_and_water and Air gives Dampness|487025f3d9b140279cc94421bd625168
+dampness|mud_and_water|Dampness and Mud_and_water gives Sogginess|487025f3d9b140279cc94421bd625168
+dampness|air|Dampness and Air gives Mist|487025f3d9b140279cc94421bd625168
+sogginess|air|Sogginess and Air gives Humidity|487025f3d9b140279cc94421bd625168
+mud|bog|Mud and Bog gives Silt|487025f3d9b140279cc94421bd625168
+bog|air|Bog and Air gives Mist|487025f3d9b140279cc94421bd625168
+mist|bog|Mist and Bog gives Swamp Vapor|487025f3d9b140279cc94421bd625168
+swamp vapor|bog|Swamp Vapor and Bog gives Marsh Gas|487025f3d9b140279cc94421bd625168
+swamp vapor|air|Swamp Vapor and Air gives Ethereal Fog|487025f3d9b140279cc94421bd625168
+fire|sludge|Fire and Sludge gives Molten Ash|487025f3d9b140279cc94421bd625168
+molten ash|sludge|Molten Ash and Sludge gives Lava Residue|487025f3d9b140279cc94421bd625168
+molten ash|fire|Molten Ash and Fire gives Incandescent Ember|487025f3d9b140279cc94421bd625168
+sludge|air|Sludge and Air gives Muckair|487025f3d9b140279cc94421bd625168
+muckair|sludge|Muckair and Sludge gives Mirecloud|487025f3d9b140279cc94421bd625168
+muckair|air|Muckair and Air gives Gasquagmire|487025f3d9b140279cc94421bd625168
+mud_and_earth|water|Mud_and_earth and Water gives Clay|487025f3d9b140279cc94421bd625168
+clay|mud_and_earth|Clay and Mud_and_earth gives Ceramic|487025f3d9b140279cc94421bd625168
+clay_and_water|earth|Clay_and_water and Earth gives Mud|487025f3d9b140279cc94421bd625168
+mud|clay_and_water|Mud and Clay_and_water gives Silt|487025f3d9b140279cc94421bd625168
+mud|earth|Mud and Earth gives Loam|487025f3d9b140279cc94421bd625168
+silt|earth|Silt and Earth gives Fertile_soil|487025f3d9b140279cc94421bd625168
+loam|water|Loam and Water gives Quagmire|487025f3d9b140279cc94421bd625168
+molten clay|clay_and_water|Molten Clay and Clay_and_water gives Semi-Solid Clay|487025f3d9b140279cc94421bd625168
+semi-solid clay|fire|Semi-Solid Clay and Fire gives Burnt Clay|487025f3d9b140279cc94421bd625168
+molten clay|fire|Molten Clay and Fire gives Fired Molten Clay|487025f3d9b140279cc94421bd625168
+mud|air|Mud and Air gives Dust|487025f3d9b140279cc94421bd625168
+dust|mud|Dust and Mud gives Clay|487025f3d9b140279cc94421bd625168
+dust|air|Dust and Air gives Mist|487025f3d9b140279cc94421bd625168
+mist|clay_and_water|Mist and Clay_and_water gives Muddy Mist|487025f3d9b140279cc94421bd625168
+misty mist|clay_and_water|Misty Mist and Clay_and_water gives Silt Cloud|487025f3d9b140279cc94421bd625168
+mist|air|Mist and Air gives Vapor|487025f3d9b140279cc94421bd625168
+misty mist|air|Misty Mist and Air gives Hazy Vapor|487025f3d9b140279cc94421bd625168
+sludge|water|Sludge and Water gives Muck|487025f3d9b140279cc94421bd625168
+muck|sludge|Muck and Sludge gives Viscid Ooze|487025f3d9b140279cc94421bd625168
+muck|water|Muck and Water gives Mudflow|487025f3d9b140279cc94421bd625168
+sludge|earth|Sludge and Earth gives Mire|487025f3d9b140279cc94421bd625168
+mire|sludge|Mire and Sludge gives Thicket|487025f3d9b140279cc94421bd625168
+mire|earth|Mire and Earth gives Clay|487025f3d9b140279cc94421bd625168

@@ -1,0 +1,317 @@
+[
+  [
+    "water",
+    "part",
+    "water_and_earth"
+  ],
+  [
+    "earth",
+    "part",
+    "water_and_earth"
+  ],
+  [
+    "water",
+    "gives",
+    "mud"
+  ],
+  [
+    "water",
+    "part",
+    "water_and_earth"
+  ],
+  [
+    "earth",
+    "part",
+    "water_and_earth"
+  ],
+  [
+    "water",
+    "gives",
+    "mud"
+  ],
+  [
+    "air",
+    "part",
+    "air_and_water"
+  ],
+  [
+    "water",
+    "part",
+    "air_and_water"
+  ],
+  [
+    "air",
+    "gives",
+    "mist"
+  ],
+  [
+    "1. water",
+    "part",
+    "1. water_and_earth"
+  ],
+  [
+    "earth",
+    "part",
+    "1. water_and_earth"
+  ],
+  [
+    "1. water",
+    "gives",
+    "mud"
+  ],
+  [
+    "2. water",
+    "part",
+    "2. water_and_air"
+  ],
+  [
+    "air",
+    "part",
+    "2. water_and_air"
+  ],
+  [
+    "2. water",
+    "gives",
+    "mist"
+  ],
+  [
+    "3. earth",
+    "part",
+    "3. earth_and_air"
+  ],
+  [
+    "air",
+    "part",
+    "3. earth_and_air"
+  ],
+  [
+    "3. earth",
+    "gives",
+    "dust"
+  ],
+  [
+    "4. mud",
+    "part",
+    "4. mud_and_water"
+  ],
+  [
+    "water",
+    "part",
+    "4. mud_and_water"
+  ],
+  [
+    "4. mud",
+    "gives",
+    "sludge"
+  ],
+  [
+    "5. mud",
+    "part",
+    "5. mud_and_earth"
+  ],
+  [
+    "earth",
+    "part",
+    "5. mud_and_earth"
+  ],
+  [
+    "5. mud",
+    "gives",
+    "clay"
+  ],
+  [
+    "6. mud",
+    "part",
+    "6. mud_and_air"
+  ],
+  [
+    "air",
+    "part",
+    "6. mud_and_air"
+  ],
+  [
+    "6. mud",
+    "gives",
+    "silt"
+  ],
+  [
+    "7. mist",
+    "part",
+    "7. mist_and_water"
+  ],
+  [
+    "water",
+    "part",
+    "7. mist_and_water"
+  ],
+  [
+    "7. mist",
+    "gives",
+    "vapor"
+  ],
+  [
+    "8. mist",
+    "part",
+    "8. mist_and_earth"
+  ],
+  [
+    "earth",
+    "part",
+    "8. mist_and_earth"
+  ],
+  [
+    "8. mist",
+    "gives",
+    "dew"
+  ],
+  [
+    "9. mist",
+    "part",
+    "9. mist_and_air"
+  ],
+  [
+    "air",
+    "part",
+    "9. mist_and_air"
+  ],
+  [
+    "9. mist",
+    "gives",
+    "fog"
+  ],
+  [
+    "water",
+    "part",
+    "water_and_earth"
+  ],
+  [
+    "earth",
+    "part",
+    "water_and_earth"
+  ],
+  [
+    "water",
+    "gives",
+    "mud"
+  ],
+  [
+    "water",
+    "part",
+    "water_and_air"
+  ],
+  [
+    "air",
+    "part",
+    "water_and_air"
+  ],
+  [
+    "water",
+    "gives",
+    "mist"
+  ],
+  [
+    "earth",
+    "part",
+    "earth_and_air"
+  ],
+  [
+    "air",
+    "part",
+    "earth_and_air"
+  ],
+  [
+    "earth",
+    "gives",
+    "dust"
+  ],
+  [
+    "mud",
+    "part",
+    "mud_and_water"
+  ],
+  [
+    "water",
+    "part",
+    "mud_and_water"
+  ],
+  [
+    "mud",
+    "gives",
+    "sludge"
+  ],
+  [
+    "mud",
+    "part",
+    "mud_and_earth"
+  ],
+  [
+    "earth",
+    "part",
+    "mud_and_earth"
+  ],
+  [
+    "mud",
+    "gives",
+    "clay"
+  ],
+  [
+    "mud",
+    "part",
+    "mud_and_air"
+  ],
+  [
+    "air",
+    "part",
+    "mud_and_air"
+  ],
+  [
+    "mud",
+    "gives",
+    "silt"
+  ],
+  [
+    "mist",
+    "part",
+    "mist_and_water"
+  ],
+  [
+    "water",
+    "part",
+    "mist_and_water"
+  ],
+  [
+    "mist",
+    "gives",
+    "vapor"
+  ],
+  [
+    "mist",
+    "part",
+    "mist_and_earth"
+  ],
+  [
+    "earth",
+    "part",
+    "mist_and_earth"
+  ],
+  [
+    "mist",
+    "gives",
+    "dew"
+  ],
+  [
+    "mist",
+    "part",
+    "mist_and_air"
+  ],
+  [
+    "air",
+    "part",
+    "mist_and_air"
+  ],
+  [
+    "mist",
+    "gives",
+    "fog"
+  ]
+]

@@ -2,10 +2,11 @@ import os
 import json
 from typing import List, Tuple, Dict, Set
 import openai
-from load_dotenv import load_dotenv
+from dotenv import load_dotenv
 load_dotenv()
+
 openai.api_key = os.getenv('OPENAI_API_KEY')
-MODEL_NAME = 'gpt-4.1-nano'
+MODEL_NAME = 'gpt-4.1-mini'
 
 class PromptEngine:
     def __init__(self):

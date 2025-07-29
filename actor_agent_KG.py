@@ -3,16 +3,18 @@ import json
 import time
 import networkx as nx
 from typing import List, Tuple
-from load_dotenv import load_dotenv
+from dotenv import load_dotenv
 load_dotenv()
 import openai
+from pyvis.network import Network
 import matplotlib.pyplot as plt
 from typing import Optional
 from actor_agent_text import PromptEngine, LLMClient  
 
+
 openai.api_key = os.getenv('OPENAI_API_KEY')
 MODEL_NAME = 'gpt-4.1-nano'
-
+print(openai.api_key)
 
 class GraphBuilder:
     def __init__(self, model_name: str = MODEL_NAME):
@@ -146,9 +148,14 @@ class GraphBuilder:
             f"\nDone! Graph has {self.graph.number_of_nodes()} nodes "
             f"and {self.graph.number_of_edges()} edges."
         )
+        net = Network(notebook=True, height="800px", width="100%")
+        net.from_nx(self.graph) 
+        net.show_buttons(filter_=['physics'])
+        net.show("kg_visualization_8iter.html")
+        print("Graph saved to kg_visualization_8iter.html")
 
 if __name__ == "__main__":
     builder = GraphBuilder()
     base = ['Water', 'Earth', 'Fire', 'Air']
     builder.run_loop(base)
-    builder.save_graph("kg.graphml")
+    # builder.save_graph("kg.graphml")

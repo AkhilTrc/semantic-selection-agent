@@ -1,0 +1,77 @@
+[
+  [
+    "mud_and_earth",
+    "part",
+    "mud_and_earth_and_air"
+  ],
+  [
+    "air",
+    "part",
+    "mud_and_earth_and_air"
+  ],
+  [
+    "mud_and_earth",
+    "gives",
+    "dusty breeze"
+  ],
+  [
+    "dusty breeze",
+    "part",
+    "dusty breeze_and_mud_and_earth"
+  ],
+  [
+    "mud_and_earth",
+    "part",
+    "dusty breeze_and_mud_and_earth"
+  ],
+  [
+    "dusty breeze",
+    "gives",
+    "claystorm"
+  ],
+  [
+    "dusty breeze",
+    "part",
+    "dusty breeze_and_air"
+  ],
+  [
+    "air",
+    "part",
+    "dusty breeze_and_air"
+  ],
+  [
+    "dusty breeze",
+    "gives",
+    "whisperwind"
+  ],
+  [
+    "claystorm",
+    "part",
+    "claystorm_and_mud_and_earth"
+  ],
+  [
+    "mud_and_earth",
+    "part",
+    "claystorm_and_mud_and_earth"
+  ],
+  [
+    "claystorm",
+    "gives",
+    "terracotta force"
+  ],
+  [
+    "claystorm",
+    "part",
+    "claystorm_and_air"
+  ],
+  [
+    "air",
+    "part",
+    "claystorm_and_air"
+  ],
+  [
+    "claystorm",
+    "gives",
+    "petrified gale"
+  ]
+]
