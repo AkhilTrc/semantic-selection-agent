@@ -97,7 +97,7 @@ class GraphBuilder:
     def run_loop(
         self,
         base_elements: List[str],
-        max_iters: int = 5,
+        max_iters: int = 50,
         batch_size: int = 2
     ):
         """
@@ -151,8 +151,8 @@ class GraphBuilder:
         net = Network(notebook=True, height="800px", width="100%")
         net.from_nx(self.graph) 
         net.show_buttons(filter_=['physics'])
-        net.show("kg_visualization_8iter.html")
-        print("Graph saved to kg_visualization_8iter.html")
+        net.show("kg_visualization_50iter.html")
+        print("Graph saved to kg_visualization_50iter.html")
 
 if __name__ == "__main__":
     builder = GraphBuilder()
