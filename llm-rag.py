@@ -12,33 +12,38 @@ openai.api_key = os.getenv('OPENAI_API_KEY')
 MODEL_NAME = 'gpt-4.1-mini'
 
 # ----------- 1. FLARE Empowerment Axioms -----------   # Can readjust the main pdf document and the axioms to fit the problem, with more detail
-
+"""
 with open("empowerment_axiom.md", 'r', encoding="utf-8") as file:
     EMPOWERMENT_AXIOMS = file.read()
-
 """
+
 EMPOWERMENT_AXIOMS = [
-    
-    Empowerment as a Universal Utility Function: Empowerment is proposed as a universal utility function that applies to any agent, regardless of its specific sensorimotor apparatus or environment. It is defined as the information-theoretic capacity of an agent’s actuation channel, reflecting the agent's potential to influence the world.
+    """
+    - Empowerment in the context of combining terms or words is about forming new combinations that give an agent (such as a generative model or user) the most real and impactful options in the world of constructed meanings.
+    - The underlying goal is for the agent to create new terms or items by combining existing words in ways that open up the largest range of realistic, meaningful possibilities.
+    - A highly empowering combination is one that, once formed, unlocks diverse avenues for interpretation, action, and further combination; it does not trap the agent in a dead-end of narrow or nonsensical meanings.
+    - For a generative system, maximizing empowerment means producing items whose effects, uses, and potential fit many situations in the real world—opening doors to rich and flexible outcomes.
+    - When generating a new word from parts, the most empowered outcome is one that could reasonably exist or be understood given existing knowledge, thus affording new connections and opportunities.
+    - Empowerment here is about expanding the semantic landscape: making sure each new word or concept adds not just a single rigid meaning, but enables multiple plausible paths for future thought or use.
+    - The more widely applicable and adaptable a new term is, the higher the empowerment associated with its creation.
+    - If two terms are merged in a way that nobody can relate to or apply meaningfully, future creative options become limited—showing low empowerment.
+    - If a new word could serve different people, contexts, or purposes, it is highly empowered.
+    - The system should prefer combinations that allow many interpretations or uses, rather than those that are over-specific or unrealistic and thus shut down creative avenues.
+    - For example, inventing “solar bicycle” empowers subsequent ideas: it might lead to thoughts about sustainable transport, energy gadgets, eco-friendly innovation, etc.
+    - In a contrasting example, a term like “ice pencil” may afford far fewer meaningful extensions in the practical world (since an actual pencil made of ice is unrealistic and hard to use), thus it is less empowering.
+    - Empowerment encourages the creation of new items that can be referenced, adapted, or expanded on in future contexts, keeping the creative environment flexible and rich.
+    - Combining words with empowerment in mind promotes the generation of items that are not only novel but also coherent, familiar, and usable in new conversations or applications.
+    - This principle discourages verbal combinations that are so abstract, contradictory, or disconnected from reality that they cannot serve as a useful foundation for further ideas or products.
+    - Ideally, every new word generated maximizes empowerment by providing both clarity of meaning and opportunity for evolution and application.
+    - Empowerment, applied to word combination, favors practical novelty—where each creation is understandable, potentially useful, and connects well with existing concepts.
+    - The creator or model should always prefer making items that keep as many opportunities open as possible for themselves or for others who may build upon these new terms.
+    - Empowerment-guided word creation results in a growing network of meaningful concepts, each unlocking future innovations, explorations, or uses within the language and the world.
+    - When asked to invent new compound words, targeting empowerment means generating those that invite further exploration, combination, and practical engagement, rather than quickly exhausting their potential.
 
-Local and Universal Nature: Empowerment is local because it does not rely on extensive historical data or global knowledge. It is universal because it can be applied across different species and contexts, adapting to the agent's morphology and ecological niche.
+    """
 
-Agent-Centric Perspective: The concept of empowerment is rooted in an agent-centric view, focusing on the interaction between the agent's sensors and actuators without needing to reference the external environment explicitly.
-
-Information-Theoretic Basis: Empowerment is quantified using information theory, specifically as the channel capacity of the agent's actuation channel. This approach ensures that the measure is task-independent and does not rely on the specific meanings of actions or states.
-
-Maximizing Future Options: Empowerment encourages agents to seek situations where they have the most control or influence over their environment, thereby maximizing their future options and potential actions.
-
-Embodiment and Control: Empowerment is tied to the concept of embodiment, where the agent's control over its environment is perceived through the coupling of its sensors and actuators. The more an agent can influence its sensor readings through its actions, the higher its empowerment.
-
-Adaptation to Environmental Dynamics: Empowerment naturally adapts to changes in the environment's dynamics without needing explicit encoding. It captures changes in the agent's potential actions and control as the environment evolves.
-
-Practical Applications: Empowerment can be used as a fitness function in evolutionary algorithms or as a guiding principle for adaptive behavior in agents, promoting actions that keep options open and maintain control over the environment.
-
-Experiments and Illustrations: The paper illustrates empowerment through experiments in grid worlds and mazes, showing how empowerment measures can capture intuitive features of the environment and guide agent behavior effectively.
-    
 ]
-"""
+
 FLARE_PROMPT = """
 You are a creative and analytical agent tasked with maximizing empowerment by selecting item combinations that open up the greatest number of future possibilities. Follow these guidelines and use a self-consistent, step-by-step reasoning process internally before delivering your answer.
 
@@ -127,7 +132,7 @@ def call_llm_flare(inventory, tried_combos, history, openai_key=None):
         temperature=1.0,
     )
     text = response.choices[0].message.content
-    time.sleep(5)
+    # time.sleep(5)
     try:
         combo = eval(text.strip())
         if (
