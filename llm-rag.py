@@ -100,11 +100,11 @@ def call_openai(inventory, tried_combos, history, model: str = MODEL_NAME) -> st
         f"Empowerment axioms:\n{context}"
     )
     client = OpenAI()
-    print("\nGetting response from LLM...")
+    print("\nGetting original response from LLM...")
     response = client.chat.completions.create(
         model=MODEL_NAME,
         messages=[
-            {"role": "system", "content": "You are an empowerment-maximizing agent using the FLARE algorithm. Perform reasoning by step-by-step."},
+            {"role": "system", "content": "You are an Empowerment-maximizing agent using the FLARE algorithm. Perform reasoning by step-by-step."},
             {"role": "user", "content": prompt}
         ],
         temperature=1.0,
@@ -115,21 +115,25 @@ def call_openai(inventory, tried_combos, history, model: str = MODEL_NAME) -> st
 def evaluate_response(query: str, response: str) -> str:
     """Evaluate the response and provide feedback."""
     feedback_prompt = f"""
-    Here is a query and a response to the query. Give feedback about the answer, noting what was correct and incorrect.
+    Here is a query and a response to the query. Give feedback about the answer, noting which of the combinations results in "No effect" and/or "No Success". Both conditions which are to be avoided.
     Query:
     {query}
     Response:
     {response}
     """
     client = OpenAI()
+    print("\nEvaluating original response and generating a feedback about it...")
     feedback_response = client.chat.completions.create(
         model=MODEL_NAME,
         messages=[
-            {"role": "system", "content": "You are a helpful assistant."},
+            {"role": "system", "content": "You are a helpful assistant who gives feedback on a particular non-optimal reponse to a query."},
             {"role": "user", "content": feedback_prompt}
-        ]
+        ],
+        temperature=0.8,
     )
-    return feedback_response.choices[0].message.content
+    feedback = feedback_response.choices[0].message.content
+    print(f"\n------------- Feedback generated: -------------\n{feedback}\n -----------------Feedback returned!--------------\n")
+    return feedback
 
 def generate_new_response(query: str, response: str, feedback: str) -> str:
     """Generate a new response based on feedback."""
@@ -144,19 +148,23 @@ def generate_new_response(query: str, response: str, feedback: str) -> str:
     Consider the feedback to generate a new response to the query.
     """
     client = OpenAI()
+    print("\nGenerating new response based on feedback...")
     new_response = client.chat.completions.create(
         model=MODEL_NAME,
         messages=[
-            {"role": "system", "content": "You are a helpful assistant."},
+            {"role": "system", "content": "You are a helpful assistant who gives an improved response to the original query based on logical feedback."},
             {"role": "user", "content": new_response_prompt}
-        ]
+        ],
+        temperature=0.8,
     )
     return new_response.choices[0].message.content
 
 def self_refine(inventory, tried_combos, history, depth: int) -> str:
     """Refine the response iteratively based on feedback."""
     prompt, response = call_openai(inventory, tried_combos, history)
+    print("\nSelf-refining...")
     for _ in range(depth):
+        print(f"\ndepth #{depth}")
         feedback = evaluate_response(prompt, response)
         response = generate_new_response(prompt, response, feedback)
     return response
@@ -258,7 +266,7 @@ if __name__ == "__main__":
     ruleset = load_ruleset(json_ruleset_path)
 
     initial_inventory = ["fire", "air", "water", "earth"]
-    max_iterations = 10
+    max_iterations = 50
 
     inventory, history, inventory_sizes = run_empowerment_combiner_flare(
         initial_inventory, ruleset, max_iters=max_iterations
