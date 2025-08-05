@@ -46,8 +46,8 @@ You are a creative and analytical agent tasked with maximizing empowerment by se
 
 Inventory Review:
 - Examine the current inventory of items.
-- Identify potential item pairs that can generate unique, valid new elements in the real world.
-- IMPORTANT: Consider the conceptual nature (function, utility, semantic soundness, principle) of the items.
+- Identify potential item pairs that can generate unique, valid new items in the real world.
+- IMPORTANT: Consider the conceptual nature (function, utility, semantic soundness, principle) of the two selected items and the potential resultant item.
 
 Combination Criteria:
 - Select a pair that is most likely to maximize future options according to the concept of Empowerment.
@@ -61,9 +61,9 @@ Previously Attempted Pairs:
 Note: Pairs that resulted in None did not adhere to the rule set. Analyze these failures to reduce future None outcomes.
 
 Self-Consistency and Reasoning:
-- Use a chain-of-thought approach to evaluate all possibilities rigorously.
+- Use a Chain-Of-Thought approach to evaluate all possibilities rigorously.
 - Internally document your reasoning to ensure the selected pair best meets the criteria (do not include this in the final output).
-- Ensure your final reasoning is consistent, maximizing future options while avoiding previously tried or semantically similar pairs.
+- Ensure your final reasoning is consistent, maximizing future options while avoiding previously tried and/or semantically similar pairs.
 
 Final Response:
 - After completing all internal reasoning, respond ONLY with a Python tuple in the format ('item1', 'item2') representing the chosen combination.
@@ -73,6 +73,28 @@ Instructions Recap:
 - Analyze why some attempted pairs resulted in None and use this insight to inform your current decision-making.
 - Submit only the final Python tuple without exposing your internal chain-of-thought.
 """
+
+def run_multiple_trials(
+    start_inventory,
+    rules_lookup,
+    num_trials=10,
+    max_iters=20,
+    openai_key=None
+):
+    all_runs = []
+    for _ in range(num_trials):
+        inventory, history, inventory_sizes = run_empowerment_combiner_flare(
+            list(start_inventory), rules_lookup, max_iters=max_iters, openai_key=openai_key
+        )
+        # Pad inventory_sizes so all are length max_iters:
+        if len(inventory_sizes) < max_iters:
+            inventory_sizes += [inventory_sizes[-1]] * (max_iters - len(inventory_sizes))
+        all_runs.append(inventory_sizes)
+        print(f"\n---------- Trial #{num_trials} End!----------")
+    # Compute average inventory size at each iteration
+    avg_inventory_sizes = np.mean(all_runs, axis=0)
+    return avg_inventory_sizes, all_runs
+
 
 # ----------- 1. Self-Refine Technique -----------
 
@@ -107,15 +129,16 @@ def call_openai(inventory, tried_combos, history, model: str = MODEL_NAME) -> st
             {"role": "system", "content": "You are an Empowerment-maximizing agent using the FLARE algorithm. Perform reasoning by step-by-step."},
             {"role": "user", "content": prompt}
         ],
-        temperature=1.0,
+        temperature=0.5,
     )
     text = response.choices[0].message.content
-    return prompt, response.choices[0].message.content
+    return prompt, text
 
 def evaluate_response(query: str, response: str) -> str:
     """Evaluate the response and provide feedback."""
     feedback_prompt = f"""
-    Here is a query and a response to the query. Give feedback about the answer, noting which of the combinations results in "No effect" and/or "No Success". Both conditions which are to be avoided.
+    Here is a query and a response to the query. Give feedback about the answer, noting which of the combinations results in "No effect" and/or "No Success". Both conditions which are to be avoided. 
+    Also lookout for deplicate combinations: For example, once (item1, item2) is generated, (item1, item2) should NOT be generated again.
     Query:
     {query}
     Response:
@@ -129,7 +152,7 @@ def evaluate_response(query: str, response: str) -> str:
             {"role": "system", "content": "You are a helpful assistant who gives feedback on a particular non-optimal reponse to a query."},
             {"role": "user", "content": feedback_prompt}
         ],
-        temperature=0.8,
+        temperature=0.5,
     )
     feedback = feedback_response.choices[0].message.content
     print(f"\n------------- Feedback generated: -------------\n{feedback}\n -----------------Feedback returned!--------------\n")
@@ -155,7 +178,7 @@ def generate_new_response(query: str, response: str, feedback: str) -> str:
             {"role": "system", "content": "You are a helpful assistant who gives an improved response to the original query based on logical feedback."},
             {"role": "user", "content": new_response_prompt}
         ],
-        temperature=0.8,
+        temperature=0.5,
     )
     return new_response.choices[0].message.content
 
@@ -164,7 +187,6 @@ def self_refine(inventory, tried_combos, history, depth: int) -> str:
     prompt, response = call_openai(inventory, tried_combos, history)
     print("\nSelf-refining...")
     for _ in range(depth):
-        print(f"\ndepth #{depth}")
         feedback = evaluate_response(prompt, response)
         response = generate_new_response(prompt, response, feedback)
     return response
@@ -200,7 +222,7 @@ def call_llm_flare(inventory, tried_combos, history, openai_key=None):
     if not possible_combos:
         return None
     
-    text = self_refine(inventory, tried_combos, history, 2)
+    text = self_refine(inventory, tried_combos, history, 1)
     print(text)                     # Self-Refine step.
     # time.sleep(5)    
     
@@ -259,6 +281,15 @@ def plot_inventory_growth(inventory_sizes):
     plt.grid(True)
     plt.show()
 
+def plot_average_inventory_growth(avg_inventory_sizes):
+    plt.figure(figsize=(8,4))
+    plt.plot(range(1, len(avg_inventory_sizes)+1), avg_inventory_sizes, marker='o')
+    plt.xlabel("Iteration")
+    plt.ylabel("Average Inventory Size")
+    plt.title("Average Inventory Size Growth per Iteration (across runs)")
+    plt.grid(True)
+    plt.show()
+
 # ----------- 5. Usage Example -----------
 if __name__ == "__main__":
     # Path to your JSON file
@@ -266,8 +297,10 @@ if __name__ == "__main__":
     ruleset = load_ruleset(json_ruleset_path)
 
     initial_inventory = ["fire", "air", "water", "earth"]
-    max_iterations = 50
+    max_iterations = 50         # Change this for different iteration values.
+    num_trials = 10
 
+    """
     inventory, history, inventory_sizes = run_empowerment_combiner_flare(
         initial_inventory, ruleset, max_iters=max_iterations
     )
@@ -277,3 +310,14 @@ if __name__ == "__main__":
     for combo, result, success in history:
         print(f"Combined {combo} => {result if result is not None else 'No result'} -- {'Added' if success else 'No effect'}")
     plot_inventory_growth(inventory_sizes)
+    """
+
+    avg_inventory_sizes, all_runs = run_multiple_trials(
+        initial_inventory, ruleset, num_trials=num_trials, max_iters=max_iterations
+    )
+
+    print("Average inventory sizes at each iteration:")
+    print(avg_inventory_sizes)
+
+    plot_average_inventory_growth(avg_inventory_sizes)
+
