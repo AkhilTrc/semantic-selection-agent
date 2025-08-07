@@ -18,31 +18,43 @@ with open("empowerment_axiom.md", 'r', encoding="utf-8") as file:
     EMPOWERMENT_AXIOMS = file.read()
 """
 
+#EMPOWERMENT_AXIOMS = [
+#    
+#    "- Empowerment in the context of combining terms or words is about forming new combinations that give an agent (such as a generative model or user) the most real and impactful options in the world of constructed meanings.",
+#    "- The underlying goal is for the agent to create new terms or items by combining existing words in ways that open up the largest range of realistic, meaningful possibilities.",
+#    "- A highly empowering combination is one that, once formed, unlocks diverse avenues for interpretation, action, and further combination; it does not trap the agent in a dead-end of narrow or nonsensical meanings.",
+#    "- For a generative system, maximizing empowerment means producing items whose effects, uses, and potential fit many situations in the real world—opening doors to rich and flexible outcomes.",
+#    "- When generating a new word from parts, the most empowered outcome is one that could reasonably exist or be understood given existing knowledge, thus affording new connections and opportunities.",
+#    "- Empowerment here is about expanding the semantic landscape: making sure each new word or concept adds not just a single rigid meaning, but enables multiple plausible paths for future thought or use.",
+#    "- The more widely applicable and adaptable a new term is, the higher the empowerment associated with its creation.",
+#    "- If two terms are merged in a way that nobody can relate to or apply meaningfully, future creative options become limited—showing low empowerment.",
+#    "- If a new word could serve different people, contexts, or purposes, it is highly empowered.",
+#    "- The system should prefer combinations that allow many interpretations or uses, rather than those that are over-specific or unrealistic and thus shut down creative avenues. For example, inventing “solar bicycle” empowers subsequent ideas: it might lead to thoughts about sustainable transport, energy gadgets, eco-friendly innovation, etc. In a contrasting example, a term like “ice pencil” may afford far fewer meaningful extensions in the practical world (since an actual pencil made of ice is unrealistic and hard to use), thus it is less empowering.",
+#    "- Empowerment encourages the creation of new items that can be referenced, adapted, or expanded on in future contexts, keeping the creative environment flexible and rich.",
+#    "- Combining words with empowerment in mind promotes the generation of items that are not only novel but also coherent, familiar, and usable in new conversations or applications.",
+#    "- This principle discourages verbal combinations that are so abstract, contradictory, or disconnected from reality that they cannot serve as a useful foundation for further ideas or products.",
+#    "- Ideally, every new word generated maximizes empowerment by providing both clarity of meaning and opportunity for evolution and application.",
+#    "- Empowerment, applied to word combination, favors practical novelty—where each creation is understandable, potentially useful, and connects well with existing concepts.",
+#    "- The creator or model should always prefer making items that keep as many opportunities open as possible for themselves or for others who may build upon these new terms.",
+#    "- Empowerment-guided word creation results in a growing network of meaningful concepts, each unlocking future innovations, explorations, or uses within the language and the world.",
+#    "- When asked to invent new compound words, targeting empowerment means generating those that invite further exploration, combination, and practical engagement, rather than quickly exhausting their potential."
+#]
+
 EMPOWERMENT_AXIOMS = [
-    
-    "- Empowerment in the context of combining terms or words is about forming new combinations that give an agent (such as a generative model or user) the most real and impactful options in the world of constructed meanings.",
-    "- The underlying goal is for the agent to create new terms or items by combining existing words in ways that open up the largest range of realistic, meaningful possibilities.",
-    "- A highly empowering combination is one that, once formed, unlocks diverse avenues for interpretation, action, and further combination; it does not trap the agent in a dead-end of narrow or nonsensical meanings.",
-    "- For a generative system, maximizing empowerment means producing items whose effects, uses, and potential fit many situations in the real world—opening doors to rich and flexible outcomes.",
-    "- When generating a new word from parts, the most empowered outcome is one that could reasonably exist or be understood given existing knowledge, thus affording new connections and opportunities.",
-    "- Empowerment here is about expanding the semantic landscape: making sure each new word or concept adds not just a single rigid meaning, but enables multiple plausible paths for future thought or use.",
-    "- The more widely applicable and adaptable a new term is, the higher the empowerment associated with its creation.",
-    "- If two terms are merged in a way that nobody can relate to or apply meaningfully, future creative options become limited—showing low empowerment.",
-    "- If a new word could serve different people, contexts, or purposes, it is highly empowered.",
-    "- The system should prefer combinations that allow many interpretations or uses, rather than those that are over-specific or unrealistic and thus shut down creative avenues. For example, inventing “solar bicycle” empowers subsequent ideas: it might lead to thoughts about sustainable transport, energy gadgets, eco-friendly innovation, etc. In a contrasting example, a term like “ice pencil” may afford far fewer meaningful extensions in the practical world (since an actual pencil made of ice is unrealistic and hard to use), thus it is less empowering.",
-    "- Empowerment encourages the creation of new items that can be referenced, adapted, or expanded on in future contexts, keeping the creative environment flexible and rich.",
-    "- Combining words with empowerment in mind promotes the generation of items that are not only novel but also coherent, familiar, and usable in new conversations or applications.",
-    "- This principle discourages verbal combinations that are so abstract, contradictory, or disconnected from reality that they cannot serve as a useful foundation for further ideas or products.",
-    "- Ideally, every new word generated maximizes empowerment by providing both clarity of meaning and opportunity for evolution and application.",
-    "- Empowerment, applied to word combination, favors practical novelty—where each creation is understandable, potentially useful, and connects well with existing concepts.",
-    "- The creator or model should always prefer making items that keep as many opportunities open as possible for themselves or for others who may build upon these new terms.",
-    "- Empowerment-guided word creation results in a growing network of meaningful concepts, each unlocking future innovations, explorations, or uses within the language and the world.",
-    "- When asked to invent new compound words, targeting empowerment means generating those that invite further exploration, combination, and practical engagement, rather than quickly exhausting their potential."
+    """
+Empowered combination is one that, when formed, opens up the greatest number of meaningful, real-world possibilities for further combination, interpretation, and application.
 
+Goal: Always prefer combinations that expand the landscape of plausible, practical, and adaptable outcomes, rather than those that are narrow, redundant, or disconnected from reality.
+Criteria: A combination is empowering if it is:
+Semantically rich: It enables multiple interpretations or uses.
+Realistically grounded: It could exist or be understood in the real world.
+Generative: It serves as a strong foundation for further creative or functional extensions.
+Practice: Avoid combinations that are overly specific, unrealistic, or semantically dead-end, as these restrict future innovation.
+Outcome: Each new combination should increase the agent’s ability to generate, adapt, and build upon ideas, ensuring a flexible and evolving network of concepts.
+"""
 ]
-
-FLARE_PROMPT = """
-You are a creative and analytical agent tasked with maximizing empowerment by selecting item combinations that open up the possibility of generating the greatest number of valid future combinations. Follow these guidelines and use a self-consistent, step-by-step reasoning process internally before delivering your answer.
+SYS_PROMPT = """
+You are a creative and analytical agent tasked with maximizing Empowerment by selecting item combinations that open up the possibility of generating the greatest number of valid future combinations. Follow these guidelines and use a self-consistent, step-by-step reasoning process internally before delivering your answer.
 
 Inventory Review:
 - Examine the current inventory of items.
@@ -52,10 +64,11 @@ Inventory Review:
 Combination Criteria:
 - Select a pair that is most likely to maximize future options according to the concept of Empowerment.
 - Avoid pairing items whose combination is semantically similar or redundant.
+- If a pair is repeated, generate the next possible, valid pair instead of repeating the same pair.
 - Ensure the chosen pair is conceptually and practically valid in the real world. The resultant item should be a meaningful compound or portmanteau of the selected items (e.g., "Bat" and "Human" results in "Batman").
 
 Previously Attempted Pairs:
-- Do not repeat any pair that has already been attempted.
+- Do not repeat any pair that has already been attempted. If a pair is repeated, generate the next possible valid pair instead of repeating the same pair.
 - Use the provided list of previously attempted combinations to track history and inform your choices:
 - Example: {(item1, item2), result1, 1}, {(item3, item5), None, 0}, {(item2, item10), result2, 1}
 Note: Pairs that resulted in None did not adhere to the rule set. Analyze these failures to reduce future None outcomes.
@@ -82,7 +95,9 @@ def run_multiple_trials(
     openai_key=None
 ):
     all_runs = []
+    i = 1
     for _ in range(num_trials):
+        print(f"\n---------- Trial #{i} Starts ----------")
         inventory, history, inventory_sizes = run_empowerment_combiner_flare(
             list(start_inventory), rules_lookup, max_iters=max_iters, openai_key=openai_key
         )
@@ -90,7 +105,8 @@ def run_multiple_trials(
         if len(inventory_sizes) < max_iters:
             inventory_sizes += [inventory_sizes[-1]] * (max_iters - len(inventory_sizes))
         all_runs.append(inventory_sizes)
-        print(f"\n---------- Trial #{num_trials} End!----------")
+        print(f"\n---------- Trial #{i} End!----------")
+        i = i + 1
     # Compute average inventory size at each iteration
     avg_inventory_sizes = np.mean(all_runs, axis=0)
     return avg_inventory_sizes, all_runs
@@ -118,8 +134,8 @@ def call_openai(inventory, tried_combos, history, model: str = MODEL_NAME) -> st
     prompt = (
         f"Current inventory: [{items_list_str}]\n"
         f"Previously attempted combinations: {history}\n"
-        f"{FLARE_PROMPT}\n"
-        f"Empowerment axioms:\n{context}"
+        f"{SYS_PROMPT}\n"
+        f"Empowerment axioms:\n{context}; use the Empowerment axioms as a highly relevant context while performing item combinations, and you should firmly ground your answer in this context."
     )
     client = OpenAI()
     print("\nGetting original response from LLM...")
@@ -129,12 +145,12 @@ def call_openai(inventory, tried_combos, history, model: str = MODEL_NAME) -> st
             {"role": "system", "content": "You are an Empowerment-maximizing agent using the FLARE algorithm. Perform reasoning by step-by-step."},
             {"role": "user", "content": prompt}
         ],
-        temperature=0.5,
+        temperature=1.0,
     )
     text = response.choices[0].message.content
     return prompt, text
 
-def evaluate_response(query: str, response: str) -> str:
+def evaluate_response(query: str, response: str) -> str:      # Perhaps the critque criteria can be to evaluate and reason for the empowerment values of selected items
     """Evaluate the response and provide feedback."""
     feedback_prompt = f"""
     Here is a query and a response to the query. Give feedback about the answer, noting which of the combinations results in "No effect" and/or "No Success". Both conditions which are to be avoided. 
@@ -152,7 +168,7 @@ def evaluate_response(query: str, response: str) -> str:
             {"role": "system", "content": "You are a helpful assistant who gives feedback on a particular non-optimal reponse to a query."},
             {"role": "user", "content": feedback_prompt}
         ],
-        temperature=0.5,
+        temperature=1.0,
     )
     feedback = feedback_response.choices[0].message.content
     print(f"\n------------- Feedback generated: -------------\n{feedback}\n -----------------Feedback returned!--------------\n")
@@ -178,7 +194,7 @@ def generate_new_response(query: str, response: str, feedback: str) -> str:
             {"role": "system", "content": "You are a helpful assistant who gives an improved response to the original query based on logical feedback."},
             {"role": "user", "content": new_response_prompt}
         ],
-        temperature=0.5,
+        temperature=1.0,
     )
     return new_response.choices[0].message.content
 
@@ -252,7 +268,7 @@ def run_empowerment_combiner_flare(
     history = []
 
     for iteration in range(max_iters):
-        print(f"\n---------- Iter #{iteration+1} ----------")
+        print(f"\n---------- Combination attempt #{iteration+1} ----------")
         combo = call_llm_flare(list(inventory), tried_combos, history, openai_key)
         if combo is None:
             break  # exhausted all pairs
@@ -297,21 +313,21 @@ if __name__ == "__main__":
     ruleset = load_ruleset(json_ruleset_path)
 
     initial_inventory = ["fire", "air", "water", "earth"]
-    max_iterations = 50         # Change this for different iteration values.
-    num_trials = 10
+    max_iterations = 20         # Change this for different iteration values.
+    num_trials = 5
 
     """
     inventory, history, inventory_sizes = run_empowerment_combiner_flare(
         initial_inventory, ruleset, max_iters=max_iterations
     )
-
+    
     print(f"Final Inventory: {sorted(inventory)} {len(inventory)}")
     print("History:")
     for combo, result, success in history:
         print(f"Combined {combo} => {result if result is not None else 'No result'} -- {'Added' if success else 'No effect'}")
     plot_inventory_growth(inventory_sizes)
     """
-
+    
     avg_inventory_sizes, all_runs = run_multiple_trials(
         initial_inventory, ruleset, num_trials=num_trials, max_iters=max_iterations
     )
@@ -320,4 +336,4 @@ if __name__ == "__main__":
     print(avg_inventory_sizes)
 
     plot_average_inventory_growth(avg_inventory_sizes)
-
+    
