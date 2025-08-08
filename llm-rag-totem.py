@@ -320,7 +320,7 @@ if __name__ == "__main__":
     ruleset = load_ruleset(json_ruleset_path)
 
     initial_inventory = ["Small_Tree", "Small_Stick", "Big_Tree", "Bark", "Fiber", "Twine", "Stone", "Stone_Tool1", "Red_Berry", "Blue_Berry", "Antler"]
-    max_iterations = 20         # Change this for different iteration values.
+    max_iterations = 35         # Change this for different iteration values.
     num_trials = 5
 
     

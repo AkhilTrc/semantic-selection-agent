@@ -1,5 +1,6 @@
 import os
 import json
+import csv
 import time
 import openai
 import numpy as np
@@ -313,8 +314,8 @@ if __name__ == "__main__":
     ruleset = load_ruleset(json_ruleset_path)
 
     initial_inventory = ["fire", "air", "water", "earth"]
-    max_iterations = 20         # Change this for different iteration values.
-    num_trials = 5
+    max_iterations = 50        # Change this for different iteration values.
+    num_trials = 10
 
     """
     inventory, history, inventory_sizes = run_empowerment_combiner_flare(
@@ -334,6 +335,13 @@ if __name__ == "__main__":
 
     print("Average inventory sizes at each iteration:")
     print(avg_inventory_sizes)
+
+    print("\nWriting Average Inventory Sizes to csv...")
+    with open("avg_inventory_sizes_20iters_5trials.csv", "w", newline="") as f:
+        writer = csv.writer(f)
+        for value in avg_inventory_sizes:
+            writer.writerow([value])
+
 
     plot_average_inventory_growth(avg_inventory_sizes)
     
