@@ -2,7 +2,8 @@ from __future__ import annotations
 from typing import Callable, Dict, Iterable, List, Optional, Sequence, Set, Tuple, Any
 from collections import deque
 from openai import OpenAI
-from load_dotenv import load_dotenv
+from dotenv import load_dotenv
+# from load_dotenv import load_dotenv
 import json, os, re, traceback
 import matplotlib.pyplot as plt
 
@@ -15,6 +16,7 @@ JSON_PATH = "elements.JSON"
 START_INVENTORY = ["fire", "air", "water", "earth"]
 MODEL_NAME = "gpt-4.1-mini"
 MAX_ITERS = 50
+TRIALS = 20
 ORDERED = False
 ALLOW_SELF = False
 EMPOWER_DEPTH = 2
@@ -250,7 +252,9 @@ def run_empowerment_loop(start_inventory: Iterable[str], rules: Dict[Pair, List[
     tried_combos: Set[Pair] = set()
     inventory_sizes: List[int] = [len(inventory)]
     history: List[Dict[str,Any]] = []
+
     for iteration in range(1, max_iters+1):
+        print(f"\nCrafting Step #{iteration}...")
         escape = is_flatline(inventory_sizes, window=FLATLINE_WINDOW)
         tabu_items: List[str] = []
         item_emp_hints = per_item_empowerment(list(inventory), tried_combos, rules, depth=depth)
@@ -328,58 +332,100 @@ if __name__ == "__main__":
         print("Failed to load elements.JSON.")
         print(traceback.format_exc())
         rules = {}
-    inventory, history = run_empowerment_loop(START_INVENTORY, rules, ordered=ORDERED, allow_self=ALLOW_SELF, model=MODEL_NAME, max_iters=MAX_ITERS, depth=EMPOWER_DEPTH)
-    attempts = sum(1 for h in history if "pair" in h or h.get("event") in {"no_choice"})
-    valids   = sum(1 for h in history if h.get("valid") and h.get("mode")!= "fallback")
-    avg_emp_all = sum(float(h.get("empowerment",0) or 0) for h in history if "empowerment" in h)
-    avg_emp_all = (avg_emp_all / max(1, sum(1 for h in history if "empowerment" in h)))
-    avg_emp_valid = sum(float(h.get("empowerment",0) or 0) for h in history if h.get("valid") and h.get("mode")!= "fallback")
-    avg_emp_valid = (avg_emp_valid / max(1, sum(1 for h in history  if h.get("valid") and h.get("mode")!= "fallback")))
 
-    def mode_stats(mode_name: str):
-        rows = [h for h in history if h.get("mode")==mode_name]
-        A = len(rows)
-        V = sum(1 for h in rows if h.get("valid"))
-        Eall = [float(h.get("empowerment",0) or 0) for h in rows if "empowerment" in h]
-        Eval = [float(h.get("empowerment",0) or 0) for h in rows if h.get("valid")]
-        NI = sum(int(h.get("new_items",0) or 0) for h in rows if h.get("valid"))
-        return {
-            "attempts": A,
-            "valid": V,
-            "valid_rate": (V/max(1,A)),
-            "avg_emp_all": (sum(Eall)/max(1,len(Eall))),
-            "avg_emp_valid": (sum(Eval)/max(1,len(Eval))),
-            "new_items_total": NI,
-        }
+    all_inv_sizes = []
+    fallback_attempts = []
+    for trial in range(1, TRIALS+1):
+        print(f"\nTRIAL #{trial}...")
+        print(f"\nRunning Empowerment Loop...")
+        inventory, history = run_empowerment_loop(START_INVENTORY, rules, ordered=ORDERED, allow_self=ALLOW_SELF, model=MODEL_NAME, max_iters=MAX_ITERS, depth=EMPOWER_DEPTH)
+        attempts = sum(1 for h in history if "pair" in h or h.get("event") in {"no_choice"})
+        valids   = sum(1 for h in history if h.get("valid") and h.get("mode")!= "fallback")
+        avg_emp_all = sum(float(h.get("empowerment",0) or 0) for h in history if "empowerment" in h)
+        avg_emp_all = (avg_emp_all / max(1, sum(1 for h in history if "empowerment" in h)))
+        avg_emp_valid = sum(float(h.get("empowerment",0) or 0) for h in history if h.get("valid") and h.get("mode")!= "fallback")
+        avg_emp_valid = (avg_emp_valid / max(1, sum(1 for h in history  if h.get("valid") and h.get("mode")!= "fallback")))
 
-    m_llm = mode_stats("llm")
-    m_fb  = mode_stats("fallback")
-    fb_reasons = {}
-    for h in history:
-        if h.get("mode")=="fallback":
-            r = h.get("fallback_reason") or "unknown"
-            fb_reasons[r] = fb_reasons.get(r,0)+1
+        def mode_stats(mode_name: str):
+            rows = [h for h in history if h.get("mode")==mode_name]
+            A = len(rows)
+            V = sum(1 for h in rows if h.get("valid"))
+            Eall = [float(h.get("empowerment",0) or 0) for h in rows if "empowerment" in h]
+            Eval = [float(h.get("empowerment",0) or 0) for h in rows if h.get("valid")]
+            NI = sum(int(h.get("new_items",0) or 0) for h in rows if h.get("valid"))
+            return {
+                "attempts": A,
+                "valid": V,
+                "valid_rate": (V/max(1,A)),
+                "avg_emp_all": (sum(Eall)/max(1,len(Eall))),
+                "avg_emp_valid": (sum(Eval)/max(1,len(Eval))),
+                "new_items_total": NI,
+            }
 
-    if OUTPUT_SUMMARY:
-        print("\n=== RUN SUMMARY ===")
-        print(f"Attempts: {attempts} | Valid: {valids} | Valid rate: {(valids/attempts*100 if attempts else 0):.1f}%")
-        print(f"Final inventory size: {len(inventory)}")
-        print(f"Avg empowerment (all): {avg_emp_all:.3f} | (valid only): {avg_emp_valid:.3f}")
-        print("\n--- By mode ---")
-        print(f"LLM -> attempts {m_llm['attempts']}, valid {m_llm['valid']} ({m_llm['valid_rate']*100:.1f}%), avg_emp_all {m_llm['avg_emp_all']:.3f}, avg_emp_valid {m_llm['avg_emp_valid']:.3f}, new_items {m_llm['new_items_total']}")
-        print(f"Fallback -> attempts {m_fb['attempts']}, valid {m_fb['valid']} ({m_fb['valid_rate']*100:.1f}%), avg_emp_all {m_fb['avg_emp_all']:.3f}, avg_emp_valid {m_fb['avg_emp_valid']:.3f}, new_items {m_fb['new_items_total']}")
-        if fb_reasons:
-            print("Fallback reasons:", ", ".join(f"{k}:{v}" for k,v in fb_reasons.items()))
+        m_llm = mode_stats("llm")
+        m_fb  = mode_stats("fallback")
+        fb_reasons = {}
+        for h in history:
+            if h.get("mode")=="fallback":
+                r = h.get("fallback_reason") or "unknown"
+                fb_reasons[r] = fb_reasons.get(r,0)+1
 
-        inv_sizes = [h.get("inventory_size") for h in history if "inventory_size" in h and h.get("mode") != "fallback"]
-        iters = list(range(1, len(inv_sizes) + 1))
+        if OUTPUT_SUMMARY:
+            print(f"\n=== TRIAL #{trial} SUMMARY ===")
+            print(f"Attempts: {attempts} | Valid: {valids} | Valid rate: {(valids/attempts*100 if attempts else 0):.1f}%")
+            print(f"Final inventory size: {len(inventory)}")
+            print(f"Avg empowerment (all): {avg_emp_all:.3f} | (valid only): {avg_emp_valid:.3f}")
+            print("\n--- By mode ---")
+            print(f"LLM -> attempts {m_llm['attempts']}, valid {m_llm['valid']} ({m_llm['valid_rate']*100:.1f}%), avg_emp_all {m_llm['avg_emp_all']:.3f}, avg_emp_valid {m_llm['avg_emp_valid']:.3f}, new_items {m_llm['new_items_total']}")
+            print(f"Fallback -> attempts {m_fb['attempts']}, valid {m_fb['valid']} ({m_fb['valid_rate']*100:.1f}%), avg_emp_all {m_fb['avg_emp_all']:.3f}, avg_emp_valid {m_fb['avg_emp_valid']:.3f}, new_items {m_fb['new_items_total']}")
+            if fb_reasons:
+                print("Fallback reasons:", ", ".join(f"{k}:{v}" for k,v in fb_reasons.items()))
 
-        plt.figure(figsize=(8, 5))
-        plt.plot(iters, inv_sizes, marker="o")
-        plt.xticks(range(0, len(inv_sizes) + 1, 5))
-        plt.yticks(range(0, max(inv_sizes) + 1, 2))
-        plt.xlabel("Iteration")
-        plt.ylabel("Inventory Size")
-        plt.title("Inventory Size vs Iteration")
-        plt.grid(True)
-        plt.show()
+            inv_sizes = [h.get("inventory_size") for h in history if "inventory_size" in h and h.get("mode") != "fallback"]
+            iters = list(range(1, len(inv_sizes) + 1))
+            
+            # Pad short runs with the last value
+            if len(inv_sizes) < MAX_ITERS:
+                inv_sizes += [inv_sizes[-1]] * (MAX_ITERS - len(inv_sizes))
+            all_inv_sizes.append(inv_sizes)    
+            fallback_attempts.append(m_fb['attempts'])      
+            print(f"\n==============================")
+
+            """
+            plt.figure(figsize=(8, 5))
+            plt.plot(iters, inv_sizes, marker="o")
+            plt.xticks(range(0, len(inv_sizes) + 1, 5))
+            plt.yticks(range(0, max(inv_sizes) + 1, 2))
+            plt.xlabel("Iteration")
+            plt.ylabel("Inventory Size")
+            plt.title("Inventory Size vs Iteration")
+            plt.grid(True)
+            plt.show()
+            """
+
+    avg_inv = []
+    for i in range(MAX_ITERS):
+        avg = sum(trial[i] for trial in all_inv_sizes) / TRIALS
+        avg_inv.append(avg)
+
+    plt.figure(figsize=(8, 5))
+    plt.plot(range(1, TRIALS + 1), fallback_attempts, marker="o")
+    plt.xticks(range(0, TRIALS + 1, 2))
+    plt.xlabel("Trial")
+    plt.ylabel("Average Fallback Count")
+    plt.title(f"Average Fallback Count per Trial")
+    plt.grid(True)
+    plt.show()
+
+    plt.figure(figsize=(8, 5))
+    plt.plot(range(1, MAX_ITERS + 1), avg_inv, marker="o")
+    plt.xticks(range(0, MAX_ITERS + 1, 5))
+    plt.xlabel("Iteration")
+    plt.ylabel("Average Inventory Size")
+    plt.title(f"Average Inventory Size vs Iteration (over {TRIALS} Trials)")
+    plt.grid(True)
+    plt.savefig(f"{MAX_ITERS}iters_{TRIALS}trials_fallback.png", dpi=150, bbox_inches="tight")
+
+
+
+        
