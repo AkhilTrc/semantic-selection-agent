@@ -14,9 +14,9 @@ Validator = Callable[[Pair], Tuple[bool, List[str]]]
 
 JSON_PATH = "elements.JSON"
 START_INVENTORY = ["fire", "air", "water", "earth"]
-MODEL_NAME = "gpt-4.1-mini"
+MODEL_NAME = "gpt-5" # "gpt-4.1-mini"
 MAX_ITERS = 50
-TRIALS = 20
+TRIALS = 2
 ORDERED = False
 ALLOW_SELF = False
 EMPOWER_DEPTH = 2
