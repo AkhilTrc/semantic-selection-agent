@@ -21,15 +21,19 @@ EMPOWER_DEPTH = 2
 OUTPUT_HISTORY = "run_history.jsonl"
 OUTPUT_SUMMARY = True
 TRIED_CONTEXT_MAX = 700
-OPENAI_TEMPERATURE = 0.1
+OPENAI_TEMPERATURE = 2.0
 OPENAI_PRESENCE_PENALTY = 0.9
 OPENAI_FREQUENCY_PENALTY = 0.7
 FLATLINE_WINDOW = 4
 FALLBACK_TOPK = 6
 LLM_MAX_RETRIES = 1
-TRIALS = 20
+TRIALS = 1
+TEMPERATURE_MIN = 0.0
+TEMPERATURE_MAX = 1.0
+TEMPERATURE_STEP_UP = 0.1
+TEMPERATURE_STEP_DOWN = 0.1
 
-
+TEMP_ADJUST_BLOCK = 5 
 PAIR_RE = re.compile(
     r"""
     [\(\[]\s*
@@ -140,41 +144,136 @@ def parse_single_tuple(text: str) -> Optional[Pair]:
         return (m2.group(1).strip(), m2.group(2).strip())
     return None
 
-def build_prompt(inventory: Sequence[str], tried_combos: Set[Pair], item_emp_hints: List[Tuple[str,int]], taboo_items: Sequence[str], escape_mode: bool, ordered: bool, allow_self: bool) -> Tuple[str,str]:
+from typing import Sequence, Set, Tuple, List, Union, Iterable
+
+Pair = Tuple[str, str]
+LabeledPair = Tuple[str, str, bool]
+
+TRIED_CONTEXT_MAX = 120
+
+def _stringify_pairs(pairs: Iterable[Pair], cap: int) -> str:
+    lst = list(pairs)[-cap:]
+    return ', '.join(f"('{a}','{b}')" for (a, b) in lst)
+
+def _tally_items(pairs: Iterable[Pair], cap: int = 20) -> List[Tuple[str, int]]:
+    counts = {}
+    for a, b in pairs:
+        counts[a] = counts.get(a, 0) + 1
+        counts[b] = counts.get(b, 0) + 1
+    return sorted(counts.items(), key=lambda x: (-x[1], x[0]))[:cap]
+
+def build_prompt(
+    inventory: Sequence[str],
+    tried_combos: Union[Set[Pair], Sequence[Union[Pair, LabeledPair]]],
+    item_emp_hints: List[Tuple[str, int]],
+    taboo_items: Sequence[str],
+    escape_mode: bool,
+    ordered: bool,
+    allow_self: bool,
+) -> Tuple[str, str]:
+    # --- stringify core lists ---
     items_list_str = ', '.join(f"'{x}'" for x in inventory)
-    tried_list = list(tried_combos)
-    tried_str = ', '.join(f"('{a}','{b}')" for (a,b) in tried_list[-TRIED_CONTEXT_MAX:])
-    emp_hint_str = ', '.join(f"('{x}', {s})" for x,s in item_emp_hints[:12])
     taboo_str = ', '.join(f"'{x}'" for x in taboo_items[:10])
+    emp_hint_str = ', '.join(f"('{x}', {s})" for x, s in item_emp_hints[:12])
+
+    # --- normalize tried_combos into: blacklist, valid_hist, invalid_hist ---
+    blacklist_pairs: List[Pair] = []
+    valid_hist: List[Pair] = []
+    invalid_hist: List[Pair] = []
+
+    # Accept: Set[(a,b)], List[(a,b)], or List[(a,b,bool)]
+    for entry in list(tried_combos):
+        if isinstance(entry, tuple) and len(entry) == 3:
+            a, b, was_valid = entry  # labeled
+            blacklist_pairs.append((a, b))
+            (valid_hist if was_valid else invalid_hist).append((a, b))
+        else:
+            # unlabeled pair → only blacklist
+            a, b = entry  # type: ignore
+            blacklist_pairs.append((a, b))
+
+    tried_str = _stringify_pairs(blacklist_pairs, TRIED_CONTEXT_MAX)
+
+    # Histories (cap to keep prompt compact)
+    VALID_HISTORY_MAX = 80
+    INVALID_HISTORY_MAX = 80
+    valid_str = _stringify_pairs(valid_hist, VALID_HISTORY_MAX)
+    invalid_str = _stringify_pairs(invalid_hist, INVALID_HISTORY_MAX)
+
+    # Per-item priors (only if we actually have labels)
+    valid_item_counts_str = ''
+    invalid_item_counts_str = ''
+    if valid_hist or invalid_hist:
+        valid_item_counts = _tally_items(valid_hist)
+        invalid_item_counts = _tally_items(invalid_hist)
+        valid_item_counts_str = ', '.join(f"('{x}', {c})" for x, c in valid_item_counts)
+        invalid_item_counts_str = ', '.join(f"('{x}', {c})" for x, c in invalid_item_counts)
+
+    # --- system & task framing ---
     sys_msg = "Return exactly one JSON array of two strings like [\"a\",\"b\"]. Output only that JSON."
+
     stage = (
         "Two-item crafting game. Empowerment is the tendency for a pair to unlock many new items over the next few steps. "
-        "You will internally consider several candidate pairs from the inventory and output only the best one by a loss-averse utility: "
-        "repeated/malformed/non-inventory/self-combo is very negative; invalid is negative; valid & novel with high-empowerment items is positive."
+        "Use a loss-averse utility: repeated/malformed/non-inventory/self-combo is very negative; invalid is negative; "
+        "valid & novel with high-empowerment items is strongly positive."
     )
+
+    # Hidden reasoning (no leakage)
+    reasoning_instructions = (
+        "Think step by step silently (do not reveal reasoning). "
+        "1) From the inventory, enumerate promising candidate pairs. "
+        "2) Filter out blacklist, taboo, disallowed self-combos, and non-inventory. "
+        "3) Use tried history: prefer motifs/items that succeeded; avoid motifs/items overrepresented in failures; "
+        "   avoid near-duplicates of failed pairs; consider analogies to past successes with high-emp items. "
+        "4) Score by empowerment hints, novelty vs. tried list, success-leaning priors, usage balance, and ordering rules. "
+        "5) Select the single best pair. Do NOT explain; only output the JSON array."
+    )
+
     checklist = (
         "Checklist before output: JSON array only; both items in inventory; not in blacklist; not taboo; "
-        f"{'self-combos allowed' if allow_self else 'no self-combo'}; prefer higher empowerment items; avoid items repeated often."
+        f"{'self-combos allowed' if allow_self else 'no self-combo'}; prefer higher empowerment items; "
+        "avoid items/patterns frequent in invalid history; favor successful motifs from valid history; "
+        "avoid pairs repeated often."
     )
-    escape_note = "Escape mode: recent growth stalled; favor high-empowerment, underused directions." if escape_mode else ""
+
+    escape_note = (
+        "Escape mode: recent growth stalled; favor high-empowerment, underused directions and analogies to past successes."
+        if escape_mode else ""
+    )
+
+    # --- assemble user message ---
+    history_blocks = []
+    if valid_hist:
+        history_blocks.append(f"History — VALID pairs (use as motifs): [{valid_str}]")
+    if invalid_hist:
+        history_blocks.append(f"History — INVALID pairs (avoid/penalize): [{invalid_str}]")
+    if valid_item_counts_str or invalid_item_counts_str:
+        history_blocks.append(f"History signals — item successes: [{valid_item_counts_str}]")
+        history_blocks.append(f"History signals — item failures: [{invalid_item_counts_str}]")
+
     user_msg = (
         f"{stage}\n"
+        f"{reasoning_instructions}\n"
         f"Inventory: [{items_list_str}]\n"
         f"Blacklist (do not repeat): [{tried_str}]\n"
         f"Taboo items (must not use): [{taboo_str}]\n"
-        f"Rules: {'ordered allowed' if ordered else 'order does not matter'}\n"
+        f"Empowerment hints: [{emp_hint_str}]\n"
+        + ("\n".join(history_blocks) + "\n" if history_blocks else "")
+        + f"Rules: {'ordered allowed' if ordered else 'order does not matter'}\n"
         f"{escape_note}\n"
         f"{checklist}\n"
         "Output only one JSON array like [\"a\",\"b\"]."
     )
+
     return sys_msg, user_msg
 
-def llm_propose_one_pair(inventory: Sequence[str], tried_combos: Set[Pair], item_emp_hints: List[Tuple[str,int]], taboo_items: Sequence[str], escape_mode: bool, ordered: bool, allow_self: bool, model: str) -> Optional[Pair]:
+
+def llm_propose_one_pair(inventory: Sequence[str], tried_combos: Set[Pair], item_emp_hints: List[Tuple[str,int]], taboo_items: Sequence[str], escape_mode: bool, ordered: bool, allow_self: bool, model: str, temperature: float) -> Optional[Pair]:
     sys_msg, user_msg = build_prompt(inventory, tried_combos, item_emp_hints, taboo_items, escape_mode, ordered, allow_self)
     try:
         resp = client.chat.completions.create(
             model=model,
-            temperature=OPENAI_TEMPERATURE,
+            temperature=temperature,
             presence_penalty=OPENAI_PRESENCE_PENALTY,
             frequency_penalty=OPENAI_FREQUENCY_PENALTY,
             messages=[{"role":"system","content":sys_msg},{"role":"user","content":user_msg}],
@@ -197,16 +296,22 @@ def run_empowerment_loop(
     tried_combos: Set[Pair] = set()
     inventory_sizes: List[int] = [len(inventory)]
     history: List[Dict[str,Any]] = []
+
+    temperature = max(TEMPERATURE_MIN, min(TEMPERATURE_MAX, OPENAI_TEMPERATURE))
+
+    block_valids: deque[bool] = deque(maxlen=TEMP_ADJUST_BLOCK)
+
     for iteration in range(1, max_iters+1):
         escape = is_flatline(inventory_sizes, window=FLATLINE_WINDOW)
         tabu_items: List[str] = []
         item_emp_hints = per_item_empowerment(list(inventory), tried_combos, rules, depth=depth)
         chosen: Optional[Pair] = None
         reject_reasons: List[str] = []
+
         for _ in range(LLM_MAX_RETRIES):
             llm_pair = llm_propose_one_pair(
                 list(inventory), tried_combos, item_emp_hints, tabu_items,
-                escape, ordered, allow_self, model
+                escape, ordered, allow_self, model, temperature
             )
             if llm_pair is None:
                 reject_reasons.append("malformed")
@@ -221,36 +326,82 @@ def run_empowerment_loop(
                 continue
             chosen = key
             break
+
+        # Default outcome values
+        ok = False
+        results: List[str] = []
+        new_items = 0
+        emp_val = 0
+
         if chosen is None:
+            # Treat as invalid attempt for block accounting
+            block_valids.append(False)
             history.append({
                 "iter": iteration,
+                "pair": [],
+                "valid": False,
+                "results": [],
+                "new_items": 0,
                 "event": "no_llm_choice",
-                "reasons": reject_reasons
+                "reasons": reject_reasons,
+                "temperature": temperature
             })
             inventory_sizes.append(len(inventory))
-            continue
-        tried_combos.add(chosen)
-        emp_val = pair_empowerment(chosen, set(inventory), rules, depth=depth)
-        ok = chosen in rules
-        results = rules.get(chosen, [])
-        new_items = 0
-        if ok:
-            for r in results:
-                if r not in inventory:
-                    inventory.add(r)
-                    new_items += 1
-        history.append({
-            "iter": iteration,
-            "pair": list(chosen),
-            "valid": bool(ok),
-            "results": results if ok else [],
-            "new_items": new_items,
-            "inventory_size": len(inventory),
-            "empowerment": emp_val,
-            "mode": "llm",
-            "fallback_reason": None
-        })
-        inventory_sizes.append(len(inventory))
+        else:
+            tried_combos.add(chosen)
+            emp_val = pair_empowerment(chosen, set(inventory), rules, depth=depth)
+            ok = chosen in rules
+            results = rules.get(chosen, [])
+            if ok:
+                for r in results:
+                    if r not in inventory:
+                        inventory.add(r)
+                        new_items += 1
+                block_valids.append(True)
+            else:
+                block_valids.append(False)
+
+            history.append({
+                "iter": iteration,
+                "pair": list(chosen),
+                "valid": bool(ok),
+                "results": results if ok else [],
+                "new_items": new_items,
+                "inventory_size": len(inventory),
+                "empowerment": emp_val,
+                "mode": "llm",
+                "fallback_reason": None,
+                "temperature": temperature
+            })
+            inventory_sizes.append(len(inventory))
+
+        temp_adjust_info = None
+        if iteration % TEMP_ADJUST_BLOCK == 0 and len(block_valids) == TEMP_ADJUST_BLOCK:
+            num_invalid = TEMP_ADJUST_BLOCK - sum(1 for v in block_valids if v)
+  
+            if num_invalid == 3:
+                temperature = max(TEMPERATURE_MIN, temperature - TEMPERATURE_STEP_DOWN)
+                rule = "decrease_all_invalid"
+            elif num_invalid == 1:
+                temperature = max(TEMPERATURE_MIN, temperature - TEMPERATURE_STEP_DOWN)
+                rule = "decrease_one_invalid_consistency"
+            else:
+                temperature = min(TEMPERATURE_MAX, temperature + TEMPERATURE_STEP_UP)
+                rule = "increase_explore"
+
+            temp_adjust_info = {
+                "block_valids": list(block_valids),
+                "num_invalid": num_invalid,
+                "rule": rule,
+                "new_temperature": temperature,
+            }
+            block_valids.clear()  # start a fresh block
+
+            # Attach adjustment info to the latest history row for visibility
+            if history:
+                history[-1]["temp_adjust_after_block"] = temp_adjust_info
+                history[-1]["temperature"] = temperature
+
     return list(inventory), history
 
 if __name__ == "__main__":
@@ -277,24 +428,9 @@ if __name__ == "__main__":
         avg_emp_all = (avg_emp_all / max(1, sum(1 for h in history if "empowerment" in h)))
         avg_emp_valid = sum(float(h.get("empowerment",0) or 0) for h in history if h.get("valid") and h.get("mode")!= "fallback")
         avg_emp_valid = (avg_emp_valid / max(1, sum(1 for h in history  if h.get("valid") and h.get("mode")!= "fallback")))
-        os.makedirs("./without", exist_ok=True)
-        OUTPUT_HISTORY = f"./without/trial_{trial}_history.jsonl"
         with open(OUTPUT_HISTORY, "w", encoding="utf-8") as f:
             for h in history:
                 f.write(json.dumps(h, ensure_ascii=False) + "\n")
-        
-        #Savve all the summary data
-        SUMMARY_PATH = f"./without/trial_{trial}_summary.json"
-        with open(SUMMARY_PATH, "w", encoding="utf-8") as f:
-            json.dump({
-                "attempts": attempts,
-                "valids": valids,
-                "valid_rate": (valids/attempts*100 if attempts else 0),
-                "final_inventory_size": len(inventory),
-                "avg_emp_all": avg_emp_all,
-                "avg_emp_valid": avg_emp_valid,
-                "history_file": OUTPUT_HISTORY
-            }, f, ensure_ascii=False, indent=2)
 
     def mode_stats(mode_name: str):
         rows = [h for h in history if h.get("mode")==mode_name]
@@ -337,16 +473,16 @@ if __name__ == "__main__":
                 print("Fallback reasons:", ", ".join(f"{k}:{v}" for k,v in fb_reasons.items()))
 
             inv_sizes = [h.get("inventory_size") for h in history if "inventory_size" in h and h.get("mode") != "fallback"]
-            iters = list(range(1, len(inv_sizes) + 1))
-            
-            # Pad short runs with the last value
+
             if len(inv_sizes) < MAX_ITERS:
                 inv_sizes += [inv_sizes[-1]] * (MAX_ITERS - len(inv_sizes))
-            all_inv_sizes.append(inv_sizes)    
-            fallback_attempts.append(m_fb['attempts'])      
+            all_inv_sizes.append(inv_sizes)
+            fallback_attempts.append(m_fb['attempts'])
+
+            iters = list(range(1, len(inv_sizes) + 1))
+
             print(f"\n==============================")
 
-            """
             plt.figure(figsize=(8, 5))
             plt.plot(iters, inv_sizes, marker="o")
             plt.xticks(range(0, len(inv_sizes) + 1, 5))
@@ -356,7 +492,6 @@ if __name__ == "__main__":
             plt.title("Inventory Size vs Iteration")
             plt.grid(True)
             plt.show()
-            """
 
     avg_inv = []
     for i in range(MAX_ITERS):
@@ -364,14 +499,6 @@ if __name__ == "__main__":
         avg_inv.append(avg)
     with open("avg_inventory_sizes.json", "w", encoding="utf-8") as f:
         json.dump(avg_inv, f, ensure_ascii=False, indent=2)
-    # plt.figure(figsize=(8, 5))
-    # plt.plot(range(1, TRIALS + 1), fallback_attempts, marker="o")
-    # plt.xticks(range(0, TRIALS + 1, 2))
-    # plt.xlabel("Trial")
-    # plt.ylabel("Average Fallback Count")
-    # plt.title(f"Average Fallback Count per Trial")
-    # plt.grid(True)
-    # plt.show()
 
     plt.figure(figsize=(8, 5))
     plt.plot(range(1, MAX_ITERS + 1), avg_inv, marker="o")
@@ -381,7 +508,3 @@ if __name__ == "__main__":
     plt.title(f"Average Inventory Size vs Iteration (over {TRIALS} Trials)")
     plt.grid(True)
     plt.savefig(f"{MAX_ITERS}iters_{TRIALS}trials_fallback.png", dpi=150, bbox_inches="tight")
-
-
-
-        
