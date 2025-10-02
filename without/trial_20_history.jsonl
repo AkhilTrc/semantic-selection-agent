@@ -1,0 +1,50 @@
+{"iter": 1, "pair": ["air", "fire"], "valid": true, "results": ["energy"], "new_items": 1, "inventory_size": 5, "empowerment": 18, "mode": "llm", "fallback_reason": null}
+{"iter": 2, "pair": ["fire", "water"], "valid": true, "results": ["steam"], "new_items": 1, "inventory_size": 6, "empowerment": 5, "mode": "llm", "fallback_reason": null}
+{"iter": 3, "pair": ["earth", "water"], "valid": true, "results": ["mud"], "new_items": 1, "inventory_size": 7, "empowerment": 5, "mode": "llm", "fallback_reason": null}
+{"iter": 4, "pair": ["earth", "fire"], "valid": true, "results": ["lava"], "new_items": 1, "inventory_size": 8, "empowerment": 7, "mode": "llm", "fallback_reason": null}
+{"iter": 5, "pair": ["lava", "water"], "valid": true, "results": ["obsidian"], "new_items": 1, "inventory_size": 9, "empowerment": 1, "mode": "llm", "fallback_reason": null}
+{"iter": 6, "pair": ["earth", "lava"], "valid": true, "results": ["volcano"], "new_items": 1, "inventory_size": 10, "empowerment": 4, "mode": "llm", "fallback_reason": null}
+{"iter": 7, "event": "no_llm_choice", "reasons": ["repeat"]}
+{"iter": 8, "event": "no_llm_choice", "reasons": ["repeat"]}
+{"iter": 9, "event": "no_llm_choice", "reasons": ["repeat"]}
+{"iter": 10, "pair": ["air", "energy"], "valid": true, "results": ["wind"], "new_items": 1, "inventory_size": 11, "empowerment": 13, "mode": "llm", "fallback_reason": null}
+{"iter": 11, "pair": ["fire", "lava"], "valid": false, "results": [], "new_items": 0, "inventory_size": 11, "empowerment": 0, "mode": "llm", "fallback_reason": null}
+{"iter": 12, "pair": ["mud", "volcano"], "valid": false, "results": [], "new_items": 0, "inventory_size": 11, "empowerment": 0, "mode": "llm", "fallback_reason": null}
+{"iter": 13, "pair": ["obsidian", "steam"], "valid": false, "results": [], "new_items": 0, "inventory_size": 11, "empowerment": 0, "mode": "llm", "fallback_reason": null}
+{"iter": 14, "pair": ["steam", "volcano"], "valid": false, "results": [], "new_items": 0, "inventory_size": 11, "empowerment": 0, "mode": "llm", "fallback_reason": null}
+{"iter": 15, "pair": ["energy", "fire"], "valid": false, "results": [], "new_items": 0, "inventory_size": 11, "empowerment": 0, "mode": "llm", "fallback_reason": null}
+{"iter": 16, "pair": ["water", "wind"], "valid": false, "results": [], "new_items": 0, "inventory_size": 11, "empowerment": 0, "mode": "llm", "fallback_reason": null}
+{"iter": 17, "event": "no_llm_choice", "reasons": ["repeat"]}
+{"iter": 18, "event": "no_llm_choice", "reasons": ["repeat"]}
+{"iter": 19, "event": "no_llm_choice", "reasons": ["repeat"]}
+{"iter": 20, "event": "no_llm_choice", "reasons": ["repeat"]}
+{"iter": 21, "pair": ["volcano", "wind"], "valid": false, "results": [], "new_items": 0, "inventory_size": 11, "empowerment": 0, "mode": "llm", "fallback_reason": null}
+{"iter": 22, "pair": ["mud", "water"], "valid": false, "results": [], "new_items": 0, "inventory_size": 11, "empowerment": 0, "mode": "llm", "fallback_reason": null}
+{"iter": 23, "pair": ["energy", "water"], "valid": true, "results": ["steam"], "new_items": 0, "inventory_size": 11, "empowerment": 0, "mode": "llm", "fallback_reason": null}
+{"iter": 24, "pair": ["air", "lava"], "valid": true, "results": ["stone"], "new_items": 1, "inventory_size": 12, "empowerment": 15, "mode": "llm", "fallback_reason": null}
+{"iter": 25, "pair": ["fire", "stone"], "valid": true, "results": ["metal"], "new_items": 1, "inventory_size": 13, "empowerment": 29, "mode": "llm", "fallback_reason": null}
+{"iter": 26, "pair": ["metal", "stone"], "valid": true, "results": ["blade"], "new_items": 1, "inventory_size": 14, "empowerment": 15, "mode": "llm", "fallback_reason": null}
+{"iter": 27, "pair": ["blade", "metal"], "valid": true, "results": ["sword"], "new_items": 1, "inventory_size": 15, "empowerment": 7, "mode": "llm", "fallback_reason": null}
+{"iter": 28, "pair": ["fire", "sword"], "valid": false, "results": [], "new_items": 0, "inventory_size": 15, "empowerment": 0, "mode": "llm", "fallback_reason": null}
+{"iter": 29, "pair": ["blade", "sword"], "valid": false, "results": [], "new_items": 0, "inventory_size": 15, "empowerment": 0, "mode": "llm", "fallback_reason": null}
+{"iter": 30, "pair": ["stone", "sword"], "valid": true, "results": ["excalibur"], "new_items": 1, "inventory_size": 16, "empowerment": 2, "mode": "llm", "fallback_reason": null}
+{"iter": 31, "pair": ["excalibur", "wind"], "valid": false, "results": [], "new_items": 0, "inventory_size": 16, "empowerment": 0, "mode": "llm", "fallback_reason": null}
+{"iter": 32, "pair": ["blade", "excalibur"], "valid": false, "results": [], "new_items": 0, "inventory_size": 16, "empowerment": 0, "mode": "llm", "fallback_reason": null}
+{"iter": 33, "pair": ["sword", "volcano"], "valid": false, "results": [], "new_items": 0, "inventory_size": 16, "empowerment": 0, "mode": "llm", "fallback_reason": null}
+{"iter": 34, "pair": ["excalibur", "metal"], "valid": false, "results": [], "new_items": 0, "inventory_size": 16, "empowerment": 0, "mode": "llm", "fallback_reason": null}
+{"iter": 35, "pair": ["excalibur", "sword"], "valid": false, "results": [], "new_items": 0, "inventory_size": 16, "empowerment": 0, "mode": "llm", "fallback_reason": null}
+{"iter": 36, "pair": ["mud", "stone"], "valid": false, "results": [], "new_items": 0, "inventory_size": 16, "empowerment": 0, "mode": "llm", "fallback_reason": null}
+{"iter": 37, "pair": ["lava", "volcano"], "valid": false, "results": [], "new_items": 0, "inventory_size": 16, "empowerment": 0, "mode": "llm", "fallback_reason": null}
+{"iter": 38, "pair": ["air", "excalibur"], "valid": false, "results": [], "new_items": 0, "inventory_size": 16, "empowerment": 0, "mode": "llm", "fallback_reason": null}
+{"iter": 39, "pair": ["blade", "fire"], "valid": false, "results": [], "new_items": 0, "inventory_size": 16, "empowerment": 0, "mode": "llm", "fallback_reason": null}
+{"iter": 40, "pair": ["lava", "metal"], "valid": false, "results": [], "new_items": 0, "inventory_size": 16, "empowerment": 0, "mode": "llm", "fallback_reason": null}
+{"iter": 41, "pair": ["fire", "mud"], "valid": true, "results": ["brick"], "new_items": 1, "inventory_size": 17, "empowerment": 5, "mode": "llm", "fallback_reason": null}
+{"iter": 42, "event": "no_llm_choice", "reasons": ["repeat"]}
+{"iter": 43, "event": "no_llm_choice", "reasons": ["repeat"]}
+{"iter": 44, "event": "no_llm_choice", "reasons": ["repeat"]}
+{"iter": 45, "pair": ["brick", "fire"], "valid": false, "results": [], "new_items": 0, "inventory_size": 17, "empowerment": 0, "mode": "llm", "fallback_reason": null}
+{"iter": 46, "pair": ["brick", "water"], "valid": false, "results": [], "new_items": 0, "inventory_size": 17, "empowerment": 0, "mode": "llm", "fallback_reason": null}
+{"iter": 47, "pair": ["brick", "earth"], "valid": false, "results": [], "new_items": 0, "inventory_size": 17, "empowerment": 0, "mode": "llm", "fallback_reason": null}
+{"iter": 48, "pair": ["fire", "metal"], "valid": false, "results": [], "new_items": 0, "inventory_size": 17, "empowerment": 0, "mode": "llm", "fallback_reason": null}
+{"iter": 49, "pair": ["blade", "steam"], "valid": false, "results": [], "new_items": 0, "inventory_size": 17, "empowerment": 0, "mode": "llm", "fallback_reason": null}
+{"iter": 50, "pair": ["metal", "sword"], "valid": false, "results": [], "new_items": 0, "inventory_size": 17, "empowerment": 0, "mode": "llm", "fallback_reason": null}

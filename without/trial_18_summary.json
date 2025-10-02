@@ -1,0 +1,9 @@
+{
+  "attempts": 37,
+  "valids": 15,
+  "valid_rate": 40.54054054054054,
+  "final_inventory_size": 21,
+  "avg_emp_all": 4.378378378378378,
+  "avg_emp_valid": 10.8,
+  "history_file": "./without/trial_18_history.jsonl"
+}
