@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 {"iter": 1, "pair": ["earth", "fire"], "valid": true, "results": ["lava"], "new_items": 1, "inventory_size": 5, "empowerment": 7, "mode": "llm", "fallback_reason": null, "temperature": 1.0}
 {"iter": 2, "pair": ["fire", "water"], "valid": true, "results": ["steam"], "new_items": 1, "inventory_size": 6, "empowerment": 5, "mode": "llm", "fallback_reason": null, "temperature": 1.0}
 {"iter": 3, "pair": ["lava", "water"], "valid": true, "results": ["obsidian"], "new_items": 1, "inventory_size": 7, "empowerment": 1, "mode": "llm", "fallback_reason": null, "temperature": 1.0}
@@ -48,3 +49,55 @@
 {"iter": 48, "pair": ["blade", "water"], "valid": false, "results": [], "new_items": 0, "inventory_size": 15, "empowerment": 0, "mode": "llm", "fallback_reason": null, "temperature": 1.0}
 {"iter": 49, "pair": ["energy", "fire"], "valid": false, "results": [], "new_items": 0, "inventory_size": 15, "empowerment": 0, "mode": "llm", "fallback_reason": null, "temperature": 1.0}
 {"iter": 50, "pair": [], "valid": false, "results": [], "new_items": 0, "event": "no_llm_choice", "reasons": ["repeat"], "temperature": 1.0, "temp_adjust_after_block": {"block_valids": [false, false, false, false, false], "num_invalid": 5, "rule": "increase_explore", "new_temperature": 1.0}}
+=======
+{"iter": 1, "pair": [], "valid": false, "results": [], "new_items": 0, "event": "no_llm_choice", "reasons": ["malformed"], "temperature": 1.0}
+{"iter": 2, "pair": [], "valid": false, "results": [], "new_items": 0, "event": "no_llm_choice", "reasons": ["malformed"], "temperature": 1.0}
+{"iter": 3, "pair": [], "valid": false, "results": [], "new_items": 0, "event": "no_llm_choice", "reasons": ["malformed"], "temperature": 1.0}
+{"iter": 4, "pair": [], "valid": false, "results": [], "new_items": 0, "event": "no_llm_choice", "reasons": ["malformed"], "temperature": 1.0}
+{"iter": 5, "pair": [], "valid": false, "results": [], "new_items": 0, "event": "no_llm_choice", "reasons": ["malformed"], "temperature": 1.0, "temp_adjust_after_block": {"block_valids": [false, false, false, false, false], "num_invalid": 5, "rule": "increase_explore", "new_temperature": 1.0}}
+{"iter": 6, "pair": [], "valid": false, "results": [], "new_items": 0, "event": "no_llm_choice", "reasons": ["malformed"], "temperature": 1.0}
+{"iter": 7, "pair": [], "valid": false, "results": [], "new_items": 0, "event": "no_llm_choice", "reasons": ["malformed"], "temperature": 1.0}
+{"iter": 8, "pair": [], "valid": false, "results": [], "new_items": 0, "event": "no_llm_choice", "reasons": ["malformed"], "temperature": 1.0}
+{"iter": 9, "pair": [], "valid": false, "results": [], "new_items": 0, "event": "no_llm_choice", "reasons": ["malformed"], "temperature": 1.0}
+{"iter": 10, "pair": [], "valid": false, "results": [], "new_items": 0, "event": "no_llm_choice", "reasons": ["malformed"], "temperature": 1.0, "temp_adjust_after_block": {"block_valids": [false, false, false, false, false], "num_invalid": 5, "rule": "increase_explore", "new_temperature": 1.0}}
+{"iter": 11, "pair": [], "valid": false, "results": [], "new_items": 0, "event": "no_llm_choice", "reasons": ["malformed"], "temperature": 1.0}
+{"iter": 12, "pair": [], "valid": false, "results": [], "new_items": 0, "event": "no_llm_choice", "reasons": ["malformed"], "temperature": 1.0}
+{"iter": 13, "pair": [], "valid": false, "results": [], "new_items": 0, "event": "no_llm_choice", "reasons": ["malformed"], "temperature": 1.0}
+{"iter": 14, "pair": [], "valid": false, "results": [], "new_items": 0, "event": "no_llm_choice", "reasons": ["malformed"], "temperature": 1.0}
+{"iter": 15, "pair": [], "valid": false, "results": [], "new_items": 0, "event": "no_llm_choice", "reasons": ["malformed"], "temperature": 1.0, "temp_adjust_after_block": {"block_valids": [false, false, false, false, false], "num_invalid": 5, "rule": "increase_explore", "new_temperature": 1.0}}
+{"iter": 16, "pair": [], "valid": false, "results": [], "new_items": 0, "event": "no_llm_choice", "reasons": ["malformed"], "temperature": 1.0}
+{"iter": 17, "pair": [], "valid": false, "results": [], "new_items": 0, "event": "no_llm_choice", "reasons": ["malformed"], "temperature": 1.0}
+{"iter": 18, "pair": [], "valid": false, "results": [], "new_items": 0, "event": "no_llm_choice", "reasons": ["malformed"], "temperature": 1.0}
+{"iter": 19, "pair": [], "valid": false, "results": [], "new_items": 0, "event": "no_llm_choice", "reasons": ["malformed"], "temperature": 1.0}
+{"iter": 20, "pair": [], "valid": false, "results": [], "new_items": 0, "event": "no_llm_choice", "reasons": ["malformed"], "temperature": 1.0, "temp_adjust_after_block": {"block_valids": [false, false, false, false, false], "num_invalid": 5, "rule": "increase_explore", "new_temperature": 1.0}}
+{"iter": 21, "pair": [], "valid": false, "results": [], "new_items": 0, "event": "no_llm_choice", "reasons": ["malformed"], "temperature": 1.0}
+{"iter": 22, "pair": [], "valid": false, "results": [], "new_items": 0, "event": "no_llm_choice", "reasons": ["malformed"], "temperature": 1.0}
+{"iter": 23, "pair": [], "valid": false, "results": [], "new_items": 0, "event": "no_llm_choice", "reasons": ["malformed"], "temperature": 1.0}
+{"iter": 24, "pair": [], "valid": false, "results": [], "new_items": 0, "event": "no_llm_choice", "reasons": ["malformed"], "temperature": 1.0}
+{"iter": 25, "pair": [], "valid": false, "results": [], "new_items": 0, "event": "no_llm_choice", "reasons": ["malformed"], "temperature": 1.0, "temp_adjust_after_block": {"block_valids": [false, false, false, false, false], "num_invalid": 5, "rule": "increase_explore", "new_temperature": 1.0}}
+{"iter": 26, "pair": [], "valid": false, "results": [], "new_items": 0, "event": "no_llm_choice", "reasons": ["malformed"], "temperature": 1.0}
+{"iter": 27, "pair": [], "valid": false, "results": [], "new_items": 0, "event": "no_llm_choice", "reasons": ["malformed"], "temperature": 1.0}
+{"iter": 28, "pair": [], "valid": false, "results": [], "new_items": 0, "event": "no_llm_choice", "reasons": ["malformed"], "temperature": 1.0}
+{"iter": 29, "pair": [], "valid": false, "results": [], "new_items": 0, "event": "no_llm_choice", "reasons": ["malformed"], "temperature": 1.0}
+{"iter": 30, "pair": [], "valid": false, "results": [], "new_items": 0, "event": "no_llm_choice", "reasons": ["malformed"], "temperature": 1.0, "temp_adjust_after_block": {"block_valids": [false, false, false, false, false], "num_invalid": 5, "rule": "increase_explore", "new_temperature": 1.0}}
+{"iter": 31, "pair": [], "valid": false, "results": [], "new_items": 0, "event": "no_llm_choice", "reasons": ["malformed"], "temperature": 1.0}
+{"iter": 32, "pair": [], "valid": false, "results": [], "new_items": 0, "event": "no_llm_choice", "reasons": ["malformed"], "temperature": 1.0}
+{"iter": 33, "pair": [], "valid": false, "results": [], "new_items": 0, "event": "no_llm_choice", "reasons": ["malformed"], "temperature": 1.0}
+{"iter": 34, "pair": [], "valid": false, "results": [], "new_items": 0, "event": "no_llm_choice", "reasons": ["malformed"], "temperature": 1.0}
+{"iter": 35, "pair": [], "valid": false, "results": [], "new_items": 0, "event": "no_llm_choice", "reasons": ["malformed"], "temperature": 1.0, "temp_adjust_after_block": {"block_valids": [false, false, false, false, false], "num_invalid": 5, "rule": "increase_explore", "new_temperature": 1.0}}
+{"iter": 36, "pair": [], "valid": false, "results": [], "new_items": 0, "event": "no_llm_choice", "reasons": ["malformed"], "temperature": 1.0}
+{"iter": 37, "pair": [], "valid": false, "results": [], "new_items": 0, "event": "no_llm_choice", "reasons": ["malformed"], "temperature": 1.0}
+{"iter": 38, "pair": [], "valid": false, "results": [], "new_items": 0, "event": "no_llm_choice", "reasons": ["malformed"], "temperature": 1.0}
+{"iter": 39, "pair": [], "valid": false, "results": [], "new_items": 0, "event": "no_llm_choice", "reasons": ["malformed"], "temperature": 1.0}
+{"iter": 40, "pair": [], "valid": false, "results": [], "new_items": 0, "event": "no_llm_choice", "reasons": ["malformed"], "temperature": 1.0, "temp_adjust_after_block": {"block_valids": [false, false, false, false, false], "num_invalid": 5, "rule": "increase_explore", "new_temperature": 1.0}}
+{"iter": 41, "pair": [], "valid": false, "results": [], "new_items": 0, "event": "no_llm_choice", "reasons": ["malformed"], "temperature": 1.0}
+{"iter": 42, "pair": [], "valid": false, "results": [], "new_items": 0, "event": "no_llm_choice", "reasons": ["malformed"], "temperature": 1.0}
+{"iter": 43, "pair": [], "valid": false, "results": [], "new_items": 0, "event": "no_llm_choice", "reasons": ["malformed"], "temperature": 1.0}
+{"iter": 44, "pair": [], "valid": false, "results": [], "new_items": 0, "event": "no_llm_choice", "reasons": ["malformed"], "temperature": 1.0}
+{"iter": 45, "pair": [], "valid": false, "results": [], "new_items": 0, "event": "no_llm_choice", "reasons": ["malformed"], "temperature": 1.0, "temp_adjust_after_block": {"block_valids": [false, false, false, false, false], "num_invalid": 5, "rule": "increase_explore", "new_temperature": 1.0}}
+{"iter": 46, "pair": [], "valid": false, "results": [], "new_items": 0, "event": "no_llm_choice", "reasons": ["malformed"], "temperature": 1.0}
+{"iter": 47, "pair": [], "valid": false, "results": [], "new_items": 0, "event": "no_llm_choice", "reasons": ["malformed"], "temperature": 1.0}
+{"iter": 48, "pair": [], "valid": false, "results": [], "new_items": 0, "event": "no_llm_choice", "reasons": ["malformed"], "temperature": 1.0}
+{"iter": 49, "pair": [], "valid": false, "results": [], "new_items": 0, "event": "no_llm_choice", "reasons": ["malformed"], "temperature": 1.0}
+{"iter": 50, "pair": [], "valid": false, "results": [], "new_items": 0, "event": "no_llm_choice", "reasons": ["malformed"], "temperature": 1.0, "temp_adjust_after_block": {"block_valids": [false, false, false, false, false], "num_invalid": 5, "rule": "increase_explore", "new_temperature": 1.0}}
+>>>>>>> Stashed changes

@@ -7,6 +7,7 @@ from collections import OrderedDict
 
 DIR_WITHOUT = "./without"
 DIR_WITH    = "./with"
+DIR_TRUE_EMP = "./trueemp"
 FILENAME_SUFFIX = "_history.jsonl"
 start_iter_at = 1
 MAX_TRIALS = 10
@@ -97,6 +98,7 @@ def mean_and_std(padded_trials):
 
 trials_without, max_wo = load_trial_histories(DIR_WITHOUT, MAX_TRIALS)
 trials_with,    max_wi = load_trial_histories(DIR_WITH, MAX_TRIALS)
+trials_true_emp, max_true_emp = load_trial_histories(DIR_TRUE_EMP, MAX_TRIALS)
 
 if not trials_without and not trials_with:
     raise SystemExit(f"No usable data found in {DIR_WITHOUT!r} or {DIR_WITH!r} ending with {FILENAME_SUFFIX!r}.")
@@ -107,9 +109,11 @@ if OVERALL_MAX_ITERS == 0:
 
 padded_without = pad_trials(trials_without, OVERALL_MAX_ITERS, start_iter_at=start_iter_at)
 padded_with    = pad_trials(trials_with,    OVERALL_MAX_ITERS, start_iter_at=start_iter_at)
+padded_true_emp = pad_trials(trials_true_emp, OVERALL_MAX_ITERS, start_iter_at=start_iter_at)
 
 avg_wo, std_wo = mean_and_std(padded_without) if padded_without else ([], [])
 avg_wi, std_wi = mean_and_std(padded_with)    if padded_with    else ([], [])
+# avg_true_emp, std_true_emp = mean_and_std(padded_true_emp)
 
 # Extra data from other experiments
 avg_flair = pd.read_csv("avg_inventory_sizes_50iters_10trials_fliar.csv")["avg_iter"].tolist()[:50]
@@ -125,12 +129,34 @@ if avg_wi:
     with open("avg_inventory_sizes_with.json", "w", encoding="utf-8") as f:
         json.dump({iters[i]: avg_wi[i] for i in range(len(iters))}, f, ensure_ascii=False, indent=2)
 
+# Directory containing the CSV files
+# Adjust to your actual path
+csv_dir = 'avg_true_emp_10'
+
+# Number of runs and steps
+runs = 10
+steps = 50
+
+# Initialize a DataFrame to hold all runs data
+all_runs = pd.DataFrame()
+
+# Read each run file and append inventory size series
+for run in range(1, runs + 1):
+    file_path = os.path.join(csv_dir, f'inventory_run_{run}.csv')
+    df = pd.read_csv(file_path)
+    all_runs[f'run_{run}'] = df['inventory_size']
+
+# Calculate average and standard deviation along the runs axis (columns)
+mean_inventory = all_runs.mean(axis=1)
+std_inventory = all_runs.std(axis=1)
+
 plt.figure(figsize=(11, 6.5))
 for series in padded_without:
     plt.plot(iters, series, alpha=0.08, linewidth=1, label="_nolegend_")
 for series in padded_with:
     plt.plot(iters, series, alpha=0.08, linewidth=1, label="_nolegend_")
 
+"""
 if avg_wo:
     plt.plot(iters, avg_wo, marker=None, linewidth=2.2, label=f"Dynamic Temp (avg, n={len(padded_without)})")
 if avg_wi:
@@ -141,18 +167,29 @@ if avg_base:
     plt.plot(iters, avg_base, marker=None, linewidth=2.2, label="Base (avg, n=10)")
 if avg_rec:
     plt.plot(iters, avg_rec, marker=None, linewidth=2.2, label="Rec (avg, n=10)")
+"""
 if avg_trueemp:
-    plt.plot(iters, avg_trueemp, marker=None, linewidth=2.2, label="TrueEmp (avg, n=10)")
+    plt.plot(range(steps), mean_inventory, label='True Empowerment (avg, n=20)')
+
+if avg_wi:
+    plt.plot(iters, avg_wi, marker=None, linewidth=2.2, label=f"Fallback (avg, n={len(padded_with)})")
 
 
+"""
 if avg_wo and std_wo:
     upper = [m + s for m, s in zip(avg_wo, std_wo)]
     lower = [m - s for m, s in zip(avg_wo, std_wo)]
     plt.fill_between(iters, lower, upper, alpha=0.18, label="Dynamic Temp ±1σ")
+"""
+
 if avg_wi and std_wi:
     upper = [m + s for m, s in zip(avg_wi, std_wi)]
     lower = [m - s for m, s in zip(avg_wi, std_wi)]
-    plt.fill_between(iters, lower, upper, alpha=0.18, label="Fallback ±1σ")
+    plt.fill_between(iters, lower, upper, color='orange', alpha=0.18, label="Fallback ±1σ")
+
+
+plt.fill_between(range(steps), mean_inventory - std_inventory, mean_inventory + std_inventory,
+                color='blue', alpha=0.18, label='TrueEmp ±1σ')
 
 title_bits = []
 if padded_without:
@@ -160,9 +197,9 @@ if padded_without:
 if padded_with:
     title_bits.append(f"with: {len(padded_with)} trials")
 
-plt.title(f"Inventory Size vs Iteration ({', '.join(title_bits)})")
+plt.title(f"AverageInventory Size vs Iteration ({', '.join(title_bits)})")
 plt.xlabel("Iteration")
-plt.ylabel("Inventory Size")
+plt.ylabel("AverageInventory Size")
 plt.grid(True, linestyle="--", alpha=0.6)
 xtick_step = max(1, (OVERALL_MAX_ITERS - start_iter_at + 1) // 10)
 plt.xticks(range(start_iter_at, OVERALL_MAX_ITERS + 1, xtick_step))

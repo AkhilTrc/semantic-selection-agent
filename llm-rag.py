@@ -54,6 +54,7 @@ Practice: Avoid combinations that are overly specific, unrealistic, or semantica
 Outcome: Each new combination should increase the agent’s ability to generate, adapt, and build upon ideas, ensuring a flexible and evolving network of concepts.
 """
 ]
+
 SYS_PROMPT = """
 You are a creative and analytical agent tasked with maximizing Empowerment by selecting item combinations that open up the possibility of generating the greatest number of valid future combinations. Follow these guidelines and use a self-consistent, step-by-step reasoning process internally before delivering your answer.
 
@@ -222,7 +223,7 @@ def load_ruleset(json_path):
         else:
             results = [str(v)]
         normalized[key_items] = results
-    return normalized
+      return normalized
 
 # ----------- 3. FLARE-based LLM combo suggestion -----------
 def select_flare_context():

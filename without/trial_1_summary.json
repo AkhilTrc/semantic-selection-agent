@@ -1,9 +1,18 @@
 {
+<<<<<<< Updated upstream
   "attempts": 50,
   "valids": 16,
   "valid_rate": 32.0,
   "final_inventory_size": 20,
   "avg_emp_all": 2.909090909090909,
   "avg_emp_valid": 8.0,
+=======
+  "attempts": 0,
+  "valids": 0,
+  "valid_rate": 0,
+  "final_inventory_size": 4,
+  "avg_emp_all": 0.0,
+  "avg_emp_valid": 0.0,
+>>>>>>> Stashed changes
   "history_file": "./without/trial_1_history.jsonl"
 }
