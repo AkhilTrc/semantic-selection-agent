@@ -1,0 +1,10 @@
+{
+  "attempts": 50,
+  "valids": 32,
+  "valid_rate": 64.0,
+  "final_inventory_size": 48,
+  "avg_emp_all": 8.7,
+  "avg_emp_valid": 11.96875,
+  "fallback_attempts": 8,
+  "history_file": "./with/trial_19_history.jsonl"
+}

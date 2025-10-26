@@ -169,7 +169,7 @@ if avg_rec:
     plt.plot(iters, avg_rec, marker=None, linewidth=2.2, label="Rec (avg, n=10)")
 """
 if avg_trueemp:
-    plt.plot(range(steps), mean_inventory, label='True Empowerment (avg, n=20)')
+    plt.plot(range(steps), mean_inventory, label=f'True Empowerment (avg, n={runs})')
 
 if avg_wi:
     plt.plot(iters, avg_wi, marker=None, linewidth=2.2, label=f"Fallback (avg, n={len(padded_with)})")
@@ -187,19 +187,23 @@ if avg_wi and std_wi:
     lower = [m - s for m, s in zip(avg_wi, std_wi)]
     plt.fill_between(iters, lower, upper, color='orange', alpha=0.18, label="Fallback ±1σ")
 
-
-plt.fill_between(range(steps), mean_inventory - std_inventory, mean_inventory + std_inventory,
+upper = mean_inventory + std_inventory
+lower = mean_inventory - std_inventory
+plt.fill_between(range(steps), lower, upper,
                 color='blue', alpha=0.18, label='TrueEmp ±1σ')
 
 title_bits = []
+"""
 if padded_without:
     title_bits.append(f"without: {len(padded_without)} trials")
+"""
+
 if padded_with:
     title_bits.append(f"with: {len(padded_with)} trials")
 
-plt.title(f"AverageInventory Size vs Iteration ({', '.join(title_bits)})")
+plt.title(f"Average Inventory Size vs Iteration ({', '.join(title_bits)})")
 plt.xlabel("Iteration")
-plt.ylabel("AverageInventory Size")
+plt.ylabel("Average Inventory Size")
 plt.grid(True, linestyle="--", alpha=0.6)
 xtick_step = max(1, (OVERALL_MAX_ITERS - start_iter_at + 1) // 10)
 plt.xticks(range(start_iter_at, OVERALL_MAX_ITERS + 1, xtick_step))
