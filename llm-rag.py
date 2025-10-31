@@ -92,10 +92,15 @@ Instructions Recap:
 def run_multiple_trials(
     start_inventory,
     rules_lookup,
-    num_trials=10,
-    max_iters=20,
+    num_trials=20,
+    max_iters=50,
     openai_key=None
 ):
+    # Create directory for saving trial CSV files
+    save_dir = "flare-sr-history"
+    if not os.path.exists(save_dir):
+        os.makedirs(save_dir)
+        
     all_runs = []
     i = 1
     for _ in range(num_trials):
@@ -107,8 +112,19 @@ def run_multiple_trials(
         if len(inventory_sizes) < max_iters:
             inventory_sizes += [inventory_sizes[-1]] * (max_iters - len(inventory_sizes))
         all_runs.append(inventory_sizes)
+
+        # Save trial inventory sizes to CSV with header "inventory_size"
+        filename = os.path.join(save_dir, f"trial_{i}_inventory_sizes.csv")
+        with open(filename, mode='w', newline='') as file:
+            writer = csv.writer(file)
+            writer.writerow(["inventory_size"])
+            for size in inventory_sizes:
+                writer.writerow([size])
+
+        print(f"\nSaved inventory sizes for Trial #{i} to {filename}")
         print(f"\n---------- Trial #{i} End!----------")
         i = i + 1
+
     # Compute average inventory size at each iteration
     avg_inventory_sizes = np.mean(all_runs, axis=0)
     return avg_inventory_sizes, all_runs
@@ -150,6 +166,7 @@ def call_openai(inventory, tried_combos, history, model: str = MODEL_NAME) -> st
         temperature=1.0,
     )
     text = response.choices[0].message.content
+    time.sleep(5)
     return prompt, text
 
 def evaluate_response(query: str, response: str) -> str:      # Perhaps the critque criteria can be to evaluate and reason for the empowerment values of selected items
@@ -173,6 +190,7 @@ def evaluate_response(query: str, response: str) -> str:      # Perhaps the crit
         temperature=1.0,
     )
     feedback = feedback_response.choices[0].message.content
+    time.sleep(5)
     print(f"\n------------- Feedback generated: -------------\n{feedback}\n -----------------Feedback returned!--------------\n")
     return feedback
 
@@ -198,7 +216,9 @@ def generate_new_response(query: str, response: str, feedback: str) -> str:
         ],
         temperature=1.0,
     )
-    return new_response.choices[0].message.content
+    response = new_response.choices[0].message.content
+    time.sleep(5)
+    return response
 
 def self_refine(inventory, tried_combos, history, depth: int) -> str:
     """Refine the response iteratively based on feedback."""
@@ -223,7 +243,7 @@ def load_ruleset(json_path):
         else:
             results = [str(v)]
         normalized[key_items] = results
-      return normalized
+    return normalized
 
 # ----------- 3. FLARE-based LLM combo suggestion -----------
 def select_flare_context():
@@ -242,7 +262,7 @@ def call_llm_flare(inventory, tried_combos, history, openai_key=None):
     
     text = self_refine(inventory, tried_combos, history, 1)
     print(text)                     # Self-Refine step.
-    # time.sleep(5)    
+    time.sleep(5)    
     
     try:
         combo = eval(text.strip())
@@ -261,7 +281,7 @@ def call_llm_flare(inventory, tried_combos, history, openai_key=None):
 def run_empowerment_combiner_flare(
     start_inventory,
     rules_lookup,
-    max_iters=10,
+    max_iters=50,
     openai_key=None
 ):
     inventory = set(start_inventory)
@@ -316,7 +336,7 @@ if __name__ == "__main__":
 
     initial_inventory = ["fire", "air", "water", "earth"]
     max_iterations = 50        # Change this for different iteration values.
-    num_trials = 10
+    num_trials = 20
 
     """
     inventory, history, inventory_sizes = run_empowerment_combiner_flare(
@@ -338,11 +358,10 @@ if __name__ == "__main__":
     print(avg_inventory_sizes)
 
     print("\nWriting Average Inventory Sizes to csv...")
-    with open("avg_inventory_sizes_20iters_5trials.csv", "w", newline="") as f:
+    with open(f"avg_inventory_sizes_{max_iterations}iters_{num_trials}trials.csv", "w", newline="") as f:
         writer = csv.writer(f)
         for value in avg_inventory_sizes:
             writer.writerow([value])
-
 
     plot_average_inventory_growth(avg_inventory_sizes)
     
